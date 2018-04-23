@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="bg">
+    <image src="../Images/login_bg.png" class="image" />  
+    <view class="text">
+      <view>{{Hi}}</view>
+      <view>{{text}}</view>
+    </view>
+  </view>
+
+  <view class="login">
+    <button plain='true' class="wx-login">微信注册并登录</button>
+    <button plain='true' class="phone-login">使用手机登录</button>
+  </view>
+
+  <view class="register">
+    还没注册?
+  </view>
+</view>
