@@ -1,0 +1,37 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true
+	},
+	"compileType": "weapp",
+	"libVersion": "1.5.4",
+	"appid": "wx5c9b5cbf8700534e",
+	"projectname": "twin",
+	"condition": {
+		"weapp": {
+			"current": -1,
+			"list": []
+		},
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		}
+	},
+  "window": {
+    "navigationBarBackgroundColor": "#2DC3A6",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "双生"
+  },
+  "pages": [
+    "Pages/Login/Login/Login",
+    "Pages/Login/Landing/Landing"
+  ],
+  "debug": true
+}
