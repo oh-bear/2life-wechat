@@ -31,6 +31,10 @@
   },
   "pages": [
     "Pages/Login/Login/Login",
+    "Pages/Login/Phone/Phone",
+    "Pages/Login/Register/Register",
+    "Pages/Login/Register/RegisterName",
+    "Pages/Login/Register/RegisterGender",
     "Pages/Login/Landing/Landing"
   ],
   "debug": true

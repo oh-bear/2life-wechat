@@ -9,10 +9,10 @@
 
   <view class="login">
     <button plain='true' class="wx-login">微信注册并登录</button>
-    <button plain='true' class="phone-login">使用手机登录</button>
+    <button plain='true' class="phone-login" bindtap="goPhoneLogin">使用手机登录</button>
   </view>
 
-  <view class="register">
+  <view class="register" bindtap='goRegister'>
     还没注册?
   </view>
 </view>

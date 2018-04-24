@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="bg">
+    <image src="../Images/login_bg.png" class="image" />  
+    <view class="text">
+      <view>{{Hi}}</view>
+      <view>{{text}}</view>
+    </view>
+  </view>
+
+  <view class="login">
+    <view class="phone input sel">
+      <input placeholder='手机号码'></input>
+    </view>
+    <view class="warn">
+      {{phoneWarning}}
+    </view>
+    <view class="password input">
+      <input placeholder='密码'></input>
+    </view>
+    <view class="warn">
+      {{passwordWarning}}
+    </view>
+    <view class="btn">登录</view>
+  </view>
+</view>

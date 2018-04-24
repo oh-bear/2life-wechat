@@ -1,0 +1,63 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.container .bg {
+  position: relative;
+  width: 100%;
+}
+
+.container .bg .image {
+  width: 100%;
+}
+
+.container .bg .text {
+  position: absolute;
+  top: 160rpx;
+  left: 0;
+  right: 0;
+  font-size: 62rpx;
+  color: white;
+}
+
+.container .bg .text view {
+  width: 372rpx;
+  margin: 0 auto;
+}
+
+.container .login {
+  width: 70%;
+  margin: 58rpx auto 0;
+}
+
+.container .login .input {
+  width: 90%;
+  height: 101rpx;
+  padding: 0 5%;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.container .login .input input {
+  height: 100%;
+  font-size: 29rpx;
+  color: #444444;
+}
+
+.container .login .sel {
+  border-bottom: 1px solid #2DC3A6;
+}
+
+.container .login .warn {
+  height: 31rpx;
+  padding: 10rpx 5%;
+  line-height: 31rpx;
+  font-size: 22rpx;
+  color: #F43C56;
+}
+
+.container .login .btn {
+  margin: 221rpx 0 0;
+  font-size: 43rpx;
+  color: #2DC3A6;
+}

@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="bg">
+    <image src="../Images/register_bg_2.png" class="image" />  
+    <view class="text">
+      <view>{{Hi}}</view>
+      <view>{{text}}</view>
+    </view>
+  </view>
+
+  <view class="login">
+    <view class="input sel">
+      <text>男</text>
+    </view>
+    <view class="warn">
+      {{phoneWarning}}
+    </view>
+    <view class="input">
+      <text>女</text>
+    </view>
+    <view class="warn">
+      {{passwordWarning}}
+    </view>
+    <view class="description">
+      <text>{{description}}</text>
+    </view>
+    <view class="btn">开启日记本</view>
+  </view>
+</view>

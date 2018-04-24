@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="bg">
+    <image src="../Images/register_bg_1.png" class="image" />  
+    <view class="text">
+      <view>{{Hi}}</view>
+      <view>{{text}}</view>
+    </view>
+  </view>
+
+  <view class="login">
+    <view class="name input sel">
+      <input placeholder='昵称'></input>
+    </view>
+    <view class="warn">
+      {{nameWarning}}
+    </view>
+    <view class="btn" bindtap='goNext'>下一步</view>
+  </view>
+</view>
