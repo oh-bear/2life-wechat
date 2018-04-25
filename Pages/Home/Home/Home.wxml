@@ -1,0 +1,62 @@
+<view class="container">
+  <view class="header">
+    <view class="date">
+      <view class="month">
+        <text>{{month}}</text>
+      </view>
+      <view class="year">
+        <text>{{year}}</text>
+      </view>
+    </view>
+    <view class="day">
+      <image src="../Images/day.png" class="image">
+        <text class="number">{{day}}</text>
+      </image>
+    </view>
+  </view>
+  <view class="weather">
+    <view class="icon">
+      <image src="{{weatherImage}}" class="image" />
+    </view>
+    <view class="temperature">
+      <view>
+        <text>{{temperature}}</text>
+        <text>{{weatherText}}</text>
+      </view>
+      <image src="../Images/exchange.png" class="image" />
+    </view>
+  </view>
+  <view class="list">
+    <view class="li" wx:for="{{data}}">
+      <view class="date">
+        <text>{{item.date}}</text>
+        <text>{{item.day}}</text>
+      </view>
+      <view class="content">
+        <view class="diary">
+          <view>
+            <view class="title">
+              <text>{{item.title}}</text>
+            </view>
+            <view class="description">
+              <text>{{item.description}}</text>
+            </view>
+          </view>
+          <image src="{{item.image}}" wx:if="{{item.image}}" class="image" />
+        </view>
+        <view class="info">
+          <view class="time">
+            <text>{{item.time}}</text>
+          </view>
+          <view class="location">
+            <image src="../Images/location.png" class="image" />
+            <text>{{item.location}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="add">
+    <image src="../Images/add.png" class="image" />
+  </view>
+</view>

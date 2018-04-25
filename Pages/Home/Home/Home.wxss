@@ -1,0 +1,170 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  display: -webkit-flex;
+  width: 100%;
+  height: 130rpx;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.header .date {
+  display: flex;
+  display: -webkit-flex;
+  margin-left: 20%;
+  font-size: 61rpx;
+}
+
+.date .month {
+  color: #444444;
+}
+
+.date .year {
+  color: #AAAAAA;
+}
+
+.header .day {
+  width: 20%;
+}
+
+.day .image {
+  display: block;
+  position: relative;
+  width: 45rpx;
+  height: 45rpx;
+  margin: 15rpx auto;
+}
+
+.day .image .number {
+  position: absolute;
+  top: 19rpx;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 18rpx;
+}
+
+.weather {
+  display: flex;
+  display: -webkit-flex;
+  width: 100%;
+  height: 146rpx;
+  align-items: center;
+}
+
+.weather .icon {
+  width: 20%;
+}
+
+.icon .image {
+  display: block;
+  width: 45rpx;
+  height: 45rpx;
+  margin: 0 auto;
+}
+
+.weather .temperature {
+  display: flex;
+  display: -webkit-flex;
+  width: 75%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.temperature text {
+  margin-right: 5rpx;
+  font-size: 25rpx;
+  color: #AAAAAA;
+}
+
+.temperature .image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.list {
+  margin: 0 43rpx;
+}
+
+.list .li {
+  display: flex;
+  display: -webkit-flex;
+  padding: 43rpx 0 29rpx;
+  justify-content: space-between;
+}
+
+.li .date {
+  font-size: 25rpx;
+  color: #AAAAAA;
+}
+
+.li .date text {
+  display: block;
+}
+
+.li .content {
+  width: 85%;
+  color: #AAAAAA;
+}
+
+.content .diary {
+   display: flex;
+  display: -webkit-flex;
+  justify-content: space-between; 
+}
+
+.content .diary .title {
+  font-size: 36rpx;
+  color: #444444;
+}
+
+.content .diary .description {
+  height: 60rpx;
+  margin-top: 15rpx;
+  font-size: 22rpx;
+  overflow: hidden;
+}
+
+.content .diary .image {
+  width: 130rpx;
+  height: 130rpx;
+  margin-left: 29rpx;
+  border-radius: 18rpx;
+}
+
+.li .content .info {
+  display: flex;
+  display: -webkit-flex;
+  margin-top: 43rpx;
+  justify-content: space-between;
+  font-size: 21rpx;
+}
+
+.info .location {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.info .location .image {
+  width: 21.6rpx;
+  height: 27rpx;
+  margin: 0 20rpx;
+}
+
+.add {
+  position: absolute;
+  right: 36rpx;
+  bottom: 36rpx;
+}
+
+.add .image {
+  display: block;
+  width: 115rpx;
+  height: 115rpx;
+}

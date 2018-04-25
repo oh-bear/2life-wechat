@@ -29,7 +29,32 @@
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "双生"
   },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "Pages/Home/Home/Home",
+        "text": "日记",
+        "iconPath": "Images/home.png",
+        "selectedIconPath": "Images/home_selected.png"
+      },
+      {
+        "pagePath": "Pages/Notification/Notification/Notification",
+        "text": "通知",
+        "iconPath": "Images/notification.png",
+        "selectedIconPath": "Images/notification_selected.png"
+      },
+      {
+        "pagePath": "Pages/Profile/Profile/Profile",
+        "text": "我的",
+        "iconPath": "Images/profile.png",
+        "selectedIconPath": "Images/profile_selected.png"
+      }
+    ]
+  },
   "pages": [
+    "Pages/Home/Home/Home",
+    "Pages/Notification/Notification/Notification",
+    "Pages/Profile/Profile/Profile",
     "Pages/Login/Login/Login",
     "Pages/Login/Phone/Phone",
     "Pages/Login/Register/Register",
