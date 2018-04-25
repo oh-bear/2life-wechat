@@ -74,7 +74,6 @@
   height: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #F1F1F1;
 }
 
 .temperature text {
@@ -95,11 +94,12 @@
 .list .li {
   display: flex;
   display: -webkit-flex;
-  padding: 43rpx 0 29rpx;
+  padding: 0 0 29rpx;
   justify-content: space-between;
 }
 
 .li .date {
+  padding-top: 43rpx;
   font-size: 25rpx;
   color: #AAAAAA;
 }
@@ -110,11 +110,13 @@
 
 .li .content {
   width: 85%;
+  padding-top: 43rpx;
   color: #AAAAAA;
+  border-top: 1px solid #F1F1F1;
 }
 
 .content .diary {
-   display: flex;
+  display: flex;
   display: -webkit-flex;
   justify-content: space-between; 
 }
