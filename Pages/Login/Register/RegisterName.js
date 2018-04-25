@@ -7,7 +7,8 @@ Page({
   data: {
     Hi: '注册成功',
     text: '取个好听的昵称吧',
-    nameWarning: '该昵称不可用'
+    nameWarning: '该昵称不可用',
+    nameValid: true
   },
 
   goNext () {

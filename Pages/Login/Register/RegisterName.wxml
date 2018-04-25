@@ -12,7 +12,7 @@
       <input placeholder='昵称'></input>
     </view>
     <view class="warn">
-      {{nameWarning}}
+      <text wx:if="{{!nameValid}}">{{nameWarning}}</text>
     </view>
     <view class="btn" bindtap='goNext'>下一步</view>
   </view>

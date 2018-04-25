@@ -9,7 +9,10 @@ Page({
     text: '欢迎成为新成员!',
     phoneWarning: '手机号已注册',
     codeWarning: '验证码错误',
-    passwordWarning: '密码错误'
+    passwordWarning: '密码错误',
+    phoneValid: true,
+    codeValid: true,
+    passwordValid: true
   },
 
   register () {

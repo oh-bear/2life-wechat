@@ -12,13 +12,13 @@
       <input placeholder='手机号码'></input>
     </view>
     <view class="warn">
-      {{phoneWarning}}
+      <text wx:if="{{!phoneValid}}">{{phoneWarning}}</text>
     </view>
     <view class="password input">
       <input placeholder='密码'></input>
     </view>
     <view class="warn">
-      {{passwordWarning}}
+      <text wx:if="{{!passwordValid}}">{{passwordWarning}}</text>
     </view>
     <view class="btn">登录</view>
   </view>

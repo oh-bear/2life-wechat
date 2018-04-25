@@ -3,6 +3,8 @@ Page({
     Hi: "Hi",
     text: "欢迎来到双生",
     phoneWarning: '手机号码未注册',
-    passwordWarning: '密码错误'
+    passwordWarning: '密码错误',
+    phoneValid: true,
+    passwordValid: false
   }
 })
