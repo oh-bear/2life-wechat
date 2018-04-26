@@ -52,6 +52,7 @@
     ]
   },
   "pages": [
+    "Pages/Home/Detail/Detail",
     "Pages/Home/Home/Home",
     "Pages/Notification/Notification/Notification",
     "Pages/Profile/Profile/Profile",

@@ -27,7 +27,7 @@
     </view>
   </view>
   <view class="list">
-    <view class="li" wx:for="{{data}}">
+    <view class="li" id="{{item.id}}" wx:for="{{data}}" wx:key="index" bindtap="goDetail">
       <view class="date">
         <text>{{item.date}}</text>
         <text>{{item.day}}</text>

@@ -13,6 +13,7 @@ Page({
     weatherText: '晴',
     data: [
       {
+        id: 1,
         date: '21',
         day: 'Sat',
         time: '15:24',
@@ -22,6 +23,7 @@ Page({
         image: ''
       },
       {
+        id: 2,
         date: '20',
         day: 'Fir',
         time: '19:04',
@@ -31,6 +33,16 @@ Page({
         image: '../Images/diary_image.png'
       }
     ]
+  },
+
+  /**
+   * function
+   */
+  goDetail (event) {
+    var id = event.currentTarget.id
+    wx.navigateTo({
+      url: '../Detail/Detail?id=' + id,
+    })
   },
 
   /**
