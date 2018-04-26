@@ -17,7 +17,18 @@ Page({
     title: '真是幸福的一天啊',
     content: '真是幸福的一天啊。我一直酣睡到第二天的 10 点才从床上爬起来，吃了一点儿牛奶和燕麦，感觉身体充满了活力。',
     location: '燕塘站, 广东省, 中国',
-    mood: '88'
+    mood: '88',
+    like: false
+  },
+
+  /**
+   * function
+   */
+  likeChange () {
+    var current = this.data.like
+    this.setData({
+      like: !current
+    })
   },
 
   /**

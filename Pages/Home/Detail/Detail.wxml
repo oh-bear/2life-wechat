@@ -24,7 +24,11 @@
       <image src="../Images/happy.png" class="image" />
       <text>{{mood}}</text>
       <text class="description">情绪值</text>
-      <text class="edit">更改</text>
+      <!-- <text class="edit">更改</text> -->
     </view>
+  </view>
+  <view class="like" bindtap="likeChange">
+    <image src="../Images/like.png" class="image" wx:if="{{!like}}" />
+    <image src="../Images/liked.png" class="image" wx:if="{{like}}" />
   </view>
 </view>

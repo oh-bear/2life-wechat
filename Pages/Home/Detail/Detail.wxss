@@ -73,3 +73,14 @@
   right: 0;
   color: #2DC3A6;
 }
+
+.like {
+  position: absolute;
+  right: 43rpx;
+  bottom: 43rpx;
+}
+
+.like .image {
+  width: 115rpx;
+  height: 115rpx;
+}
