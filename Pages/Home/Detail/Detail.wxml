@@ -1,5 +1,5 @@
 <view class="container">
-  <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}">
+  <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
     <block wx:for="{{imgList}}" wx:key="index">
       <swiper-item>
         <image src="{{item}}" class="image"/>
