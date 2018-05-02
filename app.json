@@ -52,10 +52,11 @@
     ]
   },
   "pages": [
+    "Pages/Profile/Match/Match",
+    "Pages/Profile/Profile/Profile",
     "Pages/Home/Detail/Detail",
     "Pages/Home/Home/Home",
     "Pages/Notification/Notification/Notification",
-    "Pages/Profile/Profile/Profile",
     "Pages/Login/Login/Login",
     "Pages/Login/Phone/Phone",
     "Pages/Login/Register/Register",

@@ -1,0 +1,77 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.container .title {
+  display: flex;
+  display: -webkit-flex;
+  padding: 43rpx;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 61rpx;
+}
+
+.container .title .cancel {
+  font-size: 36rpx;
+  color: #F43C56;
+}
+
+.container .match {
+  display: flex;
+  display: -webkit-flex;
+  margin: 43rpx 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .match .third {
+  display: flex;
+  display: -webkit-flex;
+  width: 396rpx;
+  height: 396rpx;
+  border: 1px solid rgba(45, 195, 166, 0.08);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .match .second {
+  display: flex;
+  display: -webkit-flex;
+  width: 292rpx;
+  height: 292rpx;
+  border: 1px solid rgba(45, 195, 166, 0.15);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .match .first {
+  display: flex;
+  display: -webkit-flex;
+  width: 232rpx;
+  height: 232rpx;
+  border: 1px solid rgba(45, 195, 166, 0.3);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .match .image {
+  width: 158rpx;
+  height: 158rpx;
+  border-radius: 50%;
+}
+
+.container .name {
+  margin: 43rpx 0;
+  text-align: center;
+  font-size: 43rpx;
+}
+
+.container .name .nick {
+  margin: 5rpx 0;
+  font-size: 25rpx;
+  color: #AAAAAA;
+}

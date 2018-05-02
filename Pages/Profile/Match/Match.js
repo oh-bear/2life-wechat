@@ -1,16 +1,14 @@
-// Pages/Profile/Profile/Profile.js
+// Pages/Profile/Match/Match.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    image: '../Images/profile.png',
-    male: '../Images/male.png',
-    female: '../Images/female.png',
-    mood: 87,
-    diary: 12,
-    time: '10分钟前'
+    title: '匹配成功!',
+    cancel: '解除匹配',
+    name: '邓国雄',
+    nickname: '广大最傻逼'
   },
 
   /**

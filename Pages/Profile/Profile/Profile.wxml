@@ -1,2 +1,78 @@
-<!--Pages/Profile/Profile/Profile.wxml-->
-<text>Pages/Profile/Profile/Profile.wxml</text>
+<view class="container">
+  <view class="title">
+    <text>关于我</text>
+  </view>
+  <view class="profile">
+    <view class="info">
+      <view class="intro">
+        <view class="name">
+          <text>广东小帅哥</text>
+        </view>
+        <view class="edit">
+          <text>查看资料</text>
+        </view>
+      </view>
+      <image src="{{image}}" class="avatar">
+        <image src="{{male}}" class="gender" />
+      </image>
+    </view>
+    <view class="msg">
+      <view class="item">
+        <image src="../Images/smile.png" class="image" />
+        <text>{{mood}}</text>
+        <text>平均情绪值</text>
+      </view>
+      <view class="item">
+        <image src="../Images/book.png" class="image" />
+        <text>{{diary}}</text>
+        <text>日记数量</text>
+      </view>
+    </view>
+  </view>
+  <view class="profile">
+    <view class="info matched">
+      <view class="intro">
+        <view class="name">
+          <text>广东小帅哥</text>
+        </view>
+        <view class="edit">
+          <image class="image" src="../Images/matched.png" />
+          <text>你的匹配对象</text>
+        </view>
+      </view>
+      <image src="{{image}}" class="avatar">
+        <image src="{{female}}" class="gender" />
+      </image>
+    </view>
+    <view class="msg">
+      <view class="item">
+        <image src="../Images/smile_matched.png" class="image" />
+        <text>{{mood}}</text>
+        <text>平均情绪值</text>
+      </view>
+      <view class="item">
+        <image src="../Images/book_matched.png" class="image" />
+        <text>{{diary}}</text>
+        <text>日记数量</text>
+      </view>
+    </view>
+  </view>
+  <view class="profile">
+     <view class="match">
+      <image src="../Images/match.png" class="image" />
+      <view class="text">
+        <view class="name">匹配</view>
+        <view class="description">
+          来匹配一个日记伴侣吧~
+        </view>
+      </view>
+    </view>
+    <view class="sync">
+      <image src="../Images/cloud.png" class="image" />
+      <view class="text">
+        <view class="name">同步</view>
+        <view class="time">{{time}}</view>
+      </view>
+    </view> 
+  </view>
+</view>

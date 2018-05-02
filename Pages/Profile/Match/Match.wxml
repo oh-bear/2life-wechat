@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="title">
+    <text>{{title}}</text>
+    <text class="cancel">{{cancel}}</text>
+  </view>
+  <view class="match">
+    <view class="third">
+      <view class="second">
+        <view class="first">
+          <image class="image" src="../Images/profile.png" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="name">
+    <view>
+      <text>{{name}}</text>
+    </view>
+    <view class="nick">
+      <text>{{nickname}}</text>
+    </view>
+  </view>
+</view>
