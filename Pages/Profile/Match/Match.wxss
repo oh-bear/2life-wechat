@@ -17,6 +17,64 @@
   color: #F43C56;
 }
 
+.container .choice {
+  width: 419rpx;
+  margin: 43rpx;
+}
+
+.choice .type {
+  display: flex;
+  display: -webkit-flex;
+  width: 100%;
+  border-bottom: 1px solid #F1F1F1;
+  font-size: 25rpx;
+}
+
+.choice .type view {
+  height: 74rpx;
+  margin-right: 43rpx;
+  line-height: 74rpx;
+}
+
+.choice .type .sel {
+  color: #2DC3A6;
+}
+
+.choice .type .sel::after {
+  content: ' ';
+  display: block;
+  width: 43rpx;
+  height: 0;
+  margin: 0 auto;
+  border-bottom: 1px solid #2DC3A6;
+}
+
+.choice .options {
+  margin-top: 43rpx;
+}
+
+.choice .options .item {
+  margin: 43rpx 0;
+}
+
+.choice .options .item .item-title {
+  font-size: 25rpx;
+}
+
+.option view {
+  display: inline-block;
+  margin-top: 29rpx;
+  margin-right: 43rpx;
+  padding: 7rpx 22rpx;
+  font-size: 29rpx;
+}
+
+.option .sel {
+  border: 1px solid #2DC3A6;
+  border-radius: 5px;
+  color: #2DC3A6;
+}
+
 .container .match {
   display: flex;
   display: -webkit-flex;

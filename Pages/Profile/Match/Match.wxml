@@ -1,9 +1,64 @@
 <view class="container">
   <view class="title">
     <text>{{title}}</text>
-    <text class="cancel">{{cancel}}</text>
+    <!-- <text class="cancel">{{cancel}}</text> -->
   </view>
-  <view class="match">
+  <view class="choice">
+    <view class="type">
+      <view class="random sel">
+        <text>随机匹配</text>
+      </view>
+      <view class="accurate">
+        <text>ID 匹配</text>
+      </view>
+    </view>
+    <view class="options">
+      <view class="item">
+        <view class="item-title">
+          <text>你希望匹配到</text>
+        </view>
+        <view class="option">
+          <view class="sel">
+            <text>异性</text>
+          </view>
+          <view>
+            <text>同性</text>
+          </view>
+        </view>
+      </view>
+      <view class="item">
+        <view class="item-title">
+          <text>你是否希望被匹配到</text>
+        </view>
+        <view class="option">
+          <view class="sel">
+            <text>希望</text>
+          </view>
+          <view>
+            <text>不希望</text>
+          </view>
+        </view>
+      </view>
+      <view class="item">
+        <view class="item-title">
+          <text>匹配这的特质</text>
+        </view>
+        <view class="option">
+          <view class="sel">
+            <text>乐观仙女</text>
+          </view>
+          <view>
+            <text>多愁公主</text>
+          </view>
+          <view>
+            <text>温婉仙子</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- success>
+  <!-- <view class="match">
     <view class="third">
       <view class="second">
         <view class="first">
@@ -19,5 +74,5 @@
     <view class="nick">
       <text>{{nickname}}</text>
     </view>
-  </view>
+  </view> -->
 </view>
