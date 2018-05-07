@@ -5,14 +5,22 @@
   </view>
   <view class="choice">
     <view class="type">
-      <view class="random sel">
+      <view class="random">
         <text>随机匹配</text>
       </view>
-      <view class="accurate">
+      <view class="accurate sel">
         <text>ID 匹配</text>
       </view>
     </view>
-    <view class="options">
+
+    <!-- ID  -->
+    <view class="id">
+      <view>请输入对方的ID</view>
+      <input placeholder="Example: 123456" />
+    </view>
+
+    <!-- random  -->
+    <!-- <view class="options">
       <view class="item" wx:for="{{matchItems}}" wx:for-item="matchItem" wx:for-index="matchIndex" wx:key="{{matchIndex}}">
         <view class="item-title">
           <text>{{matchItem.title}}</text>
@@ -23,9 +31,10 @@
           </view>
         </view>
       </view>
-    </view>
-  </view>
-  <!-- success>
+    </view>  -->
+  </view> 
+
+  <!-- success -->
   <!-- <view class="match">
     <view class="third">
       <view class="second">
@@ -43,4 +52,7 @@
       <text>{{nickname}}</text>
     </view>
   </view> -->
+  <view class="match-btn">
+    开始匹配
+  </view>
 </view>
