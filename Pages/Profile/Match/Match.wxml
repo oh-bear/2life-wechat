@@ -13,45 +13,13 @@
       </view>
     </view>
     <view class="options">
-      <view class="item">
+      <view class="item" wx:for="{{matchItems}}" wx:for-item="matchItem" wx:for-index="matchIndex" wx:key="{{matchIndex}}">
         <view class="item-title">
-          <text>你希望匹配到</text>
+          <text>{{matchItem.title}}</text>
         </view>
         <view class="option">
-          <view class="sel">
-            <text>异性</text>
-          </view>
-          <view>
-            <text>同性</text>
-          </view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="item-title">
-          <text>你是否希望被匹配到</text>
-        </view>
-        <view class="option">
-          <view class="sel">
-            <text>希望</text>
-          </view>
-          <view>
-            <text>不希望</text>
-          </view>
-        </view>
-      </view>
-      <view class="item">
-        <view class="item-title">
-          <text>匹配这的特质</text>
-        </view>
-        <view class="option">
-          <view class="sel">
-            <text>乐观仙女</text>
-          </view>
-          <view>
-            <text>多愁公主</text>
-          </view>
-          <view>
-            <text>温婉仙子</text>
+          <view wx:for="{{matchItem.items}}" wx:for-index="itemIndex" wx:key="{{item.value}}" bindtap="chooseMatchType" data-value="{{item.value}}" data-index="{{matchIndex}}" class="{{choose[matchIndex] === item.value ? 'sel' : ''}}">
+            {{item.title}}
           </view>
         </view>
       </view>

@@ -66,6 +66,7 @@
   margin-top: 29rpx;
   margin-right: 43rpx;
   padding: 7rpx 22rpx;
+  border: 1px solid transparent;
   font-size: 29rpx;
 }
 

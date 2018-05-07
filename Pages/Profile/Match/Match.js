@@ -8,7 +8,73 @@ Page({
     title: '选择你的匹配项',
     cancel: '解除匹配',
     name: '邓国雄',
-    nickname: '广大最傻逼'
+    nickname: '广大最傻逼',
+    matchItems: [
+      {
+        title: '你希望匹配到',
+        type: 'gender',
+        items: [
+          {
+            title: '异性',
+            value: 'opposite',
+            selected: false
+          },
+          {
+            title: '同性',
+            value: 'same',
+            selected: false
+          }
+        ]
+      },
+      {
+        title: '你是否希望被匹配到',
+        type: 'wish',
+        items: [
+          {
+            title: '希望',
+            value: 'agree',
+            selected: false
+          },
+          {
+            title: '不希望',
+            value: 'disagree',
+            selected: false
+          }
+        ]
+      },
+      {
+        title: '匹配者的特质',
+        type: 'speciality',
+        items: [
+          {
+            title: '乐观仙女',
+            value: 'optimistic',
+            selected: false
+          },
+          {
+            title: '多愁公主',
+            value: 'melancholy',
+            selected: false
+          },
+          {
+            title: '温婉仙子',
+            value: 'gentle',
+            selected: false
+          }
+        ]
+      }
+    ],
+    choose: []
+  },
+
+  // methods
+  chooseMatchType: function (event) {
+    var _this = this
+    var data = event.currentTarget.dataset
+    var str = 'choose[' + data.index + ']'
+    this.setData({
+      [str]: data.value
+    })
   },
 
   /**
