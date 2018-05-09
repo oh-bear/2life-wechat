@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.filter {
+  -webkit-filter: blur(1px);
+}
+
 .container .title {
   display: flex;
   display: -webkit-flex;
@@ -87,51 +91,69 @@
   border-bottom: 1px solid #2DC3A6;
 }
 
-.container .match {
-  display: flex;
-  display: -webkit-flex;
-  margin: 43rpx 0;
-  justify-content: center;
-  align-items: center;
+.container .matching {
+  margin: 86rpx 32rpx;
 }
 
-.container .match .third {
-  display: flex;
-  display: -webkit-flex;
+.container .matching .third {
+  width: 612rpx;
+  height: 612rpx;
+  border-radius: 50%;
+  background: rgba(45, 195, 196, 0.1);
+}
+
+.container .matching .second {
+  width: 396rpx;
+  height: 396rpx;
+  border-radius: 50%;
+  background: rgba(45, 195, 166, 0.4);
+}
+
+.container .matching .first {
+  width: 86rpx;
+  height: 86rpx;
+  border-radius: 50%;
+  background: rgba(45, 195, 166, 1);
+}
+
+.container .match-success {
+  margin: 43rpx 0;
+}
+
+.container .match-success .third {
   width: 396rpx;
   height: 396rpx;
   border: 1px solid rgba(45, 195, 166, 0.08);
   border-radius: 50%;
-  justify-content: center;
-  align-items: center;
 }
 
-.container .match .second {
-  display: flex;
-  display: -webkit-flex;
+.container .match-success .second {
   width: 292rpx;
   height: 292rpx;
   border: 1px solid rgba(45, 195, 166, 0.15);
   border-radius: 50%;
-  justify-content: center;
-  align-items: center;
 }
 
-.container .match .first {
+.container .match-success .first {
   display: flex;
   display: -webkit-flex;
   width: 232rpx;
   height: 232rpx;
   border: 1px solid rgba(45, 195, 166, 0.3);
   border-radius: 50%;
-  justify-content: center;
-  align-items: center;
 }
 
-.container .match .image {
+.container .match-success .image {
   width: 158rpx;
   height: 158rpx;
   border-radius: 50%;
+}
+
+.matching, .match-success, .first, .second, .third {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container .name {
@@ -158,4 +180,51 @@
   font-size: 36rpx;
   background: #2DC3A6;
   color: white;
+}
+
+.mask {
+  display: flex;
+  display: -webkit-flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.mask .btn {
+  display: flex;
+  display: -webkit-flex;
+  position: absolute;
+  bottom: 97rpx;
+  width: 100%;
+  height: 86rpx;
+  justify-content: center;
+}
+
+.mask .btn button {
+  width: 238rpx;
+  height: 86rpx;
+  border: 0;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 86rpx;
+  font-size: 29rpx;
+  background: white;
+}
+
+.mask .swiper {
+  width: 100%;
+  height: 747rpx;
+}
+
+.mask .swiper .image {
+  display: block;
+  width: 560rpx;
+  height: 747rpx;
+  margin: 0 auto;
 }

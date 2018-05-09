@@ -3,21 +3,21 @@
     <text>{{title}}</text>
     <!-- <text class="cancel">{{cancel}}</text> -->
   </view>
-  <view class="choice">
-    <view class="type">
+  <!-- <view class="choice">
+     <view class="type">
       <view class="random">
         <text>随机匹配</text>
       </view>
       <view class="accurate sel">
         <text>ID 匹配</text>
       </view>
-    </view>
+    </view>  -->
 
     <!-- ID  -->
-    <view class="id">
+    <!-- <view class="id">
       <view>请输入对方的ID</view>
       <input placeholder="Example: 123456" />
-    </view>
+    </view> -->
 
     <!-- random  -->
     <!-- <view class="options">
@@ -31,11 +31,20 @@
           </view>
         </view>
       </view>
-    </view>  -->
-  </view> 
+    </view>
+  </view>   -->
+
+  <!-- matching  -->
+  <!-- <view class="matching">
+    <view class="third">
+      <view class="second">
+        <view class="first"></view>
+      </view>
+    </view>
+  </view> -->
 
   <!-- success -->
-  <!-- <view class="match">
+  <!-- <view class="match-success">
     <view class="third">
       <view class="second">
         <view class="first">
@@ -43,8 +52,14 @@
         </view>
       </view>
     </view>
+  </view> -->
+
+  <!-- fail  -->
+  <view class="match-fail">
+
   </view>
-  <view class="name">
+
+  <!-- <view class="name">
     <view>
       <text>{{name}}</text>
     </view>
@@ -52,7 +67,20 @@
       <text>{{nickname}}</text>
     </view>
   </view> -->
-  <view class="match-btn">
+  <!-- <view class="match-btn">
     开始匹配
-  </view>
+  </view> -->
 </view>
+
+<!-- <view class="mask">
+  <swiper class="swiper" bindchange="swiperChange">
+    <block wx:for="{{tipsList}}">
+      <swiper-item>
+        <image class="image" src="{{item}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="btn" wx:if="{{currentSwiperItem === 2}}">
+    <button>我明白了</button>
+  </view>
+</view> -->

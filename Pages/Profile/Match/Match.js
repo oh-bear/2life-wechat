@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: '选择你的匹配项',
+    title: '匹配中...',
     cancel: '解除匹配',
     name: '邓国雄',
     nickname: '广大最傻逼',
@@ -64,7 +64,13 @@ Page({
         ]
       }
     ],
-    choose: []
+    choose: [],
+    tipsList: [
+      '../Images/popup_tips 1.png',
+      '../Images/popup_tips 2.png',
+      '../Images/popup_tips 3.png'
+    ],
+    currentSwiperItem: 0
   },
 
   // methods
@@ -74,6 +80,11 @@ Page({
     var str = 'choose[' + data.index + ']'
     this.setData({
       [str]: data.value
+    })
+  },
+  swiperChange: function (e) {
+    this.setData({
+      currentSwiperItem: e.detail.current
     })
   },
 
