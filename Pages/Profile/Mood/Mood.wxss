@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.container .image {
+  position: relative;
+  width: 100%;
+}
+
+.container .image .text {
+  position: absolute;
+  top: 108rpx;
+  left: 43rpx;
+  width: 340rpx;
+  font-size: 25rpx;
+  color: white;
+}
+
+.text .title {
+  margin: 32rpx 0;
+  font-size: 61rpx;
+}
+
+.container .date {
+  display: flex;
+  display: -webkit-flex;
+  margin: 43rpx;
+  border-bottom: 1px solid #F1F1F1;
+  align-items: center;
+}
+
+.container .date .item {
+  margin: 0 25rpx;
+  padding: 25rpx 0;
+  font-size: 25rpx;
+  color: #AAAAAA;
+}
+
+.container .date .sel {
+  border-bottom: 1px solid #2DC3A6;
+  color: #2DC3A6;
+}

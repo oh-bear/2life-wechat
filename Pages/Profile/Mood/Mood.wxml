@@ -1,0 +1,20 @@
+<view class="container">
+  <image src="../Images/mood-bg.png" class="image">
+    <view class="text">
+      <view class="title">
+        <text>情绪曲线</text>
+      </view>
+      <view>
+        <text>情绪值标准:</text>
+      </view>
+      <view>
+        <text>0~33为负面情绪，33~66为中性情绪，66以上为正面情绪</text>
+      </view>
+    </view>
+  </image>
+  <view class="date">
+    <view class="item {{index === sel ? 'sel' : ''}}" wx:for="{{dateItem}}" wx:key="{{index}}" data-index="{{index}}" bindtap="itemChange">
+      {{item}}
+    </view>
+  </view>
+</view>

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: '匹配中...',
+    title: '匹配失败',
     cancel: '解除匹配',
     name: '邓国雄',
     nickname: '广大最傻逼',

@@ -56,7 +56,10 @@
 
   <!-- fail  -->
   <view class="match-fail">
-
+    <image src="../Images/fail.png" class="image" />
+    <view class="text">
+      <text>没有找到符合条件的人，或许你可以继续写日记，稍后再来匹配，成功率更高哦</text>
+    </view>
   </view>
 
   <!-- <view class="name">
@@ -67,9 +70,12 @@
       <text>{{nickname}}</text>
     </view>
   </view> -->
-  <!-- <view class="match-btn">
+   <!-- <view class="match-btn">
     开始匹配
-  </view> -->
+  </view>  -->
+  <view class="match-btn">
+    我明白了
+  </view> 
 </view>
 
 <!-- <view class="mask">

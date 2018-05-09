@@ -1,0 +1,24 @@
+<view class="container">
+  <image src="../Images/badge-bg.png" class="image">
+    <view class="text">
+      <view class="title">
+        <text>我的徽章</text>
+      </view>
+      <view class="icon">
+        <image src="../Images/badge-icon.png" class="image" />
+        <text>12个</text>
+      </view>
+    </view>
+  </image>
+  <view class="badge">
+    <view class="title">成就徽章</view>
+    <view class="item {{item.got ? 'got' : ''}}" wx:for="{{badgeItems}}" wx:key="index">
+      <view class="img">
+        <image src="{{item.icon}}" class="image" />
+      </view>
+      <view class="text">
+        <text>{{item.text}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -156,6 +156,16 @@
   align-items: center;
 }
 
+.container .match-fail .image {
+  width: 100%;
+}
+
+.container .match-fail .text {
+  margin: 29rpx 43rpx;
+  font-size: 29rpx;
+  color: #444444;
+}
+
 .container .name {
   margin: 43rpx 0;
   text-align: center;

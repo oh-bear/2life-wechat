@@ -1,0 +1,79 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.container .image {
+  position: relative;
+  width: 100%;
+}
+
+.container .image .text {
+  position: absolute;
+  top: 108rpx;
+  left: 43rpx;
+  width: 340rpx;
+  font-size: 36rpx;
+  color: white;
+}
+
+.text .title {
+  margin: 32rpx 0;
+  font-size: 61rpx;
+}
+
+.text .icon {
+  margin-top: 100rpx;
+}
+
+.text .icon .image {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.text .icon text {
+  margin: 0 20rpx;
+}
+ 
+ .container .badge {
+  margin: 0 0.5%;
+}  
+
+.container .badge .title {
+  margin: 43rpx 2%;
+  font-size: 36rpx;
+}
+
+.container .badge .item {
+  display: inline-block;
+  width: 30%;
+  margin: 0 1.5% 32rpx;
+  opacity: 0.6;
+}
+
+.container .badge .got {
+  opacity: 1;
+}
+
+.item .img {
+  display: flex;
+  display: -webkit-flex;
+  width: 153rpx;
+  height: 153rpx;
+  margin: 0 auto;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background: #F7F7F7;
+}
+
+.item .img .image {
+  width: 99rpx;
+  height: 99rpx;
+}
+
+.item .text {
+  margin: 18rpx 0;
+  text-align: center;
+  font-size: 22rpx;
+}
