@@ -1,0 +1,36 @@
+<view class="container filter">
+  <view class="title">
+    <text>日记同步</text>
+  </view>
+  <view class="sync">
+    <view>同步</view>
+    <switch color="#2DC3A6" checked /> 
+  </view>
+  <view class="description">
+    <text>关闭同步功能将不能匹配对象，已经匹配对象的将会被解除关系！请谨慎！</text>
+  </view>
+  <view class="info">
+    <view class="item">
+      <view>同步间隔</view>
+      <view>{{time}}Min</view>
+    </view>
+    <view class="item">
+      <view>储存</view>
+      <view>{{space}}MB</view>
+    </view>
+  </view>
+</view>
+
+<view class="mask">
+  <view class="alert">
+    <image src="../Images/alert.png" class="image" />
+    <view class="title">注意</view>
+    <view class="content">
+      关闭同步功能将不能匹配对象，已经匹配对象的将会被解除关系!
+    </view>
+    <view class="btn">
+      <view class="sel">不关闭</view>
+      <view>确定关闭</view>
+    </view>
+  </view>
+</view>

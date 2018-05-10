@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="title">
+    <text>个人信息</text>
+  </view>
+  <view class="info">
+    <view class="avatar">
+      <view class="title">头像</view>
+      <image src="../Images/profile.png" class="image" />
+    </view>
+    <view class="nick-name">
+      <view class="title">昵称</view>
+      <view class="nick">
+        <text>{{nickname}}</text>
+      </view>
+      <view class="edit">
+        <image src="../Images/edit.png" class="image" />
+      </view>
+    </view>
+    <view class="user-id">
+      <view class="title">ID</view>
+      <view class="id">
+        {{id}}
+      </view>
+    </view>
+  </view>
+  <view class="badge">
+    <view class="title">
+      <text>展示徽章</text>
+    </view>
+    <view class="content">
+      你还没获得任何徽章
+    </view>
+  </view>
+</view>

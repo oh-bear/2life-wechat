@@ -52,9 +52,11 @@
     ]
   },
   "pages": [
+    "Pages/Profile/Match/Match",
+    "Pages/Profile/Sync/Sync",
+    "Pages/Profile/Info/Info",
     "Pages/Profile/Badge/Badge",
     "Pages/Profile/Mood/Mood",
-    "Pages/Profile/Match/Match",
     "Pages/Profile/Profile/Profile",
     "Pages/Home/Detail/Detail",
     "Pages/Home/Home/Home",

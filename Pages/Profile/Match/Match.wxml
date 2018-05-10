@@ -90,3 +90,17 @@
     <button>我明白了</button>
   </view>
 </view> -->
+
+<view class="mask">
+  <view class="alert">
+    <image src="../Images/heart-break.png" class="image" />
+    <view class="title">注意</view>
+    <view class="content">
+      你与对方的互动信息将永远消失，并且再也匹配不到对方!
+    </view>
+    <view class="btn">
+      <view class="sel">再考虑</view>
+      <view>狠心解除</view>
+    </view>
+  </view>
+</view>
