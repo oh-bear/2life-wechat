@@ -9,24 +9,30 @@
 
   <view class="login">
     <view class="phone input sel">
-      <input placeholder='手机号码'></input>
+      <input placeholder='手机号码' bindinput="getUserInfo" data-type='mobile' disabled='{{loading}}'></input>
     </view>
     <view class="warn">
-      <text wx:if="{{!phoneValid}}">{{phoneWarning}}</text>
+      <text wx:if="{{!mobileValid}}">{{mobileWarning}}</text>
     </view>
     <view class="code input">
-      <input placeholder='验证码'></input>
-      <view>获取验证码</view>
+      <input placeholder='验证码' bindinput='getUserInfo' data-type='code'></input>
+      <view bindtap='getCode' wx:if="{{!codeLoading}}">获取验证码</view>
+      <view class="loading" wx:if="{{codeLoading}}">
+        <image src="../../../Images/loading.png" class="image" animation="{{loadingAnimation}}" />
+      </view>
     </view>
     <view class="warn">
       <text wx:if="{{!codeValid}}">{{codeWarning}}</text>
     </view>
     <view class="password input">
-      <input placeholder='密码'></input>
+      <input placeholder='密码'  password='true' bindinput='getUserInfo' data-type='password' disabled='{{loading}}'></input>
     </view>
     <view class="warn">
       <text wx:if="{{!passwordValid}}">{{passwordWarning}}</text>
     </view>
-    <view class="btn" bindtap='register'>注册</view>
+    <view class="btn" bindtap='register'  wx:if="{{!registerLoading}}">注册</view>
+     <view class="btn loading" wx:if="{{registerLoading}}">
+      <image src="../../../Images/loading.png" class="image" animation="{{loadingAnimation}}" />
+    </view> 
   </view>
 </view>

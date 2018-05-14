@@ -52,6 +52,9 @@
     ]
   },
   "pages": [
+    "Pages/Login/Register/Register",
+    "Pages/Login/Register/RegisterName",
+    "Pages/Login/Register/RegisterGender",
     "Pages/Profile/Match/Match",
     "Pages/Profile/Sync/Sync",
     "Pages/Profile/Info/Info",
@@ -63,9 +66,6 @@
     "Pages/Notification/Notification/Notification",
     "Pages/Login/Login/Login",
     "Pages/Login/Phone/Phone",
-    "Pages/Login/Register/Register",
-    "Pages/Login/Register/RegisterName",
-    "Pages/Login/Register/RegisterGender",
     "Pages/Login/Landing/Landing"
   ],
   "debug": true
