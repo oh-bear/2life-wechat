@@ -5,19 +5,46 @@ Page({
    * 页面的初始数据
    */
   data: {
-    image: '../Images/profile.png',
     male: '../Images/male.png',
     female: '../Images/female.png',
     mood: 87,
     diary: 12,
-    time: '10分钟前'
+    time: '10分钟前',
+    user: {},
+    patchedUser: {},
+    icon: [
+      {
+        book: '../Images/book_male.png',
+        smile: '../Images/smile_male.png'
+      },
+      {
+        book: '../Images/book_female.png',
+        smile: '../Images/smile_female.png'
+      }
+    ]
+  },
+
+  // method
+  goMatch: function () {
+    wx.navigateTo({
+      url: '../Match/Match'
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let _this = this
+    this.setData({
+      user: getApp().data.user
+    })
+    console.log(this.data.user)
+    let patchedUserId = this.data.user.user_other_id
+    if (patchedUserId === -1) return
+    getApp().getPatchedUser(id).then(patchedUser => {
+      _this.patchedUser = patchedUser
+    })
   },
 
   /**

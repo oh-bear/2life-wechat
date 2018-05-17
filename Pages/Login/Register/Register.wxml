@@ -9,20 +9,20 @@
 
   <view class="login">
     <view class="phone input sel">
-      <input placeholder='手机号码' bindinput="getUserInfo" data-type='mobile'></input>
+      <input placeholder='手机号码' bindinput="getInputValid" data-type='mobile'></input>
     </view>
     <view class="warn">
       <text wx:if="{{!mobileValid}}">{{mobileWarning}}</text>
     </view>
     <view class="code input">
-      <input placeholder='验证码' bindinput='getUserInfo' data-type='code'></input>
+      <input placeholder='验证码' bindinput='getInputValid' data-type='code'></input>
       <view bindtap='getCode'>获取验证码</view>
     </view>
     <view class="warn">
       <text wx:if="{{!codeValid}}">{{codeWarning}}</text>
     </view>
     <view class="password input">
-      <input placeholder='密码'  password='true' bindinput='getUserInfo' data-type='password'></input>
+      <input placeholder='密码'  password='true' bindinput='getInputValid' data-type='password'></input>
     </view>
     <view class="warn">
       <text wx:if="{{!passwordValid}}">{{passwordWarning}}</text>

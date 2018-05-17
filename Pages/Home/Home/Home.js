@@ -35,6 +35,31 @@ Page({
     ]
   },
 
+  getList: function () {
+    let key = getApp().data.key
+    let lodash = getApp().lodash
+    wx.request({
+      url: getApp().data.domain + 'notes/list',
+      method: 'GET',
+      data: {
+        uid: key.uid,
+        timestamp: key.timestamp,
+        token: key.token
+      },
+      success: function (res) {
+        if (res.data.code === 0) {
+          let temp = res.data.data.user.concat(res.data.data.partner)
+          console.log(temp)
+        } else {
+          console.log(res.data)
+        }
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+  },
+
   /**
    * function
    */
@@ -63,7 +88,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.getList()
   },
 
   /**

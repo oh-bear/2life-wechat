@@ -69,9 +69,14 @@
   margin-right: 30rpx;
 }
 
+.msg .item .count {
+  width: 60rpx;
+  font-weight: bold;
+}
+
 .msg .item text {
   margin: 0 10rpx;
-  font-size: 29rpx;
+  font-size: 32rpx;
 }
 
 .msg .item text:last-child {

@@ -7,6 +7,11 @@ App({
     partner: {}
   },
 
+  lodash: {
+    groupBy: require('./utils/lodash.groupby/index.js'),
+    sortBy: require('./utils/lodash.sortby/index.js')
+  },
+
   getInputValid: function(event) {
     let type = event.currentTarget.dataset.type
     let temp = {}
@@ -18,9 +23,6 @@ App({
 
   login: function (obj) {
     let _this = this
-    wx.showLoading({
-      title: '正在登录...',
-    })
     return new Promise((resolve, reject) => {
       wx.request({
         url: _this.data.domain + 'users/login',
@@ -59,9 +61,6 @@ App({
   getUser: function() {
     let _this = this
     let data = this.data
-    wx.showLoading({
-      title: '正在获取用户信息...',
-    })
     return new Promise((resolve, reject) => {
       wx.request({
         url: data.domain + 'users/user',
@@ -76,6 +75,40 @@ App({
           if (res.data.code === 0) {
             _this.data.user = res.data.data
             resolve(_this.data.user)
+          } else {
+            console.log(res.data)
+            reject('err')
+          }
+        },
+        fail: function (err) {
+          reject(err)
+        },
+        complete: function () {
+          wx.hideLoading()
+        }
+      })
+    })
+  },
+
+  getPatchedUser: function (id) {
+    let _this = this
+    let data = this.data
+    wx.showLoading({
+      title: '正在获取用户信息...',
+    })
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: data.domain + 'users/user',
+        method: 'GET',
+        data: {
+          uid: data.key.uid,
+          timestamp: data.key.timestamp,
+          token: data.key.token,
+          user_id: id
+        },
+        success: function (res) {
+          if (res.data.code === 0) {
+            resolve(res.data.data)
           } else {
             console.log(res.data)
             reject('err')
@@ -111,9 +144,6 @@ App({
       temp[key] = obj[key]
     }
     console.log(temp)
-    wx.showLoading({
-      title: '正在更新用户信息...',
-    })
     return new Promise((resolve, reject) => {
       wx.request({
         url: _this.data.domain + 'users/update',
@@ -135,6 +165,13 @@ App({
         }
       })
     })
-  }
+  },
 
+  onLaunch: function () {
+    let params = {
+      account: '15622386480',
+      password: '123qwe'
+    }
+    this.login(params)
+  }
 })

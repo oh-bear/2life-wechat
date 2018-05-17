@@ -52,20 +52,20 @@
     ]
   },
   "pages": [
-    "Pages/Login/Phone/Phone",
+    "Pages/Profile/Match/Match",
+    "Pages/Profile/Profile/Profile",
+    "Pages/Home/Home/Home",
     "Pages/Login/Login/Login",
+    "Pages/Login/Phone/Phone",
     "Pages/Login/Landing/Landing",
     "Pages/Login/Register/RegisterGender",
     "Pages/Login/Register/RegisterName",
     "Pages/Login/Register/Register",
-    "Pages/Profile/Match/Match",
     "Pages/Profile/Sync/Sync",
     "Pages/Profile/Info/Info",
     "Pages/Profile/Badge/Badge",
     "Pages/Profile/Mood/Mood",
-    "Pages/Profile/Profile/Profile",
     "Pages/Home/Detail/Detail",
-    "Pages/Home/Home/Home",
     "Pages/Notification/Notification/Notification"
   ],
   "debug": true

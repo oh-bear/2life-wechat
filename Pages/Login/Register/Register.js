@@ -22,6 +22,7 @@ Page({
   // methods
   getInputValid: function (event) {
     let temp = getApp().getInputValid(event)
+    console.log(temp)
     this.setData(temp)
   },
 

@@ -23,7 +23,7 @@
 }
 
 .container .choice {
-  width: 419rpx;
+  width: 440rpx;
   margin: 43rpx;
 }
 
@@ -92,28 +92,50 @@
 }
 
 .container .matching {
-  margin: 86rpx 32rpx;
+  position: relative;
+  width: 612rpx;
+  height: 612rpx;
+  margin: 86rpx auto;
 }
 
 .container .matching .third {
-  width: 612rpx;
-  height: 612rpx;
+  position: absolute;
+  /* width: 612rpx;
+  height: 612rpx; */
+  top: 108rpx;
+  left: 108rpx;
+  right: 108rpx;
+  bottom: 108rpx;
   border-radius: 50%;
-  background: rgba(45, 195, 196, 0.1);
+  /* background: rgba(45, 195, 196, 0.1); */
+   background: rgba(45, 195, 196, 0.4); 
 }
 
 .container .matching .second {
-  width: 396rpx;
-  height: 396rpx;
+  position: absolute;
+  top: 108rpx;
+  left: 108rpx;
+  right: 108rpx;
+  bottom: 108rpx;
   border-radius: 50%;
-  background: rgba(45, 195, 166, 0.4);
+  /* background: rgba(45, 195, 166, 0.4); */
+   background: rgba(45, 195, 166, 1); 
 }
 
 .container .matching .first {
-  width: 86rpx;
-  height: 86rpx;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  right: 0rpx;
+  bottom: 0rpx;
   border-radius: 50%;
-  background: rgba(45, 195, 166, 1);
+}
+
+.container .matching .image {
+  width: 100%;
+  height: 100%;
+  border: 1px solid white;
+  border-radius: 50%;
 }
 
 .container .match-success {
@@ -153,7 +175,7 @@
   display: flex;
   display: -webkit-flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
 }
 
 .container .match-fail .image {

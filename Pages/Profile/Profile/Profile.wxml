@@ -6,37 +6,37 @@
     <view class="info">
       <view class="intro">
         <view class="name">
-          <text>广东小帅哥</text>
+          <text>{{user.name}}</text>
         </view>
         <view class="edit">
           <text>查看资料</text>
         </view>
       </view>
-      <image src="{{image}}" class="avatar">
-        <image src="{{male}}" class="gender" />
+      <image src="{{user.face}}" class="avatar">
+        <image src="{{user.sex === 0 ? male : female}}" class="gender" />
       </image>
     </view>
     <view class="msg">
       <view class="item">
-        <image src="../Images/smile.png" class="image" />
-        <text>{{mood}}</text>
+        <image src="{{icon[user.sex].smile}}" class="image" />
+        <text class="count">{{user.mode}}</text>
         <text>平均情绪值</text>
       </view>
       <view class="item">
-        <image src="../Images/book.png" class="image" />
-        <text>{{diary}}</text>
+        <image src="{{icon[user.sex].book}}" class="image" />
+        <text class="count">{{user.total_notes}}</text>
         <text>日记数量</text>
       </view>
     </view>
   </view>
-  <view class="profile">
+   <view class="profile">
     <view class="info matched">
       <view class="intro">
         <view class="name">
-          <text>广东小帅哥</text>
+          <text>{{patchedUser.name}}</text>
         </view>
         <view class="edit">
-          <image class="image" src="../Images/matched.png" />
+          <image class="image" src="{{patchedUser.face}}" />
           <text>你的匹配对象</text>
         </view>
       </view>
@@ -46,33 +46,30 @@
     </view>
     <view class="msg">
       <view class="item">
-        <image src="../Images/smile_matched.png" class="image" />
-        <text>{{mood}}</text>
+        <image src="{{icon[patchedUser.sex].book}}" class="image" />
+        <text>{{patchedUser.mode}}</text>
         <text>平均情绪值</text>
       </view>
       <view class="item">
-        <image src="../Images/book_matched.png" class="image" />
-        <text>{{diary}}</text>
+        <image src="{{icon[patchedUser.sex].book}}" class="image" />
+        <text>{{patchedUser.notes_total}}</text>
         <text>日记数量</text>
       </view>
     </view>
-  </view>
+  </view> 
   <view class="profile">
-     <view class="match">
+    <view class="match" bindtap='goMatch'>
       <image src="../Images/match.png" class="image" />
       <view class="text">
         <view class="name">匹配</view>
-        <view class="description">
-          来匹配一个日记伴侣吧~
-        </view>
       </view>
     </view>
-    <view class="sync">
+    <!-- <view class="sync">
       <image src="../Images/cloud.png" class="image" />
       <view class="text">
         <view class="name">同步</view>
         <view class="time">{{time}}</view>
       </view>
-    </view> 
+    </view>  -->
   </view>
 </view>

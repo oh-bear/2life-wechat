@@ -1,66 +1,67 @@
 <view class="container">
   <view class="title">
-    <text>{{title}}</text>
-    <!-- <text class="cancel">{{cancel}}</text> -->
+    <text>{{title[status]}}</text>
+    <!-- <text class="cancel">解除匹配</text> -->
   </view>
-  <!-- <view class="choice">
+   <view class="choice" wx:if="{{status === 'normal'}}">
      <view class="type">
-      <view class="random">
+      <view class="random {{matchMethod === 'random' ? 'sel' : ''}}" data-method="random" bindtap='chooseMethod'>
         <text>随机匹配</text>
       </view>
-      <view class="accurate sel">
+      <view class="accurate {{matchMethod === 'accurate' ? 'sel' : ''}}" data-method="accurate" bindtap='chooseMethod'>
         <text>ID 匹配</text>
       </view>
-    </view>  -->
+    </view>  
 
     <!-- ID  -->
-    <!-- <view class="id">
+    <view class="id" wx:if="{{matchMethod === 'accurate'}}">
       <view>请输入对方的ID</view>
       <input placeholder="Example: 123456" />
-    </view> -->
+    </view> 
 
     <!-- random  -->
-    <!-- <view class="options">
-      <view class="item" wx:for="{{matchItems}}" wx:for-item="matchItem" wx:for-index="matchIndex" wx:key="{{matchIndex}}">
+     <view class="options" wx:if="{{matchMethod === 'random'}}">
+      <view class="item" wx:for="{{matchItems}}" wx:for-item="matchItem" wx:for-index="matchIndex" wx:key="{{matchIndex}}" wx:if="{{matchClosed ? matchIndex === 0 : true}}">
         <view class="item-title">
           <text>{{matchItem.title}}</text>
         </view>
         <view class="option">
-          <view wx:for="{{matchItem.items}}" wx:for-index="itemIndex" wx:key="{{item.value}}" bindtap="chooseMatchType" data-value="{{item.value}}" data-index="{{matchIndex}}" class="{{choose[matchIndex] === item.value ? 'sel' : ''}}">
+          <view wx:for="{{matchItem.items}}" wx:for-index="itemIndex" wx:key="{{item.value}}" bindtap="chooseMatchType" data-value="{{item.value}}" data-index="{{matchIndex}}" data-code="{{item.code}}" class="{{choose[matchIndex] === item.code ? 'sel' : ''}}" >
             {{item.title}}
           </view>
         </view>
       </view>
     </view>
-  </view>   -->
+  </view>   
 
   <!-- matching  -->
-  <!-- <view class="matching">
-    <view class="third">
-      <view class="second">
-        <view class="first"></view>
+   <view class="matching" wx:if="{{status === 'matching'}}">
+    <view class="third" animation="{{animation.third}}">
+      <view class="second" animation="{{animation.second}}">
+        <view class="first" animation="{{animation.first}}">
+          <image class="image" src="../Images/profile.png" />
+          </view>
       </view>
     </view>
-  </view> -->
+  </view> 
 
   <!-- success -->
-  <!-- <view class="match-success">
+   <view class="match-success" wx:if="{{status === 'success'}}">
     <view class="third">
       <view class="second">
         <view class="first">
-          <image class="image" src="../Images/profile.png" />
         </view>
       </view>
     </view>
-  </view> -->
+  </view> 
 
   <!-- fail  -->
-  <view class="match-fail">
+   <view class="match-fail" wx:if="{{status === 'fail'}}">
     <image src="../Images/fail.png" class="image" />
     <view class="text">
       <text>没有找到符合条件的人，或许你可以继续写日记，稍后再来匹配，成功率更高哦</text>
     </view>
-  </view>
+  </view> 
 
   <!-- <view class="name">
     <view>
@@ -70,12 +71,12 @@
       <text>{{nickname}}</text>
     </view>
   </view> -->
-   <!-- <view class="match-btn">
+  <view class="match-btn" bindtap='match' wx:if="{{status === 'normal'}}">
     开始匹配
-  </view>  -->
-  <view class="match-btn">
+  </view>  
+  <!-- <view class="match-btn">
     我明白了
-  </view> 
+  </view>  -->
 </view>
 
 <!-- <view class="mask">
@@ -91,7 +92,7 @@
   </view>
 </view> -->
 
-<view class="mask">
+<!-- <view class="mask">
   <view class="alert">
     <image src="../Images/heart-break.png" class="image" />
     <view class="title">注意</view>
@@ -103,4 +104,4 @@
       <view>狠心解除</view>
     </view>
   </view>
-</view>
+</view> -->
