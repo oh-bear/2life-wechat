@@ -8,13 +8,13 @@
   </view>
 
   <view class="login">
-    <view class="input sel">
+    <view class="input {{gender === 'male' ? 'sel' : ''}}" data-gender="male" bindtap='chooseGender'>
       <text>男</text>
     </view>
     <view class="warn">
       {{phoneWarning}}
     </view>
-    <view class="input">
+    <view class="input {{gender === 'female' ? 'sel' : ''}}" data-gender="female" bindtap='chooseGender'>
       <text>女</text>
     </view>
     <view class="warn">
@@ -23,6 +23,6 @@
     <view class="description">
       <text>{{description}}</text>
     </view>
-    <view class="btn">开启日记本</view>
+    <view class="btn" bindtap='goNext'>开启日记本</view>
   </view>
 </view>

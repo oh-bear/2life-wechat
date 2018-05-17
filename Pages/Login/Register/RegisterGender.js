@@ -5,9 +5,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    Hi: '注册成功',
-    text: '取个好听的昵称吧',
-    description: '性别仅用于匹配。性别确定后不能再次修改，请谨慎！'
+    Hi: 'Hey',
+    text: '你的性别是?',
+    description: '性别仅用于匹配。性别确定后不能再次修改，请谨慎！',
+    gender: 'male'
+  },
+
+  // methods
+
+  chooseGender (event) {
+    let gender = event.currentTarget.dataset.gender
+    console.log(gender)
+    this.setData({
+      gender: gender
+    })
+  },
+
+  goNext () {
+    getApp().updateUser({ sex: this.data.gender === 'male' ? 0 : 1 }).then(res => {
+      wx.switchTab({
+        url: '../../Home/Home/Home',
+      })
+    }, err => {
+      wx.showToast({
+        title: '出错了',
+      })
+    })
   },
 
   /**
@@ -28,7 +51,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
   },
 
   /**

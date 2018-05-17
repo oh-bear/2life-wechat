@@ -9,7 +9,7 @@
 
   <view class="login">
     <view class="name input sel">
-      <input placeholder='昵称'></input>
+      <input placeholder='昵称' bindinput="getInputValid" data-type='name'></input>
     </view>
     <view class="warn">
       <text wx:if="{{!nameValid}}">{{nameWarning}}</text>

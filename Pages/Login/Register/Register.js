@@ -17,23 +17,15 @@ Page({
     code: '',
     password: '',
     timestamp: '1',
-    codeLoading: false,
-    registerLoading: false,
-    loadingAnimation: '',
-    loadingInterval: ''
   },
 
   // methods
-  getUserInfo(event) {
-    let type = event.currentTarget.dataset.type
-    let temp = {}
-    temp[type] = event.detail.value
-    temp[type + 'Valid'] = true
-    temp[type + 'Warning'] = ''
+  getInputValid: function (event) {
+    let temp = getApp().getInputValid(event)
     this.setData(temp)
   },
 
-  getCode() {
+  getCode: function() {
     let _this = this
     if (!this.data.mobile) {
       this.setData({
@@ -41,10 +33,10 @@ Page({
         mobileValid: false
       })
       return
-    } else if (this.data.registerLoading || this.data.codeLoading) {
-      return
     }
-    this.showLoading('code')
+    wx.showLoading({
+      title: '发送中...',
+    })
     wx.request({
       url: getApp().data.domain + 'users/code',
       method: 'POST',
@@ -63,16 +55,20 @@ Page({
             timestamp: response.data.timestamp
           })
         } else {
-
+          wx.showToast({
+            title: '验证码发送失败',
+            duration: 2000,
+            mask: true
+          })
         }
       },
       complete: function () {
-        _this.hideLoading('code')
+        wx.hideLoading()
       }
     })
   },
 
-  register () {
+  register: function () {
     let _this = this
     let data = this.data
     if (!data.mobileValid && !data.codeValid && !data.passwordValid) return
@@ -95,9 +91,14 @@ Page({
       })
       return
     } else if (!data.timestamp) {
-      return
+      this.setData({
+        codeWarning: '验证码格式有误,请重新获取.',
+        codeValid: false
+      })
     }
-    this.showLoading('register')
+    wx.showLoading({
+      title: '正在注册...',
+    })
     wx.request({
       url: getApp().data.domain + 'users/register',
       method: 'POST',
@@ -111,8 +112,35 @@ Page({
         let response = res.data
         let code = response.code
         if (code === 0) {
-          wx.navigateTo({
-            url: './RegisterName',
+          wx.showLoading({
+            title: '正在自动登录...',
+          })
+          wx.request({
+            url: getApp().data.domain + 'users/login',
+            method: 'POST',
+            data: {
+              account: data.mobile,
+              password: data.password
+            },
+            success: function (res) {
+              console.log(res)
+              let response = res.data
+              let code = response.code
+              if (code === 0) {
+                getApp().data.user = response.data.user
+                getApp().data.key = response.data.key
+                getApp().data.partner = response.data.partner
+                wx.navigateTo({
+                  url: './RegisterName',
+                })
+              }
+            },
+            fail: function (err) {
+              console.log(err)
+            },
+            complete: function () {
+              wx.hideLoading()
+            }
           })
         } else if (code === 405) {
           _this.setData({
@@ -120,41 +148,17 @@ Page({
             codeValid: false
           })
         } else {
-
+          wx.showToast({
+            title: '注册失败,请重新尝试.',
+            duration: 2000,
+            mask: true
+          })
         }
       },
       complete: function () {
-        this.hideLoading('register')
+        wx.hideLoading()
       }.bind(this)
     })
-  },
-
-  showLoading: function (type) {
-    console.log('showloading')
-    if (this.data[type + 'loading']) return
-    let temp = {}
-    temp[type + 'Loading'] = true
-    this.setData(temp)
-    temp = {}
-    let n = 1
-    this.animation.rotate(360).step()
-    temp['loadingAnimation'] = this.animation.export()
-    temp['loadingInterval'] = setInterval(function () {
-      n = n+1
-      this.animation.rotate(360*(n)).step()
-      temp['loadingAnimation'] = this.animation.export()
-      this.setData(temp)
-    }.bind(this), 1000*n)
-    this.setData(temp)
-  },
-
-  hideLoading: function (type) {
-    console.log('hideloading')
-    let temp = {}
-    temp[type + 'Loading'] = false
-    temp['loadingAnimation'] = ''
-    this.setData(temp)
-    clearInterval(this.data.loadingInterval)
   },
 
   /**
@@ -175,12 +179,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.animation = wx.createAnimation({
-      duration: 1000,
-      timingFunction: 'linear',
-      delay: 0,
-      transformOrigin: '50% 50% 0'
-    })
   },
 
   /**

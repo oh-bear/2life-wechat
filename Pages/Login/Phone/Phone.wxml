@@ -9,17 +9,17 @@
 
   <view class="login">
     <view class="phone input sel">
-      <input placeholder='手机号码'></input>
+      <input placeholder='手机号码' bindinput="getInputValid" data-type="mobile"></input>
     </view>
     <view class="warn">
-      <text wx:if="{{!phoneValid}}">{{phoneWarning}}</text>
+      <text wx:if="{{!mobileValid}}">{{mobileWarning}}</text>
     </view>
     <view class="password input">
-      <input placeholder='密码'></input>
+      <input placeholder='密码' password='true' bindinput="getInputValid" data-type="password"></input>
     </view>
     <view class="warn">
       <text wx:if="{{!passwordValid}}">{{passwordWarning}}</text>
     </view>
-    <view class="btn">登录</view>
+    <view class="btn" bindtap='login'>登录</view>
   </view>
 </view>

@@ -8,12 +8,34 @@ Page({
     Hi: '注册成功',
     text: '取个好听的昵称吧',
     nameWarning: '该昵称不可用',
-    nameValid: true
+    nameValid: true,
+    name: ''
+  },
+
+  getInputValid: function(event) {
+    let temp = getApp().getInputValid(event)
+    this.setData(temp)
   },
 
   goNext () {
-    wx.navigateTo({
-      url: './RegisterGender',
+    let data = this.data
+    if (!data.nameValid) {
+      return
+    } else if (!data.name) {
+      this.setData({
+        nameValid: false,
+        nameWarning: '昵称不可为空'
+      })
+      return
+    }
+    getApp().updateUser({ name: data.name }).then( res => {
+      wx.navigateTo({
+        url: './RegisterGender',
+      })
+    }, err => {
+      wx.showToast({
+        title: '出错了',
+      })
     })
   },
 
@@ -35,7 +57,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
