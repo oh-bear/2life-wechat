@@ -4,11 +4,12 @@
 }
 
 .swiper {
-  height: 420rpx;
+  height: 567rpx;
 }
 
 .swiper .image {
-  width: 100%;
+  width: 755rpx;
+  height: 567rpx;
 }
 
 .content {

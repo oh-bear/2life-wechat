@@ -7,8 +7,8 @@ var home = {
     },
     showDate: function (notes, index) {
       if (index === 0) return true
-      var currentIndex = getDate(notes[index].updated_at).toDateString()
-      var backIndex = getDate(notes[index-1].updated_at).toDateString()
+      var currentIndex = getDate(notes[index].created_at).toDateString()
+      var backIndex = getDate(notes[index-1].created_at).toDateString()
       if (currentIndex === backIndex) {
         return false
       } else {
@@ -16,7 +16,7 @@ var home = {
       }
     },
     getTime: function (date) {
-      return getDate(date).getHours() + ':' + getDate(date).getMinutes()
+      return (getDate(date).getHours() < 10 ? '0' + getDate(date).getHours() : getDate(date).getHours()) + ':' + (getDate(date).getMinutes() < 10 ? '0' + getDate(date).getMinutes() : getDate(date).getMinutes())
     },
     date: function () {
       return {

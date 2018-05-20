@@ -4,11 +4,31 @@
 }
 
 .swiper {
-  height: 420rpx;
+  position: relative;
+  height: 567rpx;
 }
 
 .swiper .image {
-  width: 100%;
+  width: 755rpx;
+  height: 567rpx;
+}
+
+.swiper .edit {
+  display: flex;
+  display: -webkit-flex;
+  position: absolute;
+  right: 43rpx;
+  bottom: 43rpx;
+  width: 133rpx;
+  height: 45rpx;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+}
+
+.swiper .edit .image {
+  width: 45rpx;
+  height: 45rpx;
 }
 
 .content {

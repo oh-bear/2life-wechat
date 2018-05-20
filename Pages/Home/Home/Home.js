@@ -36,7 +36,7 @@ Page({
         if (res.data.code === 0) {
           let arr = res.data.data.user.concat(res.data.data.partner)
           arr = lodash.orderBy(arr, (val) => {
-            return val.updated_at
+            return val.created_at
           }, 'desc')
           _this.setData({
             notes: arr
@@ -107,6 +107,45 @@ Page({
     })
   },
 
+  goAdd: function () {
+    wx.navigateTo({
+      url: '../Add/Add'
+    })
+  },
+
+  publishNote: function () {
+    let note = getApp().data.savedNote || {}
+    if (!note.title || !note.content) return
+    let key = getApp().data.key
+    let user = getApp().data.user
+    wx.request({
+      url: getApp().data.domain + 'notes/publish',
+      method: 'POST',
+      data: {
+        uid: key.uid,
+        timestamp: key.timestamp,
+        token: key.token,
+        title: note.title,
+        content: note.content,
+        images: '',
+        latitude: getApp().data.location.latitude || user.latitude,
+        longitude: getApp().data.location.longitude || user.longitude,
+        location: getApp().data.location.location
+      },
+      success: function (res) {
+        if (res.data.code === 0) {
+          console.log(res.data)
+          getApp().savedNote = ''
+        } else {
+          console.log(res.data)
+        }
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -157,6 +196,8 @@ Page({
     if (!this.data.animation.showCalendar) {
       this.showCalendar()
     }
+
+    this.publishNote()
   },
 
   /**

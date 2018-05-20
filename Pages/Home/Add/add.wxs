@@ -1,0 +1,9 @@
+var add = {
+  getDate: function () {
+    return getDate().toDateString()
+  }
+}
+
+module.exports = {
+  getDate: add.getDate
+}

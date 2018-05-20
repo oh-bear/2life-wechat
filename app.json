@@ -52,9 +52,9 @@
     ]
   },
   "pages": [
-    "Pages/Notification/Notification/Notification",
     "Pages/Home/Home/Home",
     "Pages/Home/Add/Add",
+    "Pages/Notification/Notification/Notification",
     "Pages/Profile/Profile/Profile",
     "Pages/Profile/Info/Info",
     "Pages/Profile/Match/Match",

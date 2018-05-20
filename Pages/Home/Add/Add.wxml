@@ -1,31 +1,32 @@
 <view class="container">
   <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
-    <block wx:for="{{detail.imagesToArr(note.images)}}" wx:key="index">
+    <block wx:for="{{images}}" wx:key="index" wx:if="{{images.length}}">
       <swiper-item>
-        <image src="{{item}}" class="image"/>
+        <image src="{{item}}" class="image" />
       </swiper-item>
     </block>
+    <block wx:if="{{!images.length}}">
+      <swiper-item>
+        <image src="../Images/upload-bg.png" class="image" bindtap='uploadImg' />
+      </swiper-item>
+    </block>
+    <view class="edit" wx:if="{{images.length && images.length < 3}}">
+      <image src="../Images/removePhoto.png" class="image" bindtap="removeImg"/>
+      <image src="../Images/addPhoto.png" class="image" bindtap='uploadImg' />
+    </view>
   </swiper>
   <view class="content">
     <view class="date">
-      <text>{{detail.getDate(note.date)}}</text>
+      <text>{{add.getDate()}}</text>
     </view>
     <view class="title">
-      <text>{{note.title}}</text>
+      <input placeholder='标题' data-type="title" bindinput='getInputValue'/>
     </view>
     <view class="text">
-      <text>{{note.content}}</text>
-    </view>
-    <view class="location">
-      <image src="../Images/location.png" class="image" />
-      <text>{{note.location}}</text>
-    </view>
-    <view class="mood">
-      <image src="../Images/happy.png" class="image" />
-      <text>{{note.mode}}</text>
-      <text class="description">情绪值</text>
-      <!-- <text class="edit">更改</text> -->
+      <textarea placeholder='请输入正文' data-type="content" bindinput='getInputValue'></textarea>
     </view>
   </view>
 </view>
+
+<wxs module="add" src='./add.wxs' />
 

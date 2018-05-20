@@ -1,0 +1,49 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.container .title {
+  display: flex;
+  display: -webkit-flex;
+  height: 130rpx;
+  align-items: flex-end;
+  font-size: 61rpx;
+}
+
+.container .title text {
+  margin-left: 130rpx;
+}
+
+.container .notification {
+  padding: 40rpx 40rpx 40rpx 29rpx;
+}
+
+.notification .item {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+}
+
+.notification .item .icon {
+  display: block;
+  width: 45rpx;
+  height: 36rpx;
+  margin: 35rpx 0;
+}
+
+.notification .item .content {
+  width: 550rpx;
+  padding: 29rpx 29rpx 29rpx 0;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+.content .text {
+  font-size: 36rpx;
+}
+
+.content .date {
+  margin-top: 45rpx;
+  font-size: 22rpx;
+  color: #AAAAAA;
+}

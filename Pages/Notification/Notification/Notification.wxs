@@ -1,0 +1,15 @@
+var notification = {
+  getDate: function (date) {
+    var year = getDate(date).getFullYear()
+    var mon = getDate(date).getMonth() < 9 ? '0' + (getDate(date).getMonth() + 1) : getDate(date).getMonth() + 1
+    var day = getDate(date).getDate()
+    var hour = getDate(date).getHours() < 10 ? '0' + getDate(date).getHours() : getDate(date).getHours()
+    var min = getDate(date).getMinutes() < 10 ? '0' + getDate(date).getMinutes() : getDate(date).getMinutes()
+    var sec = getDate(date).getSeconds() < 10 ? '0' + getDate(date).getSeconds() : getDate(date).getSeconds()
+    return year + '-' + mon + '-' + day + ' ' + hour + ':' + min + ':' + sec
+  }
+}
+
+module.exports = {
+  getDate: notification.getDate
+}
