@@ -16,7 +16,7 @@
 }
 
 .container .notification {
-  padding: 40rpx 40rpx 40rpx 29rpx;
+  padding: 40rpx;
 }
 
 .notification .item {

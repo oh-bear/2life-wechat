@@ -3,18 +3,18 @@
     <text>通知</text>
   </view>
   <view class="notification">
-    <view class="item" wx:for="{{notification}}" wx:key="{{index}}">
-       <image class="icon" src="../Images/201.png" /> 
+    <view class="item" wx:for="{{list}}" wx:key="{{index}}">
+       <image class="icon" src="{{icon[item.type]}}" /> 
       <view class="content">
         <view class="text">
           {{item.title}}
         </view>
         <view class="date">
-          {{notifi.getDate(item.date)}}
+          {{notification.getDate(item.date)}}
         </view>
       </view>
     </view>
   </view>
 </view>
 
-<wxs module="notifi" src="./Notification.wxs" />
+<wxs module="notification" src="./Notification.wxs" />

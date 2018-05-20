@@ -21,16 +21,22 @@
       <text>{{note.location}}</text>
     </view>
     <view class="mood">
-      <image src="../Images/happy.png" class="image" />
-      <text>{{note.mode}}</text>
-      <text class="description">情绪值</text>
-      <!-- <text class="edit">更改</text> -->
+      <view class="normal">
+        <image src="../Images/happy.png" class="image" />
+        <text>{{note.mode}}</text>
+        <text class="description">情绪值</text>
+      </view>
+      <view class="edit" bindtap='changeMode'>更改</view> 
     </view>
   </view>
   <view class="like" bindtap="like">
     <image src="../Images/like.png" class="image" wx:if="{{!note.is_liked}}" />
     <image src="../Images/liked.png" class="image" wx:if="{{note.is_liked}}" />
   </view>
+</view>
+
+<view class="more" bindtap='showAction'>
+  <image src="{{note.images ? more.white : more.black}}" class="image" />
 </view>
 
 <wxs module="detail" src="./detail.wxs"></wxs>

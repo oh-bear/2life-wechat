@@ -9,7 +9,12 @@ Page({
     indicatorColor: 'rgba(255, 255, 255, 0.5)',
     indicatorActiveColor: 'rgba(255, 255, 255, 1)',
     current: 0,
-    note: {}
+    note: {},
+    more: {
+      black: '../Images/more-black.png',
+      white: '../Images/more-white.png'
+    },
+    change: false
   },
 
   /**
@@ -45,6 +50,50 @@ Page({
         console.log(err)
       }
     })
+  },
+  showAction: function () {
+    let _this = this
+    wx.showActionSheet({
+      itemList: ['修改日记', '删除日记'],
+      success: function (res) {
+        console.log(res.tapIndex)
+        if (res.tapIndex === 0) {
+          _this.edit()
+        } else if (res.tapIndex === 1) {
+          _this.del()
+        }
+      }
+    })
+  },
+  edit: function () {
+    let note = this.data.note
+    if (typeof(note.images) === 'string') {
+      note.images = note.images.split(',')
+    }
+    getApp().data.savedNote = note
+    wx.redirectTo({
+      url: '../Add/Add'
+    })
+  },
+  del: function () {
+    let data = getApp().data.key
+    data.note_id = this.data.note.id
+    wx.request({
+      url: getApp().data.domain + 'notes/delete',
+      method: 'GET',
+      data: data,
+      complete: function () {
+        wx.navigateBack()
+      }
+    })
+  },
+  changMode: function () {
+    if (!this.data.change) {
+      this.setData({
+        change: true
+      })
+      return
+    }
   },
 
   /**

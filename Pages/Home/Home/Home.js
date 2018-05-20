@@ -115,7 +115,11 @@ Page({
 
   publishNote: function () {
     let note = getApp().data.savedNote || {}
-    if (!note.title || !note.content) return
+    if (!note.title || !note.content) {
+      this.getList()
+      return
+    }
+    let _this = this
     let key = getApp().data.key
     let user = getApp().data.user
     wx.request({
@@ -130,12 +134,49 @@ Page({
         images: '',
         latitude: getApp().data.location.latitude || user.latitude,
         longitude: getApp().data.location.longitude || user.longitude,
-        location: getApp().data.location.location
+        location: getApp().data.location.location.join('，') || '地球上的某个角落'
       },
       success: function (res) {
         if (res.data.code === 0) {
           console.log(res.data)
           getApp().savedNote = ''
+          _this.getList()
+        } else {
+          console.log(res.data)
+        }
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+  },
+  updateNote: function () {
+    let note = getApp().data.savedNote
+    if (!note.title || !note.content) {
+      this.getList()
+      return
+    }
+    let _this = this
+    let key = getApp().data.key
+    let data = {
+      uid: key.uid,
+      timestamp: key.timestamp,
+      token: key.token,
+      note_id: note.id,
+      title: note.title,
+      content: note.content,
+      images: note.images.join(),
+      mode: note.mode
+    }
+    wx.request({
+      url: getApp().data.domain + 'notes/update',
+      method: 'POST',
+      data: data,
+      success: function (res) {
+        if (res.data.code === 0) {
+          console.log(res.data)
+          getApp().savedNote = ''
+          _this.getList()
         } else {
           console.log(res.data)
         }
@@ -164,7 +205,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getList()
     this.setData({
       user: getApp().data.user
     })
@@ -197,7 +237,11 @@ Page({
       this.showCalendar()
     }
 
-    this.publishNote()
+    if (getApp().data.savedNote.id) {
+      this.updateNote()
+    } else {
+      this.publishNote()
+    }
   },
 
   /**

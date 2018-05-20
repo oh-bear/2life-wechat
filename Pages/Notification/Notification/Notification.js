@@ -5,7 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    notification: []
+    list: [],
+    icon: {
+      201: '../Images/201.png',
+      202: '../Images/202.png',
+      203: '../Images/203.png'
+    }
   },
 
   /**
@@ -34,7 +39,7 @@ Page({
       success: function (res) {
         if (res.data.code === 0) {
           _this.setData({
-            notification: res.data.data
+            list: res.data.data
           })
         } else {
           console.log(res.data)

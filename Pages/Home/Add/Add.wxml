@@ -1,15 +1,15 @@
 <view class="container">
   <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
-    <block wx:for="{{images}}" wx:key="index" wx:if="{{images.length}}">
+    <block wx:for="{{images}}" wx:key="index">
       <swiper-item>
-        <image src="{{item}}" class="image" />
+        <image src="{{item || '../Images/upload-bg.png'}}" class="image" />
       </swiper-item>
     </block>
-    <block wx:if="{{!images.length}}">
+    <!-- <block wx:if="{{!images.length}}">
       <swiper-item>
         <image src="../Images/upload-bg.png" class="image" bindtap='uploadImg' />
       </swiper-item>
-    </block>
+    </block> -->
     <view class="edit" wx:if="{{images.length && images.length < 3}}">
       <image src="../Images/removePhoto.png" class="image" bindtap="removeImg"/>
       <image src="../Images/addPhoto.png" class="image" bindtap='uploadImg' />
@@ -20,10 +20,10 @@
       <text>{{add.getDate()}}</text>
     </view>
     <view class="title">
-      <input placeholder='标题' data-type="title" bindinput='getInputValue'/>
+      <input placeholder='标题' value="{{title}}" data-type="title" bindinput='getInputValue'/>
     </view>
     <view class="text">
-      <textarea placeholder='请输入正文' data-type="content" bindinput='getInputValue'></textarea>
+      <textarea placeholder='请输入正文' value="{{content}}" data-type="content" bindinput='getInputValue'></textarea>
     </view>
   </view>
 </view>

@@ -11,7 +11,9 @@ Page({
     current: 0,
     images: [],
     title: '',
-    content: ''
+    content: '',
+    id: '',
+    mode: ''
   },
 
   // methods
@@ -55,7 +57,9 @@ Page({
     let note = {
       title: data.title,
       content: data.content,
-      images: data.images
+      images: data.images,
+      id: data.id,
+      mode: data.mode
     }
     getApp().data.savedNote = note
   },
@@ -78,7 +82,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let savedNote = getApp().data.savedNote
+    console.log(savedNote)
+    console.log()
+    this.setData({
+      images: savedNote.images || [],
+      title: savedNote.title,
+      content: savedNote.content,
+      id: savedNote.id,
+      mode: savedNote.mode
+    })
   },
 
   /**

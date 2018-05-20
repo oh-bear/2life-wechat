@@ -52,7 +52,13 @@
   position: relative;
   height: 45rpx;
   line-height: 45rpx;
+  justify-content: space-between;
   font-size: 29rpx;
+}
+
+.content .mood .normal {
+  display: flex;
+  display: -webkit-flex;
 }
 
 .content .mood .image {
@@ -61,17 +67,15 @@
   margin-right: 10rpx;
 }
 
-.content .mood text {
+.content .mood .normal text {
   margin: 0 10rpx;
 }
 
-.content .mood .description {
+.content .mood .normal .description {
   color: #AAAAAA;
 }
 
 .content .mood .edit {
-  position: absolute;
-  right: 0;
   color: #2DC3A6;
 }
 
@@ -84,4 +88,18 @@
 .like .image {
   width: 115rpx;
   height: 115rpx;
+}
+
+.more {
+  position: absolute;
+  top: 43rpx;
+  right: 43rpx;
+  width: 45rpx;
+  height: 8rpx;
+}
+
+.more .image {
+  display: block;
+  width: 45rpx;
+  height: 8rpx;
 }

@@ -6,8 +6,10 @@ App({
     key: {},
     partner: {},
     notes: [],
-    savedNote: '',
-    location: {},
+    savedNote: {},
+    location: {
+      location: []
+    },
     locationKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
     weatherKey: '0d769b31ca454261919def4f08864cf6'
   },
@@ -184,6 +186,28 @@ App({
     })
   },
 
+  getLocation: function (location) {
+    let _this = this
+    wx.request({
+      url: 'http://restapi.amap.com/v3/geocode/regeo',
+      method: 'GET',
+      data: {
+        key: _this.data.locationKey,
+        location: location.longitude + ',' + location.latitude
+      },
+      success: function (res) {
+        if (res.data.status !== '1') return
+        let data = res.data.regeocode.addressComponent
+        _this.data.location = {
+          longitude: location.longitude,
+          latitude: location.latitude,
+          location: [data.city, data.province, data.country]
+        }
+        console.log(_this.data.location)
+      }
+    })
+  },
+
   onLaunch: function () {
     let params = {
       account: '15622386480',
@@ -193,22 +217,12 @@ App({
     this.login(params)
     wx.getLocation({
       success: function(location) {
-        wx.request({
-          url: 'http://restapi.amap.com/v3/geocode/regeo',
-          method: 'GET',
-          data: {
-            key: _this.data.locationKey,
-            location: location.longitude + ',' + location.latitude
-          },
-          success: function (res) {
-            if (res.data.status !== '1') return
-            let data = res.data.regeocde
-            _this.data.location = {
-              longitude: location.longitude,
-              latitude: location.latitude,
-              location: [data.city, data.province, data.country]
-            }
-          }
+        _this.getLocation(location)
+      },
+      fail: function (err) {
+        _this.getLocation({
+          longitude: _this.user.longitude,
+          latitude: _this.user.latitude
         })
       }
     })
