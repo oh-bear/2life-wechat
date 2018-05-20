@@ -1,0 +1,40 @@
+var home = {
+    getDate: function (date) {
+      return getDate(date).toDateString().split(' ')
+    },
+    imagesToArr: function (str) {
+      return str.split(',')
+    },
+    showDate: function (notes, index) {
+      if (index === 0) return true
+      var currentIndex = getDate(notes[index].updated_at).toDateString()
+      var backIndex = getDate(notes[index-1].updated_at).toDateString()
+      if (currentIndex === backIndex) {
+        return false
+      } else {
+        return true
+      }
+    },
+    getTime: function (date) {
+      return getDate(date).getHours() + ':' + getDate(date).getMinutes()
+    },
+    date: function () {
+      return {
+        year: getDate().getFullYear(),
+        month: month[getDate().getMonth()],
+        date: getDate().getDate()
+      }
+    }
+  }
+
+var month = [
+    '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
+  ]
+
+module.exports = {
+  getDate: home.getDate,
+  imagesToArr: home.imagesToArr,
+  showDate: home.showDate,
+  getTime: home.getTime,
+  date: home.date
+}

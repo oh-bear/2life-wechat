@@ -1,0 +1,86 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper {
+  height: 420rpx;
+}
+
+.swiper .image {
+  width: 100%;
+}
+
+.content {
+  padding: 43rpx;
+}
+
+.content .date, .content .location {
+  font-size: 22rpx;
+  color: #AAAAAA;
+}
+
+.content .title {
+  padding: 80rpx 0;
+  font-size: 43rpx;
+  font-weight: bold;
+  color: #444444;
+}
+
+.content .text {
+  line-height: 150%;
+  font-size: 29rpx;
+  color: #333333;
+}
+
+.content .location {
+  display: flex;
+  display: -webkit-flex;
+  margin: 43rpx 0;
+}
+
+.content .location .image {
+  width: 21.6rpx;
+  height: 27rpx;
+  margin-right: 20rpx;
+}
+
+.content .mood {
+  display: flex;
+  display: -webkit-flex;
+  position: relative;
+  height: 45rpx;
+  line-height: 45rpx;
+  font-size: 29rpx;
+}
+
+.content .mood .image {
+  width: 45rpx;
+  height: 45rpx;
+  margin-right: 10rpx;
+}
+
+.content .mood text {
+  margin: 0 10rpx;
+}
+
+.content .mood .description {
+  color: #AAAAAA;
+}
+
+.content .mood .edit {
+  position: absolute;
+  right: 0;
+  color: #2DC3A6;
+}
+
+.like {
+  position: absolute;
+  right: 43rpx;
+  bottom: 43rpx;
+}
+
+.like .image {
+  width: 115rpx;
+  height: 115rpx;
+}

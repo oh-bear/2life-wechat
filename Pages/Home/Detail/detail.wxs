@@ -1,0 +1,13 @@
+var detail = {
+  getDate: function (date) {
+    return getDate(date).toDateString()
+  },
+  imagesToArr: function (str) {
+    return str ? str.split(',') : []
+  },
+}
+
+module.exports = {
+  getDate: detail.getDate,
+  imagesToArr: detail.imagesToArr
+}

@@ -4,12 +4,22 @@ App({
     domain: 'https://2life.api.ursb.me/',
     user: {},
     key: {},
-    partner: {}
+    partner: {},
+    notes: []
   },
 
   lodash: {
     groupBy: require('./utils/lodash.groupby/index.js'),
-    sortBy: require('./utils/lodash.sortby/index.js')
+    orderBy: require('./utils/lodash.orderby/index.js'),
+    find: require('./utils/lodash.find/index.js'),
+    filter: require('./utils/lodash.filter/index.js')
+  },
+
+  getInputValue: function (event) {
+    let type = event.currentTarget.dataset.type
+    let temp = {}
+    temp[type] = event.detail.value
+    return temp
   },
 
   getInputValid: function(event) {
@@ -37,7 +47,7 @@ App({
           if (code === 0) {
             _this.data.key = data.key
             _this.data.user = data.user
-            _this.data.partner = data.data
+            _this.data.partner = data.partner
             resolve({
               key: data.key,
               user: data.user,
@@ -74,7 +84,11 @@ App({
         success: function (res) {
           if (res.data.code === 0) {
             _this.data.user = res.data.data
-            resolve(_this.data.user)
+            _this.data.partner = res.data.partner
+            resolve({
+              user: _this.data.user,
+              partner: _this.data.partner
+            })
           } else {
             console.log(res.data)
             reject('err')
@@ -90,12 +104,9 @@ App({
     })
   },
 
-  getPatchedUser: function (id) {
+  getMatchedUser: function (id) {
     let _this = this
     let data = this.data
-    wx.showLoading({
-      title: '正在获取用户信息...',
-    })
     return new Promise((resolve, reject) => {
       wx.request({
         url: data.domain + 'users/user',
@@ -108,7 +119,9 @@ App({
         },
         success: function (res) {
           if (res.data.code === 0) {
-            resolve(res.data.data)
+            _this.partner = res.data.data.user
+            _this.user = res.data.data.partner
+            resolve(res.data.data.user)
           } else {
             console.log(res.data)
             reject('err')
@@ -169,9 +182,10 @@ App({
 
   onLaunch: function () {
     let params = {
-      account: '15622386480',
+      account: '15677610424',
       password: '123qwe'
     }
+    let _this = this
     this.login(params)
   }
 })

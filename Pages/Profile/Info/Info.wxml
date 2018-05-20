@@ -3,14 +3,14 @@
     <text>个人信息</text>
   </view>
   <view class="info">
-    <view class="avatar">
+    <view class="avatar" bindtap='getAvatar' >
       <view class="title">头像</view>
-      <image src="../Images/profile.png" class="image" />
+      <image src="{{user.face}}" class="image"/>
     </view>
     <view class="nick-name">
       <view class="title">昵称</view>
       <view class="nick">
-        <text>{{nickname}}</text>
+        <input value="{{user.name}}" data-type="name" bindinput='getInputValue' bindblur='updateName' />
       </view>
       <view class="edit">
         <image src="../Images/edit.png" class="image" />
@@ -19,16 +19,16 @@
     <view class="user-id">
       <view class="title">ID</view>
       <view class="id">
-        {{id}}
+        {{user.code}}
       </view>
     </view>
   </view>
-  <view class="badge">
+  <!-- <view class="badg  e">
     <view class="title">
       <text>展示徽章</text>
     </view>
     <view class="content">
       你还没获得任何徽章
     </view>
-  </view>
+  </view> -->
 </view>

@@ -1,3 +1,5 @@
+import initCalendar, { getSelectedDay, jumpToToday } from '../Calendar/index';
+
 // Pages/Home/Home/Home.js
 Page({
 
@@ -5,37 +7,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    month: '二月',
-    year: '2018',
-    day: '21',
+    user: {},
+    notes: [],
     weatherImage: '../Images/sunny.png',
     temperature: '19℃',
     weatherText: '晴',
-    data: [
-      {
-        id: 1,
-        date: '21',
-        day: 'Sat',
-        time: '15:24',
-        location: '燕塘站, 广东省, 中国',
-        title: '第一次和朋友们研究设计 app',
-        description: '这是我的第一篇日记。今天，我吃了一个都城快餐，回来看了十几页书，并且做了必要的笔记…',
-        image: ''
-      },
-      {
-        id: 2,
-        date: '20',
-        day: 'Fir',
-        time: '19:04',
-        location: '花都区, 广东省, 中国',
-        title: '邓国雄是SB',
-        description: '邓国雄是大傻逼',
-        image: '../Images/diary_image.png'
-      }
-    ]
+    animation: {
+      calendar: '',
+      arrow: '',
+      showCalendar: false,
+    },
+    duration: 200
   },
 
   getList: function () {
+    let _this = this
     let key = getApp().data.key
     let lodash = getApp().lodash
     wx.request({
@@ -48,8 +34,15 @@ Page({
       },
       success: function (res) {
         if (res.data.code === 0) {
-          let temp = res.data.data.user.concat(res.data.data.partner)
-          console.log(temp)
+          let arr = res.data.data.user.concat(res.data.data.partner)
+          arr = lodash.orderBy(arr, (val) => {
+            return val.updated_at
+          }, 'desc')
+          _this.setData({
+            notes: arr
+          })
+          getApp().data.notes = arr
+          console.log(_this.data.notes)
         } else {
           console.log(res.data)
         }
@@ -63,10 +56,54 @@ Page({
   /**
    * function
    */
-  goDetail (event) {
-    var id = event.currentTarget.id
+  goDetail: function (event) {
+    var id = event.currentTarget.dataset.id
     wx.navigateTo({
       url: '../Detail/Detail?id=' + id,
+    })
+  },
+
+  showCalendar: function () {
+    let show = this.data.animation.showCalendar
+    this.calendar = wx.createAnimation({
+      duration: this.data.duration
+    })
+    this.arrow = wx.createAnimation({
+      duration: this.data.duration
+    })
+    let height = show ? '630rpx' : '0'
+    let deg = show ? '-180' : '0'
+    this.calendar.height(height).step()
+    this.arrow.rotate(deg).step()
+    this.setData({
+      animation: {
+        calendar: this.calendar.export(),
+        arrow: this.arrow.export(),
+        showCalendar: !show
+      }
+    })
+  },
+
+  getTodayNotes: function () {
+    let date = new Date()
+    let today = {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    }
+    this.getSelectedNotes(today)
+    jumpToToday()
+  },
+
+  getSelectedNotes: function (date) {
+    let notes = getApp().data.notes
+    let filter = getApp().lodash.filter
+    let selectedNotes = filter(notes, (val) => {
+      let getDate = new Date(val.updated_at)
+      return (getDate.getDate() === date.day) && (getDate.getMonth() + 1 === date.month) && (getDate.getFullYear() === date.year)
+    })
+    this.setData({
+      notes: selectedNotes
     })
   },
 
@@ -89,6 +126,37 @@ Page({
    */
   onShow: function () {
     this.getList()
+    this.setData({
+      user: getApp().data.user
+    })
+
+    let _this = this
+    initCalendar({
+      multi: false, // 是否开启多选,
+      disablePastDay: false, // 是否禁选过去日期
+      /**
+       * 选择日期后执行的事件
+       * @param { object } currentSelect 当前点击的日期
+       * @param { array } allSelectedDays 选择的所有日期（当mulit为true时，才有allSelectedDays参数）
+       */
+      afterTapDay: (currentSelect, allSelectedDays) => {
+        console.log(currentSelect)
+        _this.getSelectedNotes(currentSelect)
+      },
+      /**
+       * 日期点击事件（此事件会完全接管点击事件）
+       * @param { object } currentSelect 当前点击的日期
+       * @param { object } event 日期点击事件对象
+       */
+      // onTapDay(currentSelect, event) {
+      //   console.log(currentSelect);
+      //   console.log(event);
+      // },
+    });
+
+    if (!this.data.animation.showCalendar) {
+      this.showCalendar()
+    }
   },
 
   /**

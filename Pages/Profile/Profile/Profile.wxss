@@ -6,7 +6,7 @@
 .title {
   display: flex;
   display: -webkit-flex;
-  height: 200rpx;
+  height: 130rpx;
   align-items: flex-end;
   font-size: 61rpx;
 }

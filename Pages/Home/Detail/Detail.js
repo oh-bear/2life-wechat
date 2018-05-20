@@ -5,21 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgList: [
-      '../../../Images/img1.png',
-      '../../../Images/img2.png',
-      '../../../Images/img3.png'
-    ],
     indicatorDots: true,
     indicatorColor: 'rgba(255, 255, 255, 0.5)',
     indicatorActiveColor: 'rgba(255, 255, 255, 1)',
-    date: '二月 18, 2018',
-    title: '真是幸福的一天啊',
-    content: '真是幸福的一天啊。我一直酣睡到第二天的 10 点才从床上爬起来，吃了一点儿牛奶和燕麦，感觉身体充满了活力。',
-    location: '燕塘站, 广东省, 中国',
-    mood: '88',
-    like: false,
-    current: 0
+    current: 0,
+    note: {}
   },
 
   /**
@@ -31,10 +21,29 @@ Page({
       current: current
     })
   },
-  likeChange () {
-    var current = this.data.like
-    this.setData({
-      like: !current
+  like () {
+    if (this.data.note.is_liked) return
+    let _this = this
+    let data = getApp().data.key
+    let note = this.data.note
+    data.note_id = note.id
+    wx.request({
+      url: getApp().data.domain + 'notes/like',
+      method: 'POST',
+      data: data,
+      success: function (res) {
+        if (res.data.code === 0) {
+          note.is_liked = 1
+          _this.setData({
+            note: note
+          })
+        } else {
+          console.log(res)
+        }
+      },
+      fail: function (err) {
+        console.log(err)
+      }
     })
   },
 
@@ -42,7 +51,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id)
+    let find = getApp().lodash.find
+    let note = find(getApp().data.notes, (val) => {
+      return val.id === Number(options.id)
+    })
+    this.setData({
+      note: note
+    })
+    console.log(note)
   },
 
   /**

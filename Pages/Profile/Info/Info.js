@@ -5,8 +5,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nickname: '邓国雄大傻逼',
-    id: 123456
+    user: {},
+    name: ''
+  },
+
+  // method
+  getInputValue: function (event) {
+    let temp = getApp().getInputValue(event)
+    this.setData(temp)
+    console.log(temp)
+  },
+
+  updateName: function () {
+    if (this.data.name === this.data.user.name) return
+    getApp().updateUser({ name: this.data.name })
+    console.log(this.data.name === this.data.user.name)
+  },
+
+  getAvatar: function () {
+    let _this = this
+    wx.chooseImage({
+      count: 1,
+      success: function(res) {
+        let file = res.file[0]
+        let filename = _this.data.user.id + '_avatar'
+      }
+    })
   },
 
   /**
@@ -27,14 +51,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.setData({
+      user: getApp().data.user,
+      name: getApp().data.user.name
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
   },
 
   /**

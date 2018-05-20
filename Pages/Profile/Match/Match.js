@@ -72,18 +72,33 @@ Page({
     ],
     choose: [1, 1, 1],
     matchClosed: false,
+    matchId: '',
+    cancelAlert: false,
     animation: {
       first: '',
       second: '',
       third: ''
     },
     animationDuration: 1000,
+    msg: {
+      404: '找不到合适的用户哦~请再等等吧！',
+      501: '你的匹配次数已经用光了哦~',
+      502: '你需要先发布一篇日记才能匹配其他人！',
+      503: '你的账户被永久封禁！',
+      504: '你的账户被封禁了！',
+      601: '对方已经有匹配对象了哦',
+      602: '匹配失败，请稍候重试！',
+      604: '用户还没有写过日记，无法匹配哦！'
+    },
+    errMsg: '',
     tipsList: [
       '../Images/popup_tips 1.png',
       '../Images/popup_tips 2.png',
       '../Images/popup_tips 3.png'
     ],
-    currentSwiperItem: 0
+    currentSwiperItem: 0,
+    user: {},
+    partner: {}
   },
 
   // methods
@@ -103,6 +118,12 @@ Page({
     this.setUserStatus()
   },
 
+  getInputValue: function (event) {
+    let temp = getApp().getInputValue(event)
+    this.setData(temp)
+    console.log(this.data.matchId)
+  },
+
   setUserStatus: function () {
     let status
     if (this.data.matchClosed) {
@@ -120,18 +141,38 @@ Page({
     })
   },
 
-  match: function () {
-    if (this.data.status !== 'normal') return
-    let data = this.data
-    if (data.matchMethod === 'random') {
-      if (data.choose.length < 3) return
-      this.randomMatch()
-    } else if (data.method === 'accurate') {
-      
-    }
+  setStatus: function (event) {
+    this.setData({
+      status: event.currentTarget.dataset.goStatus
+    })
   },
 
-  randomMatch: function () {
+  match: function () {
+    if (this.data.status !== 'normal') return
+    this.matchRequest().then(data => {
+      console.log(data)
+      getApp().data.patchUser = data
+      this.setData({
+        status: 'success',
+        partner: data
+      })
+    }, status => {
+      console.log(status)
+      this.setData({
+        status: 'fail',
+        errMsg: this.data.msg[status]
+      })
+    })
+  },
+
+  matchRequest: function () {
+    let data = this.data
+    let key = getApp().data.key
+    if (data.matchMethod === 'random' && data.choose.length < 3) {
+      return
+    } else if (data.matchMethod === 'accurate' && !data.matchId) {
+      return
+    }
     this.setData({
       status: 'matching'
     })
@@ -139,28 +180,89 @@ Page({
       this.resetAnimation()
       this.animation()
     }.bind(this), 50)
-    let key = getApp().data.key
-     return new Promise((resolve, reject) => {
-       wx.request({
-         url: getApp().data.domain + 'users/connect_by_random',
-         method: 'GET',
-         data: key,
-         success: function (res) {
-           if (res.data.code === 0) {
-             resolve(0)
-           } else {
-             reject(res.data.code)
-           }
-         },
-         fail: function (err) {
-           console.log(err)
-           reject(false)
-         },
-         complete: function () {
-           clearInterval(interval)
-         }
-       })
-     })
+    if (data.matchMethod === 'random') {
+      return new Promise((resolve, reject) => {
+        wx.request({
+          url: getApp().data.domain + 'users/connect_by_random',
+          method: 'GET',
+          data: key,
+          success: function (res) {
+            if (res.data.code === 0) {
+              resolve(res.data.data)
+            } else {
+              reject(res.data.code)
+            }
+          },
+          fail: function (err) {
+            console.log(err)
+            reject(false)
+          },
+          complete: function () {
+            clearInterval(interval)
+          }
+        })
+      })
+    } else if (data.matchMethod === 'accurate') {
+      key['code'] = data.matchId
+      return new Promise((resolve, reject) => {
+        wx.request({
+          url: getApp().data.domain + 'users/connect_by_id',
+          method: 'GET',
+          data: key,
+          success: function (res) {
+            if (res.data.code === 0) {
+              resolve(res.data.data)
+            } else {
+              reject(res.data.code)
+            }
+          },
+          fail: function (err) {
+            console.log(err)
+            reject(false)
+          },
+          complete: function () {
+            clearInterval(interval)
+          }
+        })
+      })
+    }
+  },
+
+  cancelMatch: function (event) {
+    if (!this.data.cancelAlert) {
+      this.setData({
+        cancelAlert: true
+      })
+      return
+    }
+    let _this = this
+    let confirm = event.currentTarget.dataset.confirm
+    let temp = {
+      cancelAlert: false
+    }
+    if (confirm === 'confirm') {
+      wx.request({
+        url: getApp().data.domain + 'users/disconnect',
+        method: 'GET',
+        data: getApp().data.key,
+        success: function (res) {
+          console.log(res.data)
+          temp.status = res.data.code === 0 ? 'normal' : _this.data.status
+          getApp().updateUser({ status: 101 })
+          _this.setData({
+            choose: [1, 1, 1]
+          })
+        },
+        fail: function (err) {
+          console.log(err)
+        },
+        complete: function () {
+          _this.setData(temp)
+        }
+      })
+    } else if (confirm === 'cancel') {
+      this.setData(temp)
+    }
   },
   
   animation: function () {
@@ -186,6 +288,7 @@ Page({
       }
     })
   },
+
   resetAnimation: function () {
     // animation
     this.animationFirst = wx.createAnimation({
@@ -229,7 +332,7 @@ Page({
   onShow: function () {
     let user = getApp().data.user
     if (user.status === 999) {
-      let status = 999
+      let status = user.status
       this.setData({
         choose: [999, 1, 1],
         matchClosed: true
@@ -240,11 +343,31 @@ Page({
       this.setData({
         choose: [
           user.status === 999 ? user.status : 1,
-          gender,
-          character
+          gender || 1,
+          character <= 0 ? 1 : character
         ]
       })
+      console.log(this.data.choose)
     }
+
+    let status = ''
+    let errMsg = ''
+    if (user.status < 500 || user.status === 999) {
+      status = 'normal'
+    } else if (user.status === 1000) {
+      status = 'success'
+    } else {
+      status = 'fail'
+      errMsg = this.data.msg[user.status]
+    }
+    this.setData({
+      user: user,
+      partner: getApp().data.partner,
+      status: status,
+      errMsg: errMsg
+    })
+    console.log(getApp().data.partner)
+    console.log(this.partner)
   },
 
   /**

@@ -1,7 +1,7 @@
-<view class="container">
+<view class="container {{cancelAlert ? 'filter' : ''}}">
   <view class="title">
     <text>{{title[status]}}</text>
-    <!-- <text class="cancel">解除匹配</text> -->
+    <text class="cancel" wx:if="{{status === 'success' || status === 'matched'}}" bindtap='cancelMatch'>解除匹配</text> 
   </view>
    <view class="choice" wx:if="{{status === 'normal'}}">
      <view class="type">
@@ -16,7 +16,7 @@
     <!-- ID  -->
     <view class="id" wx:if="{{matchMethod === 'accurate'}}">
       <view>请输入对方的ID</view>
-      <input placeholder="Example: 123456" />
+      <input placeholder="Example: 123456" bindinput='getInputValue' data-type="matchId" />
     </view> 
 
     <!-- random  -->
@@ -47,10 +47,17 @@
 
   <!-- success -->
    <view class="match-success" wx:if="{{status === 'success'}}">
-    <view class="third">
-      <view class="second">
-        <view class="first">
-        </view>
+    <view class="user">
+      <image src="{{user.face}}" class="avatar" />
+      <view class="name">
+        {{user.name}}
+      </view>
+    </view>
+    <image src="../Images/matched.png" class="icon-link" />
+    <view class="matched-user">
+      <image src="{{partner.face}}" class="avatar" />
+      <view class="name">
+        {{partner.name}}
       </view>
     </view>
   </view> 
@@ -59,24 +66,16 @@
    <view class="match-fail" wx:if="{{status === 'fail'}}">
     <image src="../Images/fail.png" class="image" />
     <view class="text">
-      <text>没有找到符合条件的人，或许你可以继续写日记，稍后再来匹配，成功率更高哦</text>
+      <text>{{errMsg}}</text>
     </view>
-  </view> 
+  </view>
 
-  <!-- <view class="name">
-    <view>
-      <text>{{name}}</text>
-    </view>
-    <view class="nick">
-      <text>{{nickname}}</text>
-    </view>
-  </view> -->
   <view class="match-btn" bindtap='match' wx:if="{{status === 'normal'}}">
     开始匹配
   </view>  
-  <!-- <view class="match-btn">
+  <view class="match-btn" data-go-status="normal" bindtap='setStatus' wx:if="{{status === 'fail'}}">
     我明白了
-  </view>  -->
+  </view>  
 </view>
 
 <!-- <view class="mask">
@@ -90,9 +89,9 @@
   <view class="btn" wx:if="{{currentSwiperItem === 2}}">
     <button>我明白了</button>
   </view>
-</view> -->
+</view>  -->
 
-<!-- <view class="mask">
+<view class="mask" wx:if="{{(status === 'success' || status === 'matched') && cancelAlert}}">
   <view class="alert">
     <image src="../Images/heart-break.png" class="image" />
     <view class="title">注意</view>
@@ -100,8 +99,8 @@
       你与对方的互动信息将永远消失，并且再也匹配不到对方!
     </view>
     <view class="btn">
-      <view class="sel">再考虑</view>
-      <view>狠心解除</view>
+      <view class="sel" data-confirm="cancel" bindtap='cancelMatch'>再考虑</view>
+      <view data-confirm="confirm" bindtap='cancelMatch'>狠心解除</view>
     </view>
   </view>
-</view> -->
+</view> 

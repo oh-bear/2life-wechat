@@ -1,3 +1,5 @@
+@import '../Calendar/index.wxss';
+
 .container {
   width: 100%;
   height: 100%;
@@ -17,6 +19,7 @@
   display: -webkit-flex;
   margin-left: 20%;
   font-size: 61rpx;
+  align-items: center;
 }
 
 .date .month {
@@ -25,6 +28,18 @@
 
 .date .year {
   color: #AAAAAA;
+}
+
+.date .arrow {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 0 20rpx;
+}
+
+.date .arrow image {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .header .day {
@@ -87,6 +102,10 @@
   height: 40rpx;
 }
 
+.calendar {
+  overflow: hidden;
+}
+
 .list {
   margin: 0 43rpx;
 }
@@ -126,6 +145,10 @@
   color: #444444;
 }
 
+.content .diary .partner {
+  color: #7cbeff;
+}
+
 .content .diary .description {
   height: 60rpx;
   margin-top: 15rpx;
@@ -160,7 +183,7 @@
 }
 
 .add {
-  position: absolute;
+  position: fixed;
   right: 36rpx;
   bottom: 36rpx;
 }
@@ -169,4 +192,12 @@
   display: block;
   width: 115rpx;
   height: 115rpx;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
 }

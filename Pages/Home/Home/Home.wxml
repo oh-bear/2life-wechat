@@ -1,18 +1,24 @@
 <view class="container">
   <view class="header">
-    <view class="date">
+    <view class="date" bindtap='showCalendar'>
       <view class="month">
-        <text>{{month}}</text>
+        <text>{{home.date().month}}</text>
       </view>
       <view class="year">
-        <text>{{year}}</text>
+        <text>{{home.date().year}}</text>
+      </view>
+      <view class="arrow" animation="{{animation.arrow}}">
+        <image src="../Images/arrow.png" />
       </view>
     </view>
-    <view class="day">
+    <view class="day" bindtap='getTodayNotes'>
       <image src="../Images/day.png" class="image">
-        <text class="number">{{day}}</text>
+        <text class="number">{{home.date().date}}</text>
       </image>
     </view>
+  </view>
+  <view class="calendar" animation="{{animation.calendar}}"> 
+    <template is="calendar" data="{{...calendar}}" />
   </view>
   <view class="weather">
     <view class="icon">
@@ -27,26 +33,26 @@
     </view>
   </view>
   <view class="list">
-    <view class="li" id="{{item.id}}" wx:for="{{data}}" wx:key="index" bindtap="goDetail">
-      <view class="date">
-        <text>{{item.date}}</text>
-        <text>{{item.day}}</text>
+     <view class="li" data-id="{{item.id}}" wx:for="{{notes}}" wx:key="index" bindtap="goDetail">
+      <view class="date {{home.showDate(notes, index) ? 'show': 'hide'}}">
+        <text>{{home.getDate(item.updated_at)[2]}}</text>
+        <text>{{home.getDate(item.updated_at)[0]}}</text>
       </view>
       <view class="content">
         <view class="diary">
           <view>
-            <view class="title">
+            <view class="title {{item.user_id === user.id ? '' : 'partner'}}">
               <text>{{item.title}}</text>
             </view>
             <view class="description">
-              <text>{{item.description}}</text>
+               <text>{{item.content}}</text> 
             </view>
           </view>
-          <image src="{{item.image}}" wx:if="{{item.image}}" class="image" />
+          <image src="{{home.imagesToArr(item.images)[0]}}" wx:if="{{item.images}}" class="image" wx:if="{{item.images}}" />
         </view>
         <view class="info">
           <view class="time">
-            <text>{{item.time}}</text>
+            <text>{{home.getTime(item.updated_at)}}</text>
           </view>
           <view class="location">
             <image src="../Images/location.png" class="image" />
@@ -54,9 +60,12 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> 
   </view>
   <view class="add">
     <image src="../Images/add.png" class="image" />
   </view>
 </view>
+
+<wxs module="home" src="./Home.wxs"></wxs>
+<import src="../Calendar/index.wxml" />

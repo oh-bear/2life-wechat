@@ -3,7 +3,7 @@
     <text>关于我</text>
   </view>
   <view class="profile">
-    <view class="info">
+    <view class="info" bindtap='goInfo'>
       <view class="intro">
         <view class="name">
           <text>{{user.name}}</text>
@@ -29,30 +29,30 @@
       </view>
     </view>
   </view>
-   <view class="profile">
+   <view class="profile" wx:if="{{user.user_other_id !== -1}}">
     <view class="info matched">
       <view class="intro">
         <view class="name">
-          <text>{{patchedUser.name}}</text>
+          <text>{{partner.name}}</text>
         </view>
         <view class="edit">
-          <image class="image" src="{{patchedUser.face}}" />
+          <image class="image" src="../Images/matched.png" />
           <text>你的匹配对象</text>
         </view>
       </view>
-      <image src="{{image}}" class="avatar">
-        <image src="{{female}}" class="gender" />
+      <image src="{{partner.face}}" class="avatar">
+        <image src="{{partner.sex ? female : male}}" class="gender" />
       </image>
     </view>
     <view class="msg">
       <view class="item">
-        <image src="{{icon[patchedUser.sex].book}}" class="image" />
-        <text>{{patchedUser.mode}}</text>
+        <image src="{{icon[partner.sex].book}}" class="image" />
+        <text class="count">{{partner.mode}}</text>
         <text>平均情绪值</text>
       </view>
       <view class="item">
-        <image src="{{icon[patchedUser.sex].book}}" class="image" />
-        <text>{{patchedUser.notes_total}}</text>
+        <image src="{{icon[partner.sex].book}}" class="image" />
+        <text class="count">{{partner.total_notes}}</text>
         <text>日记数量</text>
       </view>
     </view>

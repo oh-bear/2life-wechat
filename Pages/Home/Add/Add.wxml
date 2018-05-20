@@ -1,5 +1,5 @@
 <view class="container">
-  <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange" wx:if="{{note.images}}">
+  <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
     <block wx:for="{{detail.imagesToArr(note.images)}}" wx:key="index">
       <swiper-item>
         <image src="{{item}}" class="image"/>
@@ -27,10 +27,5 @@
       <!-- <text class="edit">更改</text> -->
     </view>
   </view>
-  <view class="like" bindtap="like">
-    <image src="../Images/like.png" class="image" wx:if="{{!note.is_liked}}" />
-    <image src="../Images/liked.png" class="image" wx:if="{{note.is_liked}}" />
-  </view>
 </view>
 
-<wxs module="detail" src="./detail.wxs"></wxs>

@@ -139,43 +139,34 @@
 }
 
 .container .match-success {
-  margin: 43rpx 0;
-}
-
-.container .match-success .third {
-  width: 396rpx;
-  height: 396rpx;
-  border: 1px solid rgba(45, 195, 166, 0.08);
-  border-radius: 50%;
-}
-
-.container .match-success .second {
-  width: 292rpx;
-  height: 292rpx;
-  border: 1px solid rgba(45, 195, 166, 0.15);
-  border-radius: 50%;
-}
-
-.container .match-success .first {
   display: flex;
   display: -webkit-flex;
-  width: 232rpx;
-  height: 232rpx;
-  border: 1px solid rgba(45, 195, 166, 0.3);
-  border-radius: 50%;
+  height: 60%;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.container .match-success .image {
+.container .match-success .icon-link {
+  width: 70rpx;
+  height: 35rpx;
+  padding-bottom: 80rpx;
+}
+
+.match-success .user, .match-success .matched-user {
+  width: 45%;
+}
+
+.container .match-success .avatar {
+  display: block;
   width: 158rpx;
   height: 158rpx;
+  margin: 0 auto;
   border-radius: 50%;
 }
 
-.matching, .match-success, .first, .second, .third {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: center;
-  align-items: center; 
+.container .match-success .name {
+  text-align: center;
 }
 
 .container .match-fail .image {
@@ -184,6 +175,7 @@
 
 .container .match-fail .text {
   margin: 29rpx 43rpx;
+  text-align: center;
   font-size: 29rpx;
   color: #444444;
 }
