@@ -182,7 +182,7 @@ App({
 
   onLaunch: function () {
     let params = {
-      account: '15677610424',
+      account: '15622386480',
       password: '123qwe'
     }
     let _this = this

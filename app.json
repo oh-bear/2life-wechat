@@ -52,6 +52,7 @@
     ]
   },
   "pages": [
+    "Pages/Notification/Notification/Notification",
     "Pages/Home/Home/Home",
     "Pages/Home/Add/Add",
     "Pages/Profile/Profile/Profile",
@@ -66,8 +67,7 @@
     "Pages/Profile/Sync/Sync",
     "Pages/Profile/Badge/Badge",
     "Pages/Profile/Mood/Mood",
-    "Pages/Home/Detail/Detail",
-    "Pages/Notification/Notification/Notification"
+    "Pages/Home/Detail/Detail"
   ],
   "debug": true
 }

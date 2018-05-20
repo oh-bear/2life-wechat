@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    notification: []
   },
 
   /**
@@ -26,7 +26,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let _this = this
+    wx.request({
+      url: getApp().data.domain + 'users/show_notification',
+      method: 'GET',
+      data: getApp().data.key,
+      success: function (res) {
+        if (res.data.code === 0) {
+          _this.setData({
+            notification: res.data.data
+          })
+        } else {
+          console.log(res.data)
+        }
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
   },
 
   /**
