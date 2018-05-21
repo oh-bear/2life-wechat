@@ -8,16 +8,19 @@ Page({
    */
   data: {
     user: {},
+    partner: {},
     notes: [],
     weatherImage: '../Images/sunny.png',
-    temperature: '19℃',
-    weatherText: '晴',
     animation: {
       calendar: '',
       arrow: '',
       showCalendar: false,
     },
-    duration: 200
+    duration: 200,
+    userWeather: {},
+    partnerWeather: {},
+    change: false,
+    changeAnimation: ''
   },
 
   getList: function () {
@@ -122,6 +125,9 @@ Page({
     let _this = this
     let key = getApp().data.key
     let user = getApp().data.user
+    if (typeof (note.images) === 'object') {
+      note.images = note.images.join()
+    }
     wx.request({
       url: getApp().data.domain + 'notes/publish',
       method: 'POST',
@@ -131,7 +137,7 @@ Page({
         token: key.token,
         title: note.title,
         content: note.content,
-        images: '',
+        images: note.images,
         latitude: getApp().data.location.latitude || user.latitude,
         longitude: getApp().data.location.longitude || user.longitude,
         location: getApp().data.location.location.join('，') || '地球上的某个角落'
@@ -139,7 +145,7 @@ Page({
       success: function (res) {
         if (res.data.code === 0) {
           console.log(res.data)
-          getApp().savedNote = ''
+          getApp().data.savedNote = ''
           _this.getList()
         } else {
           console.log(res.data)
@@ -158,6 +164,9 @@ Page({
     }
     let _this = this
     let key = getApp().data.key
+    if (typeof(note.images) === 'object') {
+      note.images = note.images.join()
+    }
     let data = {
       uid: key.uid,
       timestamp: key.timestamp,
@@ -165,7 +174,7 @@ Page({
       note_id: note.id,
       title: note.title,
       content: note.content,
-      images: note.images.join(),
+      images: note.images,
       mode: note.mode
     }
     wx.request({
@@ -175,7 +184,7 @@ Page({
       success: function (res) {
         if (res.data.code === 0) {
           console.log(res.data)
-          getApp().savedNote = ''
+          getApp().data.savedNote = ''
           _this.getList()
         } else {
           console.log(res.data)
@@ -185,6 +194,41 @@ Page({
         console.log(err)
       }
     })
+  },
+
+  getWeather: function (n) {
+    let _this = this
+    let weather = getApp().data.weather
+    console.log(weather)
+    if (weather.userWeather || weather.partnerWeather) {
+      this.setData({
+        userWeather: weather.userWeather || {},
+        partnerWeather: weather.partnerWeather || {}
+      })
+    } else {
+      if (n > 60) return
+      n = n + 2
+      setTimeout(function () {
+        _this.getWeather(n)
+      }, 2000)
+    }
+  },
+  changeWeather: function () {
+    if (!this.data.partner.id) return
+    let change = this.data.change
+    this.changeAnimation = wx.createAnimation({
+      duration: 200
+    })
+    let deg = change ? 0 : 180
+    this.changeAnimation.rotate(deg).step()
+    this.setData({
+      changeAnimation: this.changeAnimation.export()
+    })
+    setTimeout(function () {
+      this.setData({
+        change: !change
+      })
+    }.bind(this), 200)
   },
 
   /**
@@ -206,7 +250,8 @@ Page({
    */
   onShow: function () {
     this.setData({
-      user: getApp().data.user
+      user: getApp().data.user,
+      partner: getApp().data.partner
     })
 
     let _this = this
@@ -242,6 +287,8 @@ Page({
     } else {
       this.publishNote()
     }
+
+    this.getWeather(0)
   },
 
   /**

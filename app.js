@@ -11,7 +11,8 @@ App({
       location: []
     },
     locationKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
-    weatherKey: '0d769b31ca454261919def4f08864cf6'
+    weatherKey: '0d769b31ca454261919def4f08864cf6',
+    weather: {}
   },
 
   lodash: {
@@ -208,22 +209,65 @@ App({
     })
   },
 
+  getWeather: function (location, name) {
+    let value = wx.getStorageSync(name)
+    let getTime = new Date().toDateString()
+    if (value && value.getTime === getTime) {
+      this.data.weather[name] = value
+      console.log(value)
+      return
+    }
+    let _this = this
+    wx.request({
+      url: 'https://ali-weather.showapi.com/gps-to-weather',
+      header: {
+        Authorization: 'APPCODE ' + this.data.weatherKey
+      },
+      method: 'GET',
+      data: {
+        from: 1,
+        lat: location.latitude, 
+        lng: location.longitude
+      },
+      success: function (res) {
+        let data = res.data.showapi_res_body.f1
+        if (!data) return
+        data.getTime = getTime
+        console.log(data)
+        wx.setStorageSync(name, data)
+        _this.data.weather[name] = data
+      },
+      fail: function (err) {
+        console.log(err)
+      }
+    })
+  },
+
   onLaunch: function () {
     let params = {
-      account: '15622386480',
+      account: '15677610424',
       password: '123qwe'
     }
     let _this = this
-    this.login(params)
+    this.login(params).then(res => {
+      if (!res.partner.id) return
+      _this.getWeather({
+        longitude: res.partner.longitude,
+        latitude: res.partner.latitude
+      }, 'partnerWeather')
+    })
     wx.getLocation({
       success: function(location) {
         _this.getLocation(location)
+        _this.getWeather(location, 'userWeather')
       },
       fail: function (err) {
-        _this.getLocation({
+        let location = {
           longitude: _this.user.longitude,
           latitude: _this.user.latitude
-        })
+        }
+        _this.getLocation(location)
+        _this.getWeather(location, 'userWeather')
       }
     })
   }

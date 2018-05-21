@@ -21,12 +21,19 @@
       <text>{{note.location}}</text>
     </view>
     <view class="mood">
-      <view class="normal">
-        <image src="../Images/happy.png" class="image" />
+      <view class="normal" wx:if="{{!change}}">
+        <image src="{{mode[note.mode]}}" class="image" />
         <text>{{note.mode}}</text>
         <text class="description">情绪值</text>
+      </view> 
+      <view class="change" wx:if="{{change}}">
+        <image src="../Images/verySad.png" class="image" data-mode="0" bindtap='changeMode' />
+        <image src="../Images/sad.png" class="image" data-mode="25" bindtap='changeMode' />
+        <image src="../Images/normal.png" class="image" data-mode="50" bindtap='changeMode' />
+        <image src="../Images/happy.png" class="image" data-mode="75" bindtap='changeMode' />
+        <image src="../Images/veryHappy.png" class="image" data-mode="100" bindtap='changeMode' />
       </view>
-      <view class="edit" bindtap='changeMode'>更改</view> 
+      <view class="edit" bindtap='change'>更改</view> 
     </view>
   </view>
   <view class="like" bindtap="like">

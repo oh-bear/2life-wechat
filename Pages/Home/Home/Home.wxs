@@ -24,6 +24,22 @@ var home = {
         month: month[getDate().getMonth()],
         date: getDate().getDate()
       }
+    },
+    DayOrNight: function () {
+      var hour = getDate().getHours()
+      return hour > 6 && hour < 18
+    },
+    weather: function (code) {
+      var weather = parseInt(code)
+      if (weather > 0 && weather < 3) {
+        return '../Images/cloud.png'
+      } else if (weather > 2 && weather < 13) {
+        return '../Images/rainy.png'
+      } else if (weather > 12 && weather < 18) {
+        return '../Images/snow.png'
+      } else {
+        return '../Images/sunny.png'
+      }
     }
   }
 
@@ -36,5 +52,7 @@ module.exports = {
   imagesToArr: home.imagesToArr,
   showDate: home.showDate,
   getTime: home.getTime,
-  date: home.date
+  date: home.date,
+  DayOrNight: home.DayOrNight,
+  weather: home.weather
 }

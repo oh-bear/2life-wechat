@@ -32,6 +32,10 @@
   margin: 35rpx 0;
 }
 
+.notification .item .big {
+  height: 66rpx;
+}
+
 .notification .item .content {
   width: 550rpx;
   padding: 29rpx 29rpx 29rpx 0;

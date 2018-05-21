@@ -7,6 +7,7 @@ Page({
   data: {
     list: [],
     icon: {
+      101: '../Images/101.png',
       201: '../Images/201.png',
       202: '../Images/202.png',
       203: '../Images/203.png'

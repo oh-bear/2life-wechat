@@ -5,11 +5,11 @@
         <image src="{{item || '../Images/upload-bg.png'}}" class="image" />
       </swiper-item>
     </block>
-    <!-- <block wx:if="{{!images.length}}">
+     <block wx:if="{{!images.length}}">
       <swiper-item>
         <image src="../Images/upload-bg.png" class="image" bindtap='uploadImg' />
       </swiper-item>
-    </block> -->
+    </block> 
     <view class="edit" wx:if="{{images.length && images.length < 3}}">
       <image src="../Images/removePhoto.png" class="image" bindtap="removeImg"/>
       <image src="../Images/addPhoto.png" class="image" bindtap='uploadImg' />

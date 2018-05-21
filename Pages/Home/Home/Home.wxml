@@ -22,14 +22,27 @@
   </view> 
   <view class="weather">
     <view class="icon">
-      <image src="{{weatherImage}}" class="image" />
+      <image src="{{home.weather(home.DayOrNight ? userWeather.day_weather_code : userWeather.night_weather_code)}}" class="image" />
     </view>
-    <view class="temperature">
-      <view>
-        <text>{{temperature}}</text>
-        <text>{{weatherText}}</text>
+    <view class="temperature" wx:if="{{!change}}">
+      <view wx:if="{{userWeather.day_air_temperature}}">
+        <text>{{home.DayOrNight() ? userWeather.day_air_temperature : userWeather.night_air_temperature}}℃</text>
+        <text>{{home.DayOrNight() ? userWeather.day_weather : userWeather.night_weather}}</text>
       </view>
-      <image src="../Images/exchange.png" class="image" />
+      <view wx:if="{{!userWeather.day_air_temperature}}">
+        <text>你在的地方一定是晴天吧</text>
+      </view>
+      <image src="../Images/exchange.png" class="image" bindtap='changeWeather' animation="{{changeAnimation}}"/>
+    </view>
+    <view class="temperature" wx:if="{{change}}">
+      <view wx:if="{{partnerWeather.day_air_temperature}}">
+        <text>{{home.DayOrNight() ? partnerWeather.day_air_temperature : partnerWeather.night_air_temperature}}℃</text>
+        <text>{{home.DayOrNight() ? partnerWeather.day_weather : partnerWeather.night_weather}}</text>
+      </view>
+      <view wx:if="{{!partnerWeather.day_air_temperature}}">
+        <text>ta在的地方一定是晴天吧</text>
+      </view>
+      <image src="{{partner.sex ? '../Images/exchange_female.png' : '../Images/exchange_male.png'}}" class="image" bindtap='changeWeather' animation="{{changeAnimation}}"/>
     </view>
   </view>
   <view class="list">

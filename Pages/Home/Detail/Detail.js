@@ -14,7 +14,15 @@ Page({
       black: '../Images/more-black.png',
       white: '../Images/more-white.png'
     },
-    change: false
+    change: false,
+    modeAnimation: '',
+    mode: {
+      0: '../Images/verySad.png',
+      25: '../Images/sad.png',
+      50: '../Images/normal.png',
+      75: '../Images/happy.png',
+      100: '../Images/veryHappy.png'
+    }
   },
 
   /**
@@ -53,6 +61,7 @@ Page({
   },
   showAction: function () {
     let _this = this
+    if (this.data.note.user_id !== getApp().data.user.id) return
     wx.showActionSheet({
       itemList: ['修改日记', '删除日记'],
       success: function (res) {
@@ -87,13 +96,41 @@ Page({
       }
     })
   },
-  changMode: function () {
-    if (!this.data.change) {
-      this.setData({
-        change: true
-      })
-      return
-    }
+  change: function () {
+    this.setData({
+      change: !this.data.change
+    })
+    // let change = this.data.change
+    // this.modeAnimation = wx.createAnimation({
+    //   duration: 500
+    // })
+    // let width = change ? '0' : '475rpx'
+    // this.modeAnimation.width(width).step()
+    // this.setData({
+    //   modeAnimation: this.modeAnimation
+    // })
+    // if (!change) {
+    //   this.setData({
+    //     change: !change
+    //   })
+    // } else {
+    //   setTimeout(function () {
+    //     this.setData({
+    //       change: !change
+    //     })
+    //   }.bind(this), 500)
+    // }
+  },
+
+  changeMode: function (event) {
+    let mode = event.currentTarget.dataset.mode
+    let note = this.data.note
+    note.mode = mode
+    this.setData({
+      note: note,
+      change: false
+    })
+    getApp().data.savedNote = note
   },
 
   /**

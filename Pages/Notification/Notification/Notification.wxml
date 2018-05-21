@@ -4,7 +4,7 @@
   </view>
   <view class="notification">
     <view class="item" wx:for="{{list}}" wx:key="{{index}}">
-       <image class="icon" src="{{icon[item.type]}}" /> 
+       <image class="icon {{item.type < 200 ? 'big' : ''}}" src="{{icon[item.type]}}" /> 
       <view class="content">
         <view class="text">
           {{item.title}}
