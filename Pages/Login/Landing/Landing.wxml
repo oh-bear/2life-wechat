@@ -1,5 +1,5 @@
 <view class="container">
-  <image src="../Images/landing_bg.png" class="bg" />
+  <image src="https://airing.ursb.me/2life/res/image/landing_bg.png" class="bg" />
   <view class="logo">
     <view>
       <image src="../Images/logo_white.png" class="image" />

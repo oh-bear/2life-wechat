@@ -15,14 +15,7 @@ Page({
       white: '../Images/more-white.png'
     },
     change: false,
-    modeAnimation: '',
-    mode: {
-      0: '../Images/verySad.png',
-      25: '../Images/sad.png',
-      50: '../Images/normal.png',
-      75: '../Images/happy.png',
-      100: '../Images/veryHappy.png'
-    }
+    modeAnimation: ''
   },
 
   /**

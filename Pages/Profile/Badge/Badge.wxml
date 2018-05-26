@@ -1,5 +1,5 @@
 <view class="container">
-  <image src="../Images/badge-bg.png" class="image">
+  <image src="https://airing.ursb.me/2life/res/image/badge-bg.png" class="image">
     <view class="text">
       <view class="title">
         <text>我的徽章</text>

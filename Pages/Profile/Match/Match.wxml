@@ -39,7 +39,7 @@
     <view class="third" animation="{{animation.third}}">
       <view class="second" animation="{{animation.second}}">
         <view class="first" animation="{{animation.first}}">
-          <image class="image" src="../Images/profile.png" />
+          <image class="image" src="{{user.face}}" />
           </view>
       </view>
     </view>
@@ -64,7 +64,7 @@
 
   <!-- fail  -->
    <view class="match-fail" wx:if="{{status === 'fail'}}">
-    <image src="../Images/fail.png" class="image" />
+    <image src="https://airing.ursb.me/2life/res/image/fail.png" class="image" />
     <view class="text">
       <text>{{errMsg}}</text>
     </view>

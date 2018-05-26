@@ -1,6 +1,6 @@
 <view class="container">
   <view class="bg">
-    <image src="../Images/login_bg.png" class="image" />  
+    <image src="https://airing.ursb.me/2life/res/image/login_bg.png" class="image" />  
     <view class="text">
       <view>{{Hi}}</view>
       <view>{{text}}</view>
@@ -8,11 +8,11 @@
   </view>
 
   <view class="login">
-    <button plain='true' class="wx-login">微信注册并登录</button>
-    <button plain='true' class="phone-login" bindtap="goPhoneLogin">使用手机登录</button>
+    <button plain='true' class="wx-login" open-type='getUserInfo' bindgetuserinfo="getUserInfo">微信登录</button>
+    <!-- <button plain='true' class="phone-login" bindtap="goPhoneLogin">使用手机登录</button> -->
   </view>
 
-  <view class="register" bindtap='goRegister'>
+  <!-- <view class="register" bindtap='goRegister'>
     还没注册?
-  </view>
+  </view> -->
 </view>

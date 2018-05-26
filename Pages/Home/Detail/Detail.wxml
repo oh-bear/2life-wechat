@@ -22,7 +22,7 @@
     </view>
     <view class="mood">
       <view class="normal" wx:if="{{!change}}">
-        <image src="{{mode[note.mode]}}" class="image" />
+        <image src="{{detail.mode(note.mode)}}" class="image" />
         <text>{{note.mode}}</text>
         <text class="description">情绪值</text>
       </view> 

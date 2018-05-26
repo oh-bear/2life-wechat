@@ -92,13 +92,15 @@ Page({
     },
     errMsg: '',
     tipsList: [
-      '../Images/popup_tips 1.png',
-      '../Images/popup_tips 2.png',
-      '../Images/popup_tips 3.png'
+      'https://airing.ursb.me/2life/res/image/popup_tips 1.png',
+      'https://airing.ursb.me/2life/res/image/popup_tips 2.png',
+      'https://airing.ursb.me/2life/res/image/popup_tips 3.png'
     ],
     currentSwiperItem: 0,
     user: {},
-    partner: {}
+    partner: {},
+    animationChanging: true,
+    timeoutId: ''
   },
 
   // methods
@@ -149,20 +151,29 @@ Page({
 
   match: function () {
     if (this.data.status !== 'normal') return
-    this.matchRequest().then(data => {
-      console.log(data)
-      getApp().data.patchUser = data
-      this.setData({
-        status: 'success',
-        partner: data
-      })
-    }, status => {
-      console.log(status)
-      this.setData({
-        status: 'fail',
-        errMsg: this.data.msg[status]
-      })
+    this.animation()
+    this.setData({
+      status: 'matching'
     })
+    setTimeout(function () {
+      this.matchRequest().then(data => {
+        clearTimeout(this.data.timeoutId)
+        console.log(data)
+        getApp().data.patchUser = data
+        this.setData({
+          status: 'success',
+          partner: data
+        })
+      }, status => {
+        console.log('timeout', this.data.timeoutId)
+        clearTimeout(this.data.timeoutId)
+        console.log(status)
+        this.setData({
+          status: 'fail',
+          errMsg: this.data.msg[status]
+        })
+      })
+    }.bind(this), 2000)
   },
 
   matchRequest: function () {
@@ -173,13 +184,6 @@ Page({
     } else if (data.matchMethod === 'accurate' && !data.matchId) {
       return
     }
-    this.setData({
-      status: 'matching'
-    })
-    let interval = setInterval(function () {
-      this.resetAnimation()
-      this.animation()
-    }.bind(this), 50)
     if (data.matchMethod === 'random') {
       return new Promise((resolve, reject) => {
         wx.request({
@@ -198,7 +202,6 @@ Page({
             reject(false)
           },
           complete: function () {
-            clearInterval(interval)
           }
         })
       })
@@ -221,7 +224,6 @@ Page({
             reject(false)
           },
           complete: function () {
-            clearInterval(interval)
           }
         })
       })
@@ -267,7 +269,8 @@ Page({
   
   animation: function () {
     // animation
-    let duration = this.data.animationDuration
+    let changing = this.data.animationChanging
+    let duration = changing ? 50 : this.data.animationDuration
     this.animationFirst = wx.createAnimation({
       duration
     })
@@ -277,38 +280,27 @@ Page({
     this.animationThird = wx.createAnimation({
       duration
     })
-    this.animationFirst.top('108rpx').left('108rpx').right('108rpx').bottom('108rpx').step()
-    this.animationSecond.backgroundColor('rgba(45, 195, 166, 0.4)').step()
-    this.animationThird.top('0rpx').left('0rpx').right('0rpx').bottom('0rpx').backgroundColor('rgba(45, 195, 166, 0.1)').step()
+    let positionFirst = changing ? '0' : '108rpx'
+    let positionThird = changing ? '108rpx' : '0'
+    let colorSecond = changing ? 'rgba(45, 195, 166, 1)' : 'rgba(45, 195, 166, 0.4)'
+    let colorThird = changing ? 'rgba(45, 195, 166, 0.4)' : 'rgba(45, 195, 166, 0.1)'
+    this.animationFirst.top(positionFirst).left(positionFirst).right(positionFirst).bottom(positionFirst).step()
+    this.animationSecond.backgroundColor(colorSecond).step()
+    this.animationThird.top(positionThird).left(positionThird).right(positionThird).bottom(positionThird).backgroundColor(colorThird).step()
     this.setData({
       animation: {
         first: this.animationFirst.export(),
         second: this.animationSecond.export(),
         third: this.animationThird.export()
-      }
+      },
+      animationChanging: !changing
     })
-  },
-
-  resetAnimation: function () {
-    // animation
-    this.animationFirst = wx.createAnimation({
-      duration: 0
-    })
-    this.animationSecond = wx.createAnimation({
-      duration: 0
-    })
-    this.animationThird = wx.createAnimation({
-      duration: 0
-    })
-    this.animationFirst.top('0rpx').left('0rpx').right('0rpx').bottom('0rpx').step()
-    this.animationSecond.backgroundColor('rgba(45, 195, 166, 1)').step()
-    this.animationThird.top('108rpx').left('108rpx').right('108rpx').bottom('108rpx').backgroundColor('rgba(45, 195, 166, 0.4)').step()
+    console.log(duration)
+    let timeoutId = setTimeout(function () {
+      this.animation()
+    }.bind(this), duration)
     this.setData({
-      animation: {
-        first: this.animationFirst.export(),
-        second: this.animationSecond.export(),
-        third: this.animationThird.export()
-      }
+      timeoutId: timeoutId
     })
   },
 

@@ -88,13 +88,9 @@ Page({
   },
 
   getTodayNotes: function () {
-    let date = new Date()
-    let today = {
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate()
-    }
-    this.getSelectedNotes(today)
+    this.setData({
+      notes: getApp().data.notes
+    })
     jumpToToday()
   },
 

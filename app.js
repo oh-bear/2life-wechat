@@ -12,6 +12,11 @@ App({
     },
     locationKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
     weatherKey: '0d769b31ca454261919def4f08864cf6',
+    qiniu: {
+      key: 'diCBIWtSI2mabzsq7hQT8oiSg8RkjOeSk4HxSa-5',
+      secret: 'xc6Oko9Jc4MMKffMPKXSwJIaQxA0z6l-y_Odmm15',
+      name: 'airingursb'
+    },
     weather: {}
   },
 
@@ -20,6 +25,10 @@ App({
     orderBy: require('./utils/lodash.orderby/index.js'),
     find: require('./utils/lodash.find/index.js'),
     filter: require('./utils/lodash.filter/index.js')
+  },
+
+  qiniu: {
+    upload: require('./utils/qiniuUploader.js')
   },
 
   getInputValue: function (event) {
@@ -70,6 +79,62 @@ App({
         },
         complete: function () {
           wx.hideLoading()
+        }
+      })
+    })
+  },
+
+  wxLogin: function (userInfo) {
+    let _this = this
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            wx.request({
+              url: _this.data.domain + 'users/wxp_login',
+              method: 'POST',
+              data: {
+                code: res.code,
+                userInfo: userInfo
+              },
+              success: function (response) {
+                console.log(response)
+                if (response.data.code === 0) {
+                  let data = response.data.data
+                  _this.data.user = data.user
+                  _this.data.partner = data.partner
+                  _this.data.key = data.key
+                  if (data.partner.id) {
+                    _this.getWeather({
+                      longitude: res.partner.longitude,
+                      latitude: res.partner.latitude
+                    }, 'partnerWeather')
+                  }
+                  wx.getLocation({
+                    success: function (location) {
+                      _this.getLocation(location)
+                      _this.getWeather(location, 'userWeather')
+                    },
+                    fail: function (err) {
+                      let location = {
+                        longitude: data.user.longitude,
+                        latitude: data.user.latitude
+                      }
+                      _this.getLocation(location)
+                      _this.getWeather(location, 'userWeather')
+                    }
+                  })
+                  resolve(data)
+                } else {
+                  reject(response.data.code)
+                }
+              },
+              fail: function (err) {
+                console.log(err)
+                reject(false)
+              }
+            })
+          }
         }
       })
     })
@@ -243,31 +308,100 @@ App({
     })
   },
 
-  onLaunch: function () {
-    let params = {
-      account: '15677610424',
-      password: '123qwe'
+  imageUpload: function (imgList) {
+    let token, domain, key
+    domain = this.data.domain
+    key = this.data.key
+    let qiniuUploader = this.qiniu.upload
+
+    let upload = function (token, filename, file) {
+      return new Promise((resolve, reject) => {
+        qiniuUploader.upload(file, (res) => {
+          resolve(res)
+        }, (err) => {
+          console.log(err)
+        }, {
+            region: 'ECN',
+            domain: 'https://airing.ursb.me',
+            key: filename,
+            uptoken: token
+        })
+      })
+      
     }
-    let _this = this
-    this.login(params).then(res => {
-      if (!res.partner.id) return
-      _this.getWeather({
-        longitude: res.partner.longitude,
-        latitude: res.partner.latitude
-      }, 'partnerWeather')
+
+    let getToken = function (filename, file) {
+      key.filename = filename
+      return new Promise((resolve, reject) => {
+        wx.request({
+          url: domain + 'utils/qiniu_token',
+          method: 'GET',
+          data: key,
+          success: function (res) {
+            if (res.data.code === 0) {
+              upload(res.data.data, filename, file).then(data => {
+                resolve(data)
+              })
+            } else {
+              console.log(res.data)
+            }
+          }
+        })
+      })
+    }
+
+    let imgArr = []
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < imgList.length; i++) {
+        let filename = imgList[i].name
+        let file = imgList[i].file
+        getToken(filename, file).then(data => {
+          imgArr.push(data.imageURL)
+          if (imgArr.length === imgList.length) {
+            resolve(imgArr)
+          }
+        })
+      }
     })
-    wx.getLocation({
-      success: function(location) {
-        _this.getLocation(location)
-        _this.getWeather(location, 'userWeather')
+    
+  },
+
+  onLaunch: function () {
+    // let params = {
+    //   account: '15677610424',
+    //   password: '123qwe'
+    // }
+    // let _this = this
+    // this.login(params).then(res => {
+    //   if (!res.partner.id) return
+    //   _this.getWeather({
+    //     longitude: res.partner.longitude,
+    //     latitude: res.partner.latitude
+    //   }, 'partnerWeather')
+    // })
+    // wx.getLocation({
+    //   success: function(location) {
+    //     _this.getLocation(location)
+    //     _this.getWeather(location, 'userWeather')
+    //   },
+    //   fail: function (err) {
+    //     let location = {
+    //       longitude: _this.user.longitude,
+    //       latitude: _this.user.latitude
+    //     }
+    //     _this.getLocation(location)
+    //     _this.getWeather(location, 'userWeather')
+    //   }
+    // })
+    let _this = this
+    wx.getUserInfo({
+      success: function (res) {
+        _this.wxLogin(res.userInfo)
       },
       fail: function (err) {
-        let location = {
-          longitude: _this.user.longitude,
-          latitude: _this.user.latitude
-        }
-        _this.getLocation(location)
-        _this.getWeather(location, 'userWeather')
+        wx.redirectTo({
+          url: './Pages/Login/Login/Login',
+        })
       }
     })
   }

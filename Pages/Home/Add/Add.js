@@ -20,13 +20,27 @@ Page({
   uploadImg: function (event) {
     if (this.data.images.length >= 3) return
     let _this = this
+    let userId = getApp().data.user.id
     wx.chooseImage({
       count: 3,
       success: function(res) {
-        _this.setData({
-          images: _this.data.images.concat(res.tempFilePaths)
+        wx.showLoading({
+          title: '正在上传',
         })
-        console.log(_this.data.images)
+        let imgList = []
+        for(let i = 0; i < res.tempFilePaths.length; i++) {
+          let date = new Date().getTime() + i
+          imgList[i] = {
+            name: '2life/user/' + userId + '/img_' + date + '.png-2life_note.jpg',
+            file: res.tempFilePaths[i]
+          }
+        }
+        getApp().imageUpload(imgList).then(data => {
+          wx.hideLoading()
+          _this.setData({
+            images: data
+          })
+        })
       },
     })
   },

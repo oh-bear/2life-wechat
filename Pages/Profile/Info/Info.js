@@ -6,7 +6,8 @@ Page({
    */
   data: {
     user: {},
-    name: ''
+    name: '',
+    face: ''
   },
 
   // method
@@ -27,8 +28,23 @@ Page({
     wx.chooseImage({
       count: 1,
       success: function(res) {
-        let file = res.file[0]
-        let filename = _this.data.user.id + '_avatar'
+        _this.setData({
+          face: res.tempFilePaths[0]
+        })
+        let date = new Date().getTime()
+        let userId = _this.data.user.id
+        let imgList = [
+          {
+            name: '2life/user/' + userId + '/img_' + date + '.png-2life_face.jpg',
+            file: res.tempFilePaths[0]
+          }
+        ]
+        getApp().imageUpload(imgList).then(data => {
+          console.log(data)
+          getApp().updateUser({
+            face: data[0].imageURL
+          })
+        })
       }
     })
   },
@@ -53,7 +69,8 @@ Page({
   onShow: function () {
     this.setData({
       user: getApp().data.user,
-      name: getApp().data.user.name
+      name: getApp().data.user.name,
+      face: getApp().data.user.face
     })
   },
 

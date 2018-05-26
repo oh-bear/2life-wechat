@@ -1,6 +1,6 @@
 <view class="container">
   <view class="bg">
-    <image src="../Images/register_bg_2.png" class="image" />  
+    <image src="https://airing.ursb.me/2life/res/image/register_bg_2.png" class="image" />  
     <view class="text">
       <view>{{Hi}}</view>
       <view>{{text}}</view>

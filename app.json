@@ -53,12 +53,12 @@
   },
   "pages": [
     "Pages/Home/Home/Home",
+    "Pages/Login/Login/Login",
     "Pages/Home/Add/Add",
     "Pages/Notification/Notification/Notification",
     "Pages/Profile/Profile/Profile",
     "Pages/Profile/Info/Info",
     "Pages/Profile/Match/Match",
-    "Pages/Login/Login/Login",
     "Pages/Login/Phone/Phone",
     "Pages/Login/Landing/Landing",
     "Pages/Login/Register/Register",
