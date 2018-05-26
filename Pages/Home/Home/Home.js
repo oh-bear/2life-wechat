@@ -20,6 +20,7 @@ Page({
     userWeather: {},
     partnerWeather: {},
     change: false,
+    modeChange: false,
     changeAnimation: ''
   },
 
@@ -209,7 +210,7 @@ Page({
       }, 2000)
     }
   },
-  changeWeather: function () {
+  exchange: function () {
     if (!this.data.partner.id) return
     let change = this.data.change
     this.changeAnimation = wx.createAnimation({
@@ -225,6 +226,11 @@ Page({
         change: !change
       })
     }.bind(this), 200)
+  },
+  changeWeather: function () {
+    this.setData({
+      modeChange: !this.data.modeChange
+    })
   },
 
   /**
@@ -245,10 +251,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      user: getApp().data.user,
-      partner: getApp().data.partner
-    })
 
     let _this = this
     initCalendar({
@@ -278,13 +280,35 @@ Page({
       this.showCalendar()
     }
 
-    if (getApp().data.savedNote.id) {
-      this.updateNote()
+    if (getApp().data.user.id) {
+      this.setData({
+        user: getApp().data.user,
+        partner: getApp().data.partner
+      })
+      this.getWeather(0)
     } else {
-      this.publishNote()
+      wx.getUserInfo({
+        success: function (res) {
+          getApp().wxLogin(res.userInfo).then(data => {
+            _this.setData({
+              user: data.user,
+              partner: data.partner
+            })
+            _this.getWeather(0)
+            if (getApp().data.savedNote.id) {
+              _this.updateNote()
+            } else {
+              _this.publishNote()
+            }
+          })
+        },
+        fail: function (err) {
+          wx.redirectTo({
+            url: '../../Login/Login/Login',
+          })
+        }
+      })
     }
-
-    this.getWeather(0)
   },
 
   /**

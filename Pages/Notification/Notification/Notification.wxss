@@ -51,3 +51,17 @@
   font-size: 22rpx;
   color: #AAAAAA;
 }
+
+.container .nomore {
+  display: flex;
+  display: -webkit-flex;
+  height: 70%;
+  align-items: center;
+  font-size: 35rpx;
+  color: #AAAAAA;
+}
+
+.nomore view {
+  width: 100%;
+  text-align: center;
+}

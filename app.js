@@ -393,16 +393,5 @@ App({
     //     _this.getWeather(location, 'userWeather')
     //   }
     // })
-    let _this = this
-    wx.getUserInfo({
-      success: function (res) {
-        _this.wxLogin(res.userInfo)
-      },
-      fail: function (err) {
-        wx.redirectTo({
-          url: './Pages/Login/Login/Login',
-        })
-      }
-    })
   }
 })

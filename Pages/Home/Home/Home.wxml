@@ -20,7 +20,7 @@
    <view class="calendar" animation="{{animation.calendar}}"> 
     <template is="calendar" data="{{...calendar}}" />
   </view> 
-  <view class="weather">
+  <view class="weather" wx:if="{{!modeChange}}" bindtap='changeWeather'>
     <view class="icon">
       <image src="{{home.weather(home.DayOrNight ? userWeather.day_weather_code : userWeather.night_weather_code)}}" class="image" />
     </view>
@@ -32,7 +32,7 @@
       <view wx:if="{{!userWeather.day_air_temperature}}">
         <text>你在的地方一定是晴天吧</text>
       </view>
-      <image src="../Images/exchange.png" class="image" bindtap='changeWeather' animation="{{changeAnimation}}"/>
+      <image src="../Images/exchange.png" class="image" bindtap='exchange' animation="{{changeAnimation}}" wx:if="{{partner.id}}"/>
     </view>
     <view class="temperature" wx:if="{{change}}">
       <view wx:if="{{partnerWeather.day_air_temperature}}">
@@ -42,7 +42,26 @@
       <view wx:if="{{!partnerWeather.day_air_temperature}}">
         <text>ta在的地方一定是晴天吧</text>
       </view>
-      <image src="{{partner.sex ? '../Images/exchange_female.png' : '../Images/exchange_male.png'}}" class="image" bindtap='changeWeather' animation="{{changeAnimation}}"/>
+      <image src="{{partner.sex ? '../Images/exchange_female.png' : '../Images/exchange_male.png'}}" class="image" bindtap='exchange' animation="{{changeAnimation}}"/>
+    </view>
+  </view>
+  <view class="mode" wx:if="{{modeChange}}" bindtap='changeWeather'>
+    <view class="icon">
+      <image src="{{change ? home.getIcon(partner.mode) : home.getIcon(user.mode)}}" class="image" /> 
+    </view>
+    <view class="mode-count" wx:if="{{!change}}">
+      <view>
+        <text>{{user.mode}}</text>
+        <text>情绪值</text>
+      </view>
+      <image src="../Images/exchange.png" class="image" bindtap='changeAnimation' animation="{{changeAnimation}}" wx:if="{{partner.id}}"/>
+    </view>
+    <view class="mode-count" wx:if="{{change}}">
+      <view>
+        <text>{{partner.mode}}</text>
+        <text>情绪值</text>
+      </view>
+      <image src="{{partner.sex ? '../Images/exchange_female.png' : '../Images/exchange_male.png'}}" class="image" bindtap='changeAnimation' animation="{{changeAnimation}}"/>
     </view>
   </view>
   <view class="list">
@@ -54,7 +73,7 @@
       <view class="content">
         <view class="diary">
           <view>
-            <view class="title {{item.user_id === user.id ? '' : 'partner'}}">
+            <view class="title {{home.returnTitle(item.user_id, user.id, partner.sex)}}">
               <text>{{item.title}}</text>
             </view>
             <view class="description">
@@ -74,6 +93,12 @@
         </view>
       </view>
     </view> 
+  </view>
+  <view class="nomore" wx:if="{{notes.length === 0}}">
+    <view>
+      <view>空空如也,</view>
+      <view>来写一篇日记吧~</view>
+    </view>
   </view>
   <view class="add" bindtap='goAdd'>
     <image src="../Images/add.png" class="image" />

@@ -144,6 +144,12 @@ Page({
   },
 
   setStatus: function (event) {
+    if (this.data.user.status === 502) {
+      wx.navigateBack({
+        delta: 1
+      })
+      return
+    }
     this.setData({
       status: event.currentTarget.dataset.goStatus
     })

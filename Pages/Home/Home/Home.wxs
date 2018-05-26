@@ -40,12 +40,40 @@ var home = {
       } else {
         return '../Images/sunny.png'
       }
+    },
+    returnTitlte: function (itemUserId, userId, partnerSex) {
+      if (itemUserId == userId) {
+        return ''
+      } else {
+        return partnerSex ? 'female' : 'male'
+      }
+    },
+    getIcon: function (mode) {
+      if (mode >= 0 && mode < 20) {
+        return modeImg.verySad
+      } else if (mode >= 20 && mode < 40) {
+        return modeImg.sad
+      } else if (mode >= 40 && mode < 60) {
+        return modeImg.normal
+      } else if (mode >= 60 && mode < 80) {
+        return modeImg.happy
+      } else if (mode >= 80 && mode <= 100) {
+        return modeImg.veryHappy
+      }
     }
   }
 
 var month = [
     '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
-  ]
+]
+
+var modeImg = {
+  verySad: '../Images/verySad_grey.png',
+  sad: '../Images/sad_grey.png',
+  normal: '../Images/normal_grey.png',
+  happy: '../Images/happy_grey.png',
+  veryHappy: '../Images/veryHappy_grey.png'
+}
 
 module.exports = {
   getDate: home.getDate,
@@ -54,5 +82,7 @@ module.exports = {
   getTime: home.getTime,
   date: home.date,
   DayOrNight: home.DayOrNight,
-  weather: home.weather
+  weather: home.weather,
+  returnTitle: home.returnTitlte,
+  getIcon: home.getIcon
 }

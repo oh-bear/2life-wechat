@@ -63,7 +63,7 @@
   font-size: 18rpx;
 }
 
-.weather {
+.weather, .mode {
   display: flex;
   display: -webkit-flex;
   width: 100%;
@@ -71,7 +71,7 @@
   align-items: center;
 }
 
-.weather .icon {
+.weather .icon, .mode .icon {
   width: 20%;
 }
 
@@ -82,7 +82,7 @@
   margin: 0 auto;
 }
 
-.weather .temperature {
+.weather .temperature, .mode .mode-count {
   display: flex;
   display: -webkit-flex;
   width: 75%;
@@ -91,13 +91,13 @@
   align-items: center;
 }
 
-.temperature text {
+.temperature text, .mode-count text {
   margin-right: 5rpx;
   font-size: 25rpx;
   color: #AAAAAA;
 }
 
-.temperature .image {
+.temperature .image, .mode-count .image {
   width: 40rpx;
   height: 40rpx;
 }
@@ -145,8 +145,12 @@
   color: #444444;
 }
 
-.content .diary .partner {
+.content .diary .male {
   color: #7cbeff;
+}
+
+.content .diary .female {
+  color: #4590F8;
 }
 
 .content .diary .description {
@@ -180,6 +184,20 @@
   width: 21.6rpx;
   height: 27rpx;
   margin: 0 20rpx;
+}
+
+.container .nomore {
+  display: flex;
+  display: -webkit-flex;
+  height: 70%;
+  align-items: center;
+  font-size: 35rpx;
+  color: #AAAAAA;
+}
+
+.nomore view {
+  width: 100%;
+  text-align: center;
 }
 
 .add {

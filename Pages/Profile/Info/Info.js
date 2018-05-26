@@ -28,9 +28,6 @@ Page({
     wx.chooseImage({
       count: 1,
       success: function(res) {
-        _this.setData({
-          face: res.tempFilePaths[0]
-        })
         let date = new Date().getTime()
         let userId = _this.data.user.id
         let imgList = [
@@ -39,10 +36,17 @@ Page({
             file: res.tempFilePaths[0]
           }
         ]
+        wx.showLoading({
+          title: '正在上传',
+        })
         getApp().imageUpload(imgList).then(data => {
           console.log(data)
           getApp().updateUser({
-            face: data[0].imageURL
+            face: data[0]
+          }).then(status => {
+            _this.setData({
+              face: res.tempFilePaths[0]
+            })
           })
         })
       }
