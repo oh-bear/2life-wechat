@@ -17,7 +17,8 @@ App({
       secret: 'xc6Oko9Jc4MMKffMPKXSwJIaQxA0z6l-y_Odmm15',
       name: 'airingursb'
     },
-    weather: {}
+    weather: {},
+    showMatch: false
   },
 
   lodash: {
@@ -104,6 +105,7 @@ App({
                   _this.data.user = data.user
                   _this.data.partner = data.partner
                   _this.data.key = data.key
+                  _this.data.showMatch = response.data.is_checking
                   if (data.partner.id) {
                     _this.getWeather({
                       longitude: res.partner.longitude,

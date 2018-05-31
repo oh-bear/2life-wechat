@@ -21,7 +21,8 @@ Page({
         book: '../Images/book_female.png',
         smile: '../Images/smile_female.png'
       }
-    ]
+    ],
+    showMatch: false
   },
 
   // method
@@ -61,6 +62,9 @@ Page({
         user: data.user,
         partner: data.partner
       })
+    })
+    this.setData({
+      showMatch: getApp().data.showMatch
     })
   },
 

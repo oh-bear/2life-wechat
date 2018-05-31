@@ -329,28 +329,9 @@ Page({
    */
   onShow: function () {
     let user = getApp().data.user
-    if (user.status === 999) {
-      let status = user.status
-      this.setData({
-        choose: [999, 1, 1],
-        matchClosed: true
-      })
-    } else {
-      let gender = parseInt(user.status / 100)
-      let character = user.status - gender * 100 - user.sex * 10
-      this.setData({
-        choose: [
-          user.status === 999 ? user.status : 1,
-          gender || 1,
-          character <= 0 ? 1 : character
-        ]
-      })
-      console.log(this.data.choose)
-    }
-
     let status = ''
     let errMsg = ''
-    if (user.status < 500 || user.status === 999) {
+    if (user.status < 500 || user.status === 999 || (user.status === 502 && getApp().data.notes.length)) {
       status = 'normal'
     } else if (user.status === 1000) {
       status = 'success'
@@ -364,8 +345,33 @@ Page({
       status: status,
       errMsg: errMsg
     })
-    console.log(getApp().data.partner)
-    console.log(this.partner)
+
+    if (status === 'fail') return
+    if (user.status === 999) {
+      let status = user.status
+      this.setData({
+        choose: [999, 1, 1],
+        matchClosed: true
+      })
+    } else {
+      if (user.status === 502 && getApp().data.notes.length) {
+        this.setData({
+          choose: [1, 1, 1]
+        })
+        this.setUserStatus()
+      } else {
+        let gender = parseInt(user.status / 100)
+        let character = user.status - gender * 100 - user.sex * 10
+        this.setData({
+          choose: [
+            user.status === 999 ? user.status : 1,
+            gender || 1,
+            character <= 0 ? 1 : character
+          ]
+        })
+      }
+      console.log(this.data.choose)
+    }
   },
 
   /**

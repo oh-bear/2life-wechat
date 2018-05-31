@@ -5,7 +5,7 @@
   <view class="info">
     <view class="avatar" bindtap='getAvatar' >
       <view class="title">头像</view>
-      <image src="{{face}}" class="image"/>
+      <image src="{{face}}" class="image" mode="aspectFill"/>
     </view>
     <view class="nick-name">
       <view class="title">昵称</view>

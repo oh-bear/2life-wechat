@@ -54,7 +54,7 @@
         <text>{{user.mode}}</text>
         <text>情绪值</text>
       </view>
-      <image src="../Images/exchange.png" class="image" bindtap='changeAnimation' animation="{{changeAnimation}}" wx:if="{{partner.id}}"/>
+      <image src="../Images/exchange.png" class="image" bindtap='changeAnimation' animation="{{changeAnimation}}" wx:if="{{partner.id}}" mode="aspectFill"/>
     </view>
     <view class="mode-count" wx:if="{{change}}">
       <view>

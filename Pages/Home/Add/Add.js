@@ -21,6 +21,7 @@ Page({
     if (this.data.images.length >= 3) return
     let _this = this
     let userId = getApp().data.user.id
+    let images = this.data.images
     wx.chooseImage({
       count: 3,
       success: function(res) {
@@ -37,8 +38,9 @@ Page({
         }
         getApp().imageUpload(imgList).then(data => {
           wx.hideLoading()
+          images = images.concat(data)
           _this.setData({
-            images: data
+            images: images
           })
         })
       },
@@ -49,6 +51,7 @@ Page({
     let current = this.data.current
     let images = this.data.images
     images.splice(current, 1)
+    console.log(images)
     this.setData({
       images: images
     })
@@ -101,10 +104,10 @@ Page({
     console.log()
     this.setData({
       images: savedNote.images || [],
-      title: savedNote.title,
-      content: savedNote.content,
-      id: savedNote.id,
-      mode: savedNote.mode
+      title: savedNote.title || '',
+      content: savedNote.content || '',
+      id: savedNote.id || '',
+      mode: savedNote.mode || 0
     })
   },
 

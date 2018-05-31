@@ -43,6 +43,7 @@ Page({
           _this.setData({
             note: note
           })
+          console.log(_this.data.note)
         } else {
           console.log(res)
         }

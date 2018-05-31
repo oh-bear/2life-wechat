@@ -2,18 +2,18 @@
   <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
     <block wx:for="{{images}}" wx:key="index">
       <swiper-item>
-        <image src="{{item || '../Images/upload-bg.png'}}" class="image" />
+        <image src="{{item || '../Images/upload-bg.png'}}" class="image" mode="aspectFill"/>
+        <view class="edit" wx:if="{{images.length}}">
+          <image src="../Images/removePhoto.png" class="image" bindtap="removeImg"/>
+          <image src="../Images/addPhoto.png" class="image" bindtap='uploadImg' wx:if="{{images.length < 3}}" />
+        </view>
       </swiper-item>
     </block>
      <block wx:if="{{!images.length}}">
       <swiper-item>
-        <image src="../Images/upload-bg.png" class="image" bindtap='uploadImg' />
+        <image src="../Images/upload-bg.png" class="image" bindtap='uploadImg' mode="aspectFill"/>
       </swiper-item>
     </block> 
-    <view class="edit" wx:if="{{images.length && images.length < 3}}">
-      <image src="../Images/removePhoto.png" class="image" bindtap="removeImg"/>
-      <image src="../Images/addPhoto.png" class="image" bindtap='uploadImg' />
-    </view>
   </swiper>
   <view class="content">
     <view class="date">

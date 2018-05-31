@@ -286,6 +286,11 @@ Page({
         partner: getApp().data.partner
       })
       this.getWeather(0)
+      if (getApp().data.savedNote.id) {
+        _this.updateNote()
+      } else {
+        _this.publishNote()
+      }
     } else {
       wx.getUserInfo({
         success: function (res) {
@@ -295,11 +300,7 @@ Page({
               partner: data.partner
             })
             _this.getWeather(0)
-            if (getApp().data.savedNote.id) {
-              _this.updateNote()
-            } else {
-              _this.publishNote()
-            }
+            _this.getList()
           })
         },
         fail: function (err) {

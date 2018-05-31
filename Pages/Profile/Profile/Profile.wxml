@@ -12,7 +12,7 @@
           <text>查看资料</text>
         </view>
       </view>
-      <image src="{{user.face}}" class="avatar">
+      <image src="{{user.face}}" class="avatar"  mode="aspectFill">
         <image src="{{user.sex === 0 ? male : female}}" class="gender" />
       </image>
     </view>
@@ -58,7 +58,7 @@
     </view>
   </view> 
   <view class="profile">
-    <view class="match" bindtap='goMatch'>
+    <view class="match" bindtap='goMatch' wx:if="{{!showMatch}}">
       <image src="../Images/match.png" class="image" />
       <view class="text">
         <view class="name">匹配</view>
