@@ -23,7 +23,7 @@
       <input placeholder='标题' value="{{title}}" data-type="title" bindinput='getInputValue'/>
     </view>
     <view class="text">
-      <textarea placeholder='请输入正文' value="{{content}}" data-type="content" bindinput='getInputValue'></textarea>
+      <textarea placeholder='请输入正文' value="{{content}}" maxlength='-1' data-type="content" bindinput='getInputValue'></textarea>
     </view>
   </view>
 </view>

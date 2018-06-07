@@ -9,6 +9,7 @@
   height: 130rpx;
   align-items: flex-end;
   font-size: 61rpx;
+  font-weight: bold;
 }
 
 .container .title text {
@@ -33,7 +34,7 @@
 }
 
 .notification .item .big {
-  height: 66rpx;
+  height: 45rpx;
 }
 
 .notification .item .content {

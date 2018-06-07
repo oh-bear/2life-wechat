@@ -15,7 +15,8 @@ Page({
       white: '../Images/more-white.png'
     },
     change: false,
-    modeAnimation: ''
+    modeAnimation: '',
+    user: {}
   },
 
   /**
@@ -53,21 +54,7 @@ Page({
       }
     })
   },
-  showAction: function () {
-    let _this = this
-    if (this.data.note.user_id !== getApp().data.user.id) return
-    wx.showActionSheet({
-      itemList: ['修改日记', '删除日记'],
-      success: function (res) {
-        console.log(res.tapIndex)
-        if (res.tapIndex === 0) {
-          _this.edit()
-        } else if (res.tapIndex === 1) {
-          _this.del()
-        }
-      }
-    })
-  },
+
   edit: function () {
     let note = this.data.note
     if (typeof(note.images) === 'string') {
@@ -90,6 +77,7 @@ Page({
       }
     })
   },
+  
   change: function () {
     this.setData({
       change: !this.data.change
@@ -120,6 +108,7 @@ Page({
     let mode = event.currentTarget.dataset.mode
     let note = this.data.note
     note.mode = mode
+    console.log(note.mode)
     this.setData({
       note: note,
       change: false
@@ -136,7 +125,8 @@ Page({
       return val.id === Number(options.id)
     })
     this.setData({
-      note: note
+      note: note,
+      user: getApp().data.user
     })
     console.log(note)
   },
@@ -152,14 +142,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    wx.setNavigationBarTitle({
+      title: '日记详情',
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    wx.setNavigationBarTitle({
+      title: '写日记',
+    })
   },
 
   /**

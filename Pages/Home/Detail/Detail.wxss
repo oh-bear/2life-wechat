@@ -1,19 +1,24 @@
 .container {
+  position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 90%;
+  padding-bottom: 108rpx;
 }
 
 .swiper {
-  height: 567rpx;
+  height: 576rpx;
 }
 
 .swiper .image {
   width: 755rpx;
-  height: 567rpx;
+  height: 100%;
 }
 
 .content {
-  padding: 43rpx;
+  position: relative;
+  min-height: 50%;
+  margin: 43rpx;
+  padding-bottom: 45rpx;
 }
 
 .content .date, .content .location {
@@ -31,6 +36,9 @@
 .content .text {
   line-height: 150%;
   font-size: 29rpx;
+  font-weight: 300;
+  text-align: justify;
+  word-break: break-all;
   color: #333333;
 }
 
@@ -46,40 +54,44 @@
   margin-right: 20rpx;
 }
 
-.content .mood {
+.container .mood {
   display: flex;
   display: -webkit-flex;
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: 45rpx;
+  bottom: 142rpx;
   line-height: 45rpx;
   justify-content: space-between;
   font-size: 29rpx;
 }
 
-.content .mood .normal, .content .mood .change {
+.container .mood .normal, .container .mood .change {
   display: flex;
   display: -webkit-flex;
+  margin-left: 43rpx;
 }
 
-.content .mood .image {
+.container .mood .image {
   width: 45rpx;
   height: 45rpx;
   margin-right: 10rpx;
 }
 
-.content .mood .change .image {
+.container .mood .change .image {
   margin-right: 50rpx;
 }
 
-.content .mood .normal text {
+.container .mood .normal text {
   margin: 0 10rpx;
 }
 
-.content .mood .normal .description {
+.container .mood .normal .description {
   color: #AAAAAA;
 }
 
-.content .mood .edit {
+.container .mood .edit {
+  margin-right: 43rpx;
   color: #2DC3A6;
 }
 
@@ -106,4 +118,31 @@
   display: block;
   width: 45rpx;
   height: 8rpx;
+}
+
+.edit-btn {
+  position: fixed;
+  display: flex;
+  display: -webkit-flex;
+  bottom: 0;
+  width: 100%;
+  height: 108rpx;
+  line-height: 108rpx;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  color: #AAAAAA;
+}
+
+.edit-btn view {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  font-size: 29rpx;
+}
+
+.edit-btn image {
+  width: 25rpx;
+  height: 25rpx;
+  margin: 0 10rpx;
 }

@@ -271,7 +271,7 @@ App({
           latitude: location.latitude,
           location: [data.city, data.province, data.country]
         }
-        console.log(_this.data.location)
+        console.log('location', _this.data.location)
       }
     })
   },

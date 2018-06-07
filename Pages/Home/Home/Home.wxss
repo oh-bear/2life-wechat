@@ -19,6 +19,7 @@
   display: -webkit-flex;
   margin-left: 20%;
   font-size: 61rpx;
+  font-weight: bold;
   align-items: center;
 }
 
@@ -61,6 +62,7 @@
   right: 0;
   text-align: center;
   font-size: 18rpx;
+  font-weight: bold;
 }
 
 .weather, .mode {
@@ -94,6 +96,7 @@
 .temperature text, .mode-count text {
   margin-right: 5rpx;
   font-size: 25rpx;
+  font-weight: bold;
   color: #AAAAAA;
 }
 
@@ -120,6 +123,7 @@
 .li .date {
   padding-top: 43rpx;
   font-size: 25rpx;
+  font-weight: bold;
   color: #AAAAAA;
 }
 
@@ -138,10 +142,16 @@
   display: flex;
   display: -webkit-flex;
   justify-content: space-between; 
+  word-break: break-all;
+  overflow: hidden;
 }
 
 .content .diary .title {
+  height: 42rpx;
   font-size: 36rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: #444444;
 }
 
@@ -157,7 +167,12 @@
   height: 60rpx;
   margin-top: 15rpx;
   font-size: 22rpx;
+  font-weight: 300;
   overflow: hidden;
+}
+
+.content .diary .max-len {
+  width: 400rpx;
 }
 
 .content .diary .image {
@@ -208,8 +223,8 @@
 
 .add .image {
   display: block;
-  width: 115rpx;
-  height: 115rpx;
+  width: 85rpx;
+  height: 85rpx;
 }
 
 .show {

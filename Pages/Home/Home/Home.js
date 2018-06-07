@@ -53,6 +53,9 @@ Page({
       },
       fail: function (err) {
         console.log(err)
+      },
+      complete: function () {
+        wx.hideLoading()
       }
     })
   },
@@ -99,7 +102,7 @@ Page({
     let notes = getApp().data.notes
     let filter = getApp().lodash.filter
     let selectedNotes = filter(notes, (val) => {
-      let getDate = new Date(val.updated_at)
+      let getDate = new Date(val.created_at)
       return (getDate.getDate() === date.day) && (getDate.getMonth() + 1 === date.month) && (getDate.getFullYear() === date.year)
     })
     this.setData({
@@ -125,6 +128,9 @@ Page({
     if (typeof (note.images) === 'object') {
       note.images = note.images.join()
     }
+    wx.showLoading({
+      title: '正在上传',
+    })
     wx.request({
       url: getApp().data.domain + 'notes/publish',
       method: 'POST',
@@ -145,11 +151,17 @@ Page({
           getApp().data.savedNote = ''
           _this.getList()
         } else {
+          wx.showToast({
+            title: '上传失败',
+          })
           console.log(res.data)
         }
       },
       fail: function (err) {
         console.log(err)
+        wx.showToast({
+          title: '上传失败',
+        })
       }
     })
   },
@@ -172,8 +184,11 @@ Page({
       title: note.title,
       content: note.content,
       images: note.images,
-      mode: note.mode
+      mode: parseInt(note.mode)
     }
+    wx.showLoading({
+      title: '正在上传',
+    })
     wx.request({
       url: getApp().data.domain + 'notes/update',
       method: 'POST',
@@ -184,10 +199,16 @@ Page({
           getApp().data.savedNote = ''
           _this.getList()
         } else {
+          wx.showToast({
+            title: '上传失败',
+          })
           console.log(res.data)
         }
       },
       fail: function (err) {
+        wx.showToast({
+          title: '上传失败',
+        })
         console.log(err)
       }
     })

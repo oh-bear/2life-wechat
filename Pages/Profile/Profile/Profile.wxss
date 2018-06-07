@@ -9,6 +9,7 @@
   height: 130rpx;
   align-items: flex-end;
   font-size: 61rpx;
+  font-weight: bold;
 }
 
 .title text {
@@ -70,7 +71,8 @@
 }
 
 .msg .item .count {
-  width: 60rpx;
+  width: 30rpx;
+  margin-right: 15rpx;
   font-weight: bold;
 }
 
@@ -83,25 +85,25 @@
   color: #AAAAAA;
 }
 
-.profile .match {
+.profile .match, .profile .feedback {
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
 }
 
-.match .image {
+.match .image, .feedback .image {
   width: 45rpx;
   height: 45rpx;
   padding: 43rpx 0;
 }
 
-.match .text {
-  border-top: 1px solid #E4E4E4;
-  border-bottom: 1px solid #E4E4E4;
+.match .text, .feedback .text {
+  border-top: 1px solid rgba(228, 228, 228, 0.5);
+  border-bottom: 1px solid rgba(228, 228, 228, 0.5);
   width: 88%;
 }
 
-.match .text .name {
+.match .text .name, .feedback .text .name {
   height: 122rpx;
   line-height: 122rpx;
   font-size: 36rpx;
@@ -131,7 +133,7 @@
   display: -webkit-flex;
   width: 88%;
   height: 100%;
-  border-bottom: 1px solid #E4E4E4;
+  border-bottom: 1px solid rgba(228, 228, 228, 0.5);
   justify-content: space-between;
   align-items: center;
 }
@@ -147,7 +149,7 @@
 
 .profile .matched {
   padding-top: 43rpx;
-  border-top: 1px solid #E4E4E4;
+  border-top: 1px solid rgba(228, 228, 228, 0.5);
 }
 
 .profile .matched .intro .edit {

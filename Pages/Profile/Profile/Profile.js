@@ -32,6 +32,12 @@ Page({
     })
   },
 
+  goFeedback: function () {
+    wx.navigateTo({
+      url: '../Feedback/Feedback',
+    })
+  },
+
   goInfo: function () {
     wx.navigateTo({
       url: '../Info/Info',

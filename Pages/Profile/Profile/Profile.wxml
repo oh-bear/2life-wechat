@@ -71,5 +71,11 @@
         <view class="time">{{time}}</view>
       </view>
     </view>  -->
+    <view class="feedback" bindtap='goFeedback'>
+      <image src="../Images/feedback.png" class="image" />
+      <view class="text">
+        <view class="name">反馈</view>
+      </view>
+    </view>
   </view>
 </view>

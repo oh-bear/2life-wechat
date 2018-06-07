@@ -19,6 +19,7 @@ Page({
   // methods
   uploadImg: function (event) {
     if (this.data.images.length >= 3) return
+    this.addNote()
     let _this = this
     let userId = getApp().data.user.id
     let images = this.data.images
@@ -109,12 +110,18 @@ Page({
       id: savedNote.id || '',
       mode: savedNote.mode || 0
     })
+    wx.setNavigationBarTitle({
+      title: '写日记',
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    wx.setNavigationBarTitle({
+      title: '双生',
+    })
   },
 
   /**

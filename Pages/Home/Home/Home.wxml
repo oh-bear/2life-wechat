@@ -54,7 +54,7 @@
         <text>{{user.mode}}</text>
         <text>情绪值</text>
       </view>
-      <image src="../Images/exchange.png" class="image" bindtap='changeAnimation' animation="{{changeAnimation}}" wx:if="{{partner.id}}" mode="aspectFill"/>
+      <image src="../Images/exchange.png" class="image" bindtap='changeAnimation' animation="{{changeAnimation}}" wx:if="{{partner.id}}"/>
     </view>
     <view class="mode-count" wx:if="{{change}}">
       <view>
@@ -72,7 +72,7 @@
       </view>
       <view class="content">
         <view class="diary">
-          <view>
+          <view class="{{item.images ? 'max-len' : ''}}">
             <view class="title {{home.returnTitle(item.user_id, user.id, partner.sex)}}">
               <text>{{item.title}}</text>
             </view>
@@ -80,7 +80,7 @@
                <text>{{item.content}}</text> 
             </view>
           </view>
-          <image src="{{home.imagesToArr(item.images)[0]}}" wx:if="{{item.images}}" class="image" wx:if="{{item.images}}" />
+          <image src="{{home.imagesToArr(item.images)[0]}}" wx:if="{{item.images}}" class="image" wx:if="{{item.images}}"  mode="aspectFill"/>
         </view>
         <view class="info">
           <view class="time">

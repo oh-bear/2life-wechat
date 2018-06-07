@@ -1,7 +1,4 @@
 <view class="container">
-  <view class="title">
-    <text>个人信息</text>
-  </view>
   <view class="info">
     <view class="avatar" bindtap='getAvatar' >
       <view class="title">头像</view>

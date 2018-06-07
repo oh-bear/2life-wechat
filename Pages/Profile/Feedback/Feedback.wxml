@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="section">
+    <view class="option {{choose === item.code ? 'sel' : ''}}" wx:for="{{options}}" wx:key="{{index}}" data-code="{{item.code}}" bindtap='getOption'>
+      {{item.title}}
+    </view>
+  </view>
+  <textarea class="content" placeholder="写下你想告诉我们的吧~" value="{{content}}" data-type="content"  bindinput="getInputValue"></textarea>
+  <button class="confirm" bindtap='confirm'>提交反馈</button>
+</view>

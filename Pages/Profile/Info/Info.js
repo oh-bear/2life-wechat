@@ -76,12 +76,18 @@ Page({
       name: getApp().data.user.name,
       face: getApp().data.user.face
     })
+    wx.setNavigationBarTitle({
+      title: '个人信息',
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    wx.setNavigationBarTitle({
+      title: '双生',
+    })
   },
 
   /**
