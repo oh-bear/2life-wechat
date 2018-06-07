@@ -113,6 +113,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '写日记',
     })
+    getApp().data.publish = true
   },
 
   /**

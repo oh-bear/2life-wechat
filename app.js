@@ -18,7 +18,8 @@ App({
       name: 'airingursb'
     },
     weather: {},
-    showMatch: false
+    showMatch: false,
+    publish: true
   },
 
   lodash: {

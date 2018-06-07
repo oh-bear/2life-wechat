@@ -116,9 +116,9 @@ Page({
     })
   },
 
-  publishNote: function () {
+  publishNote: function () { 
     let note = getApp().data.savedNote || {}
-    if (!note.title || !note.content) {
+    if (!note.title || !note.content || !getApp().data.publish) {
       this.getList()
       return
     }
@@ -148,12 +148,13 @@ Page({
       success: function (res) {
         if (res.data.code === 0) {
           console.log(res.data)
-          getApp().data.savedNote = ''
+          getApp().data.savedNote = {}
           _this.getList()
         } else {
           wx.showToast({
             title: '上传失败',
           })
+          getApp().data.publish = false
           console.log(res.data)
         }
       },
@@ -162,6 +163,7 @@ Page({
         wx.showToast({
           title: '上传失败',
         })
+        getApp().data.publish = false
       }
     })
   },
