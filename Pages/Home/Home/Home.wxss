@@ -147,7 +147,7 @@
 }
 
 .content .diary .title {
-  height: 42rpx;
+  height: 60rpx;
   font-size: 36rpx;
   overflow: hidden;
   text-overflow: ellipsis;
