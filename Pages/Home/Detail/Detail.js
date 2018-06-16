@@ -68,12 +68,21 @@ Page({
   del: function () {
     let data = getApp().data.key
     data.note_id = this.data.note.id
-    wx.request({
-      url: getApp().data.domain + 'notes/delete',
-      method: 'GET',
-      data: data,
-      complete: function () {
-        wx.navigateBack()
+    wx.showModal({
+      title: '删除',
+      content: '是否删除该日记？',
+      success (res) {
+        console.log(res)
+        if (res.confirm) {
+          wx.request({
+            url: getApp().data.domain + 'notes/delete',
+            method: 'GET',
+            data: data,
+            complete: function () {
+              wx.navigateBack()
+            }
+          })
+        }
       }
     })
   },
