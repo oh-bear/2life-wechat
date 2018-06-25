@@ -11,7 +11,7 @@ App({
       location: []
     },
     locationKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
-    weatherKey: '0d769b31ca454261919def4f08864cf6',
+    weatherKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
     qiniu: {
       key: 'diCBIWtSI2mabzsq7hQT8oiSg8RkjOeSk4HxSa-5',
       secret: 'xc6Oko9Jc4MMKffMPKXSwJIaQxA0z6l-y_Odmm15',
@@ -19,7 +19,13 @@ App({
     },
     weather: {},
     showMatch: false,
-    publish: true
+    publish: true,
+    shareMenu: {
+      title: '遇见另一半的美好~',
+      path: '/Pages/Home/Home/Home',
+      imageUrl: '/Images/cover.png'
+    },
+    weatherSavedTime: 3600000
   },
 
   lodash: {
@@ -108,23 +114,29 @@ App({
                   _this.data.key = data.key
                   _this.data.showMatch = response.data.is_checking
                   if (data.partner.id) {
-                    _this.getWeather({
+                    _this.getLocation({
                       longitude: res.partner.longitude,
                       latitude: res.partner.latitude
-                    }, 'partnerWeather')
+                    }).then(data => {
+                      _this.getWeather(location, 'partnerWeather')                      
+                    })
                   }
                   wx.getLocation({
                     success: function (location) {
-                      _this.getLocation(location)
-                      _this.getWeather(location, 'userWeather')
+                      _this.getLocation(location).then(data => {
+                        _this.getWeather(data, 'userWeather')
+                        _this.data.location = data
+                      })
                     },
                     fail: function (err) {
                       let location = {
                         longitude: data.user.longitude,
                         latitude: data.user.latitude
                       }
-                      _this.getLocation(location)
-                      _this.getWeather(location, 'userWeather')
+                      _this.getLocation(location).then(data => {
+                        _this.getWeather(data, 'userWeather')
+                        _this.data.location = data
+                      })
                     }
                   })
                   resolve(data)
@@ -257,48 +269,72 @@ App({
 
   getLocation: function (location) {
     let _this = this
-    wx.request({
-      url: 'http://restapi.amap.com/v3/geocode/regeo',
-      method: 'GET',
-      data: {
-        key: _this.data.locationKey,
-        location: location.longitude + ',' + location.latitude
-      },
-      success: function (res) {
-        if (res.data.status !== '1') return
-        let data = res.data.regeocode.addressComponent
-        _this.data.location = {
-          longitude: location.longitude,
-          latitude: location.latitude,
-          location: [data.city, data.province, data.country]
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: 'http://restapi.amap.com/v3/geocode/regeo',
+        method: 'GET',
+        data: {
+          key: _this.data.locationKey,
+          location: location.longitude + ',' + location.latitude
+        },
+        success: function (res) {
+          if (res.data.status !== '1') return
+          let data = res.data.regeocode.addressComponent
+          let local = {
+            longitude: location.longitude,
+            latitude: location.latitude,
+            location: [data.city, data.province, data.country],
+            adcode: parseInt(data.adcode)
+          }
+          console.log('location', local)
+          resolve(local)
         }
-        console.log('location', _this.data.location)
-      }
+      })
     })
   },
 
   getWeather: function (location, name) {
     let value = wx.getStorageSync(name)
-    let getTime = new Date().toDateString()
-    if (value && value.getTime === getTime) {
+    let getTime = new Date().getTime()
+    if (value && getTime - value.getTime <= this.data.weatherSavedTime) {
       this.data.weather[name] = value
       console.log(value)
       return
     }
     let _this = this
+    // wx.request({
+    //   url: 'https://ali-weather.showapi.com/gps-to-weather',
+    //   header: {
+    //     Authorization: 'APPCODE ' + this.data.weatherKey
+    //   },
+    //   method: 'GET',
+    //   data: {
+    //     from: 1,
+    //     lat: location.latitude, 
+    //     lng: location.longitude
+    //   },
+    //   success: function (res) {
+    //     let data = res.data.showapi_res_body.f1
+    //     if (!data) return
+    //     data.getTime = getTime
+    //     console.log(data)
+    //     wx.setStorageSync(name, data)
+    //     _this.data.weather[name] = data
+    //   },
+    //   fail: function (err) {
+    //     console.log(err)
+    //   }
+    // })
     wx.request({
-      url: 'https://ali-weather.showapi.com/gps-to-weather',
-      header: {
-        Authorization: 'APPCODE ' + this.data.weatherKey
-      },
+      url: 'http://restapi.amap.com/v3/weather/weatherInfo',
       method: 'GET',
       data: {
-        from: 1,
-        lat: location.latitude, 
-        lng: location.longitude
+        key: this.data.weatherKey,
+        city: location.adcode
       },
       success: function (res) {
-        let data = res.data.showapi_res_body.f1
+        if (res.data.status != '1') return
+        let data = res.data.lives[0]
         if (!data) return
         data.getTime = getTime
         console.log(data)

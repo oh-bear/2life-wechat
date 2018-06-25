@@ -25,18 +25,18 @@ var home = {
         date: getDate().getDate()
       }
     },
-    DayOrNight: function () {
-      var hour = getDate().getHours()
-      return hour > 6 && hour < 18
-    },
-    weather: function (code) {
-      var weather = parseInt(code)
-      if (weather > 0 && weather < 3) {
+    weather: function (str) {
+      if (typeof str != 'string') return '../Images/sunny.png'
+      if (str.indexOf('晴') > -1) {
+        return '../Images/sunny.png'
+      } else if (str.indexOf('多云') > -1 || str.indexOf('阴') > -1) {
         return '../Images/cloud.png'
-      } else if (weather > 2 && weather < 13) {
+      } else if (str.indexOf('雨') > -1) {
         return '../Images/rainy.png'
-      } else if (weather > 12 && weather < 18) {
+      } else if (str.indexOf('雪') > -1) {
         return '../Images/snow.png'
+      } else if (str.indexOf('雾') > -1 || str.indexOf('尘') > -1 || str.indexOf('沙') > -1 || str.indexOf('霾') > -1) {
+        return '../Images/fly_ash.png'
       } else {
         return '../Images/sunny.png'
       }
