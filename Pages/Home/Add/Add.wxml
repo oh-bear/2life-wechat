@@ -17,10 +17,17 @@
   </swiper>
   <view class="content">
     <view class="date">
-      <text>{{add.getDate()}}</text>
-      <view class="ocr">
+      <text bindtap='changeCalendarShow'>{{add.getDate(date)}}</text>
+      <view class="calendar" bindtap='changeCalendarShow'>
+        <image src="../Images/calendar.png" />
+      </view>
+      <view class="ocr" bindtap='getOcrImage'>
         <image src="../Images/ocr.png" />
       </view>
+    </view>
+    <view class="calendar" wx:if="{{showCalendar}}">
+      <template is="calendar" data="{{...calendar}}" />
+      <!-- <view class="hide">Hide</view> -->
     </view>
     <view class="title">
       <input placeholder='标题' value="{{title}}" data-type="title" bindinput='getInputValue'/>
@@ -32,4 +39,4 @@
 </view>
 
 <wxs module="add" src='./add.wxs' />
-
+<import src="../Calendar/index.wxml" /> 

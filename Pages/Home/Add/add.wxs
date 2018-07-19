@@ -1,6 +1,6 @@
 var add = {
-  getDate: function () {
-    return getDate().toDateString()
+  getDate: function (timestamp) {
+    return getDate(timestamp).toDateString()
   }
 }
 

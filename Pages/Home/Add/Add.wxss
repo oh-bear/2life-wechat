@@ -1,3 +1,5 @@
+@import '../Calendar/index.wxss';
+
 .container {
   width: 100%;
   height: 100%;
@@ -41,6 +43,16 @@
   line-height: 42rpx;
 }
 
+.content .date .calendar {
+  display: inline;
+  margin-left: 16rpx;
+}
+
+.calendar image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
 .content .date .ocr {
   position: absolute;
   top: 0;
@@ -56,6 +68,18 @@
 .content .date, .content .location {
   font-size: 22rpx;
   color: #AAAAAA;
+}
+
+.content .calendar {
+  position: relative;
+}
+
+.content .calendar .hide {
+  position: absolute;
+  top: 25rpx;
+  left: 0;
+  font-size: 25rpx;
+  color: #2DC3A6;
 }
 
 .content .title {

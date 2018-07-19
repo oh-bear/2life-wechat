@@ -106,4 +106,4 @@
 </view>
 
 <wxs module="home" src="./Home.wxs"></wxs>
- <import src="../Calendar/index.wxml" /> 
+<import src="../Calendar/index.wxml" /> 

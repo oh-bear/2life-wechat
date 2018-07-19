@@ -1,6 +1,8 @@
 //app.js
 const Towxml = require('/towxml/main')
 const config = require('/config')
+const hamcsha1 = require('/utils/hmacsha1/index.js')
+const base64 = require('/utils/base64/base64.js').Base64
 
 App({
   data: {
@@ -418,7 +420,36 @@ App({
     
   },
 
+  getOcr (image) {
+    let ocr = config.ocr
+    let now = parseInt(new Date().getTime() / 1000)
+    let rdm = parseInt(Math.random() * Math.pow(2, 32))
+    let plainText = 'a=' + ocr.appid + '&k=' + ocr.secretId + '&e=' + (now + ocr.pexpired) + '&t=' + now + '&r=' + rdm + '&f='
+    console.log('plainText', plainText)
+    let res = hamcsha1(ocr.secretKey, plainText)
+    console.log('res', res)
+    // console.log('sign', sign)
+    // wx.request({
+    //   url: 'https://recognition.image.myqcloud.com/ocr/handwriting',
+    //   method: 'POST',
+    //   header: {
+    //     'content-type': 'application/json',
+    //     'authorization': sign
+    //   },
+    //   data: {
+    //     appid: ocr.appid,
+    //     url: 'https://airing.ursb.me/2life/user/160/img_1527775537202.png-2life_face.jpg'
+    //   },
+    //   success (res) {
+    //     console.log(res)
+    //   },
+    //   fail (err) {
+    //     console.log(err)
+    //   }
+    // })
+  },
+
   onLaunch: function () {
-    
+    this.getOcr(1)
   }
 })
