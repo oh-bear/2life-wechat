@@ -35,6 +35,24 @@
   padding: 43rpx;
 }
 
+.content .date {
+  position: relative;
+  height: 42rpx;
+  line-height: 42rpx;
+}
+
+.content .date .ocr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ocr image {
+  width: 42rpx;
+  height: 42rpx;
+}
+
 .content .date, .content .location {
   font-size: 22rpx;
   color: #AAAAAA;

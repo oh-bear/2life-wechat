@@ -18,6 +18,9 @@
   <view class="content">
     <view class="date">
       <text>{{add.getDate()}}</text>
+      <view class="ocr">
+        <image src="../Images/ocr.png" />
+      </view>
     </view>
     <view class="title">
       <input placeholder='标题' value="{{title}}" data-type="title" bindinput='getInputValue'/>
