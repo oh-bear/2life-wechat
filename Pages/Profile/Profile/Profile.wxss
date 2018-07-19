@@ -1,4 +1,7 @@
+@import '/towxml/style/main.wxss';
+
 .container {
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -18,6 +21,10 @@
 
 .profile {
   padding: 43rpx 43rpx 0 43rpx;
+}
+
+.profile image {
+  margin: 0;
 }
 
 .profile .info {
@@ -85,25 +92,25 @@
   color: #AAAAAA;
 }
 
-.profile .match, .profile .feedback {
+.profile .match, .profile .feedback, .profile .chart {
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
 }
 
-.match .image, .feedback .image {
+.match .image, .feedback .image, .chart .image {
   width: 45rpx;
   height: 45rpx;
   padding: 43rpx 0;
 }
 
-.match .text, .feedback .text {
+.match .text, .feedback .text, .chart .text {
   border-top: 1px solid rgba(228, 228, 228, 0.5);
   border-bottom: 1px solid rgba(228, 228, 228, 0.5);
   width: 88%;
 }
 
-.match .text .name, .feedback .text .name {
+.match .text .name, .feedback .text .name, .chart .text .name {
   height: 122rpx;
   line-height: 122rpx;
   font-size: 36rpx;
@@ -160,4 +167,76 @@
   width: 36rpx;
   height: 18rpx;
   margin-right: 15rpx;
+}
+
+.nld {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tips {
+  margin: 43rpx 30rpx 0 130rpx;
+  line-height: 150%;
+  font-size: 32rpx;
+  color: #AAAAAA;
+}
+
+.login {
+  position: absolute;
+  right: 43rpx;
+  bottom: 72rpx;
+  width: 202rpx;
+  height: 86rpx;
+  text-align: center;
+  line-height: 86rpx;
+  border-radius: 30px;
+  font-size: 36rpx;
+  background: #2DC3A6;
+  color: white;
+}
+
+.filter {
+  -webkit-filter: blur(1px);
+}
+
+.nld .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.56);
+}
+
+.agreement {
+  position: absolute;
+  top: 130rpx;
+  left: 60rpx;
+  right: 60rpx;
+  height: 844rpx;
+  border-radius: 10rpx;
+  background: white;
+  z-index: 999;
+}
+
+.agreement .content {
+  height: 748rpx;
+  overflow-y: scroll;
+}
+
+.agreement .content::-webkit-scrollbar {
+  display: none;
+}
+
+.agreement .agree, .agreement .agree button {
+  height: 96rpx;
+  border: 0;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  text-align: center;
+  line-height: 96rpx;
+  font-size: 36rpx;
+  background: #2DC3A6;
+  color: white;  
 }

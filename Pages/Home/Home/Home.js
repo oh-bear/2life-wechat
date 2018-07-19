@@ -111,9 +111,15 @@ Page({
   },
 
   goAdd: function () {
-    wx.navigateTo({
-      url: '../Add/Add'
-    })
+    if (getApp().data.ld === -1) {
+      wx.switchTab({
+        url: '../../Profile/Profile/Profile',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../Add/Add'
+      })
+    }
   },
 
   publishNote: function () { 
@@ -219,13 +225,13 @@ Page({
   getWeather: function (n) {
     let _this = this
     let weather = getApp().data.weather
-    console.log(weather)
     if (weather.userWeather || weather.partnerWeather) {
       this.setData({
         userWeather: weather.userWeather || {},
         partnerWeather: weather.partnerWeather || {}
       })
     } else {
+      console.log('fail', wx.getStorageSync('userWeather'))
       if (n > 60) return
       n = n + 2
       setTimeout(function () {
@@ -315,22 +321,13 @@ Page({
         _this.publishNote()
       }
     } else {
-      wx.getUserInfo({
-        success: function (res) {
-          getApp().wxLogin(res.userInfo).then(data => {
-            _this.setData({
-              user: data.user,
-              partner: data.partner
-            })
-            _this.getWeather(0)
-            _this.getList()
-          })
-        },
-        fail: function (err) {
-          wx.redirectTo({
-            url: '../../Login/Login/Login',
-          })
-        }
+      getApp().wxLogin().then(data => {
+        _this.setData({
+          user: data.user,
+          partner: data.partner
+        })
+        _this.getWeather(0)
+        _this.getList()
       })
     }
   },

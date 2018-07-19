@@ -17,7 +17,7 @@
       </image>
     </view>
   </view>
-   <view class="calendar" animation="{{animation.calendar}}"> 
+  <view class="calendar" animation="{{animation.calendar}}"> 
     <template is="calendar" data="{{...calendar}}" />
   </view> 
   <view class="weather" wx:if="{{!modeChange}}" bindtap='changeWeather'>

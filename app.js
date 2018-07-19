@@ -1,4 +1,7 @@
 //app.js
+const Towxml = require('/towxml/main')
+const config = require('/config')
+
 App({
   data: {
     domain: 'https://2life.api.ursb.me/',
@@ -10,13 +13,9 @@ App({
     location: {
       location: []
     },
-    locationKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
-    weatherKey: '9d6935d546e2b3ec1ee3b872c1ee9bbe',
-    qiniu: {
-      key: 'diCBIWtSI2mabzsq7hQT8oiSg8RkjOeSk4HxSa-5',
-      secret: 'xc6Oko9Jc4MMKffMPKXSwJIaQxA0z6l-y_Odmm15',
-      name: 'airingursb'
-    },
+    locationKey: config.locationKey,
+    weatherKey: config.weatherKey,
+    qiniu: config.qiniu,
     weather: {},
     showMatch: false,
     publish: true,
@@ -25,15 +24,19 @@ App({
       path: '/Pages/Home/Home/Home',
       imageUrl: '/Images/cover.png'
     },
-    weatherSavedTime: 3600000
+    weatherSavedTime: 3600000,
+    ld: -1
   },
 
   lodash: {
     groupBy: require('./utils/lodash.groupby/index.js'),
     orderBy: require('./utils/lodash.orderby/index.js'),
     find: require('./utils/lodash.find/index.js'),
-    filter: require('./utils/lodash.filter/index.js')
+    filter: require('./utils/lodash.filter/index.js'),
+    forEach: require('./utils/lodash.foreach/index.js')
   },
+
+  towxml: new Towxml(),
 
   qiniu: {
     upload: require('./utils/qiniuUploader.js')
@@ -92,66 +95,99 @@ App({
     })
   },
 
-  wxLogin: function (userInfo) {
+  wxLogin: function (agree) {
     let _this = this
+    let ld = wx.getStorageSync('ld')
     return new Promise((resolve, reject) => {
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            wx.request({
-              url: _this.data.domain + 'users/wxp_login',
-              method: 'POST',
-              data: {
-                code: res.code,
-                userInfo: userInfo
-              },
-              success: function (response) {
-                console.log(response)
-                if (response.data.code === 0) {
-                  let data = response.data.data
-                  _this.data.user = data.user
-                  _this.data.partner = data.partner
-                  _this.data.key = data.key
-                  _this.data.showMatch = response.data.is_checking
-                  if (data.partner.id) {
-                    _this.getLocation({
-                      longitude: res.partner.longitude,
-                      latitude: res.partner.latitude
-                    }).then(data => {
-                      _this.getWeather(location, 'partnerWeather')                      
+      if (ld || agree) {
+        let handle = function () {
+          wx.getUserInfo({
+            success: function (userInfo) {
+              wx.login({
+                success: function (res) {
+                  if (res.code) {
+                    wx.request({
+                      url: _this.data.domain + 'users/wxp_login',
+                      method: 'POST',
+                      data: {
+                        code: res.code,
+                        userInfo: userInfo.userInfo
+                      },
+                      success: function (response) {
+                        console.log(response)
+                        if (response.data.code === 0) {
+                          let data = response.data.data
+                          _this.data.user = data.user
+                          _this.data.partner = data.partner
+                          _this.data.key = data.key
+                          _this.data.showMatch = response.data.is_checking
+                          wx.setStorage({
+                            key: 'ld',
+                            data: data.key.uid,
+                          })
+                          _this.data.ld = data.key.uid
+                          if (data.partner.id) {
+                            _this.getLocation({
+                              longitude: res.partner.longitude,
+                              latitude: res.partner.latitude
+                            }).then(data => {
+                              _this.getWeather(location, 'partnerWeather')
+                            })
+                          }
+                          wx.getLocation({
+                            success: function (location) {
+                              _this.getLocation(location).then(data => {
+                                _this.getWeather(data, 'userWeather')
+                                _this.data.location = data
+                              })
+                            },
+                            fail: function (err) {
+                              let location = {
+                                longitude: data.user.longitude,
+                                latitude: data.user.latitude
+                              }
+                              _this.getLocation(location).then(data => {
+                                _this.getWeather(data, 'userWeather')
+                                _this.data.location = data
+                              })
+                            }
+                          })
+                          resolve(data)
+                        } else {
+                          reject(response.data.code)
+                        }
+                      },
+                      fail: function (err) {
+                        console.log(err)
+                        reject(false)
+                      }
                     })
                   }
-                  wx.getLocation({
-                    success: function (location) {
-                      _this.getLocation(location).then(data => {
-                        _this.getWeather(data, 'userWeather')
-                        _this.data.location = data
-                      })
-                    },
-                    fail: function (err) {
-                      let location = {
-                        longitude: data.user.longitude,
-                        latitude: data.user.latitude
-                      }
-                      _this.getLocation(location).then(data => {
-                        _this.getWeather(data, 'userWeather')
-                        _this.data.location = data
-                      })
-                    }
-                  })
-                  resolve(data)
-                } else {
-                  reject(response.data.code)
                 }
-              },
-              fail: function (err) {
-                console.log(err)
-                reject(false)
-              }
-            })
-          }
+              })
+            }
+          })
         }
-      })
+        if (ld) {
+          wx.request({
+            url: _this.data.domain + 'users/check_uid',
+            data: {
+              uid: ld
+            },
+            success(ldRes) {
+              console.log(ldRes)
+              if (ldRes.data.code !== 0) return
+              handle()
+            },
+            fail(err) {
+              wx.removeStorageSync('ld')
+            }
+          })
+        }
+        if (agree) {
+          handle()
+        }
+      }
     })
   },
 
@@ -302,29 +338,6 @@ App({
       return
     }
     let _this = this
-    // wx.request({
-    //   url: 'https://ali-weather.showapi.com/gps-to-weather',
-    //   header: {
-    //     Authorization: 'APPCODE ' + this.data.weatherKey
-    //   },
-    //   method: 'GET',
-    //   data: {
-    //     from: 1,
-    //     lat: location.latitude, 
-    //     lng: location.longitude
-    //   },
-    //   success: function (res) {
-    //     let data = res.data.showapi_res_body.f1
-    //     if (!data) return
-    //     data.getTime = getTime
-    //     console.log(data)
-    //     wx.setStorageSync(name, data)
-    //     _this.data.weather[name] = data
-    //   },
-    //   fail: function (err) {
-    //     console.log(err)
-    //   }
-    // })
     wx.request({
       url: 'http://restapi.amap.com/v3/weather/weatherInfo',
       method: 'GET',
@@ -406,31 +419,6 @@ App({
   },
 
   onLaunch: function () {
-    // let params = {
-    //   account: '15677610424',
-    //   password: '123qwe'
-    // }
-    // let _this = this
-    // this.login(params).then(res => {
-    //   if (!res.partner.id) return
-    //   _this.getWeather({
-    //     longitude: res.partner.longitude,
-    //     latitude: res.partner.latitude
-    //   }, 'partnerWeather')
-    // })
-    // wx.getLocation({
-    //   success: function(location) {
-    //     _this.getLocation(location)
-    //     _this.getWeather(location, 'userWeather')
-    //   },
-    //   fail: function (err) {
-    //     let location = {
-    //       longitude: _this.user.longitude,
-    //       latitude: _this.user.latitude
-    //     }
-    //     _this.getLocation(location)
-    //     _this.getWeather(location, 'userWeather')
-    //   }
-    // })
+    
   }
 })

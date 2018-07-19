@@ -1,81 +1,112 @@
 <view class="container">
-  <view class="title">
-    <text>关于我</text>
+  <view class="hld" wx:if="{{hld}}">
+    <view class="title">
+      <text>关于我</text>
+    </view>
+    <view class="profile">
+      <view class="info" bindtap='goInfo'>
+        <view class="intro">
+          <view class="name">
+            <text>{{user.name}}</text>
+          </view>
+          <view class="edit">
+            <text>查看资料</text>
+          </view>
+        </view>
+        <image src="{{user.face}}" class="avatar"  mode="aspectFill">
+          <image src="{{user.sex === 0 ? male : female}}" class="gender" />
+        </image>
+      </view>
+      <view class="msg">
+        <view class="item" bindtap="goChart">
+          <image src="{{icon[user.sex].smile}}" class="image" />
+          <text class="count">{{user.mode}}</text>
+          <text>平均情绪值</text>
+        </view>
+        <view class="item">
+          <image src="{{icon[user.sex].book}}" class="image" />
+          <text class="count">{{user.total_notes}}</text>
+          <text>日记数量</text>
+        </view>
+      </view>
+    </view>
+    <view class="profile" wx:if="{{user.user_other_id !== -1}}">
+      <view class="info matched">
+        <view class="intro">
+          <view class="name">
+            <text>{{partner.name}}</text>
+          </view>
+          <view class="edit">
+            <image class="image" src="../Images/matched.png" />
+            <text>你的匹配对象</text>
+          </view>
+        </view>
+        <image src="{{partner.face}}" class="avatar">
+          <image src="{{partner.sex ? female : male}}" class="gender" />
+        </image>
+      </view>
+      <view class="msg">
+        <view class="item">
+          <image src="{{icon[partner.sex].book}}" class="image" />
+          <text class="count">{{partner.mode}}</text>
+          <text>平均情绪值</text>
+        </view>
+        <view class="item">
+          <image src="{{icon[partner.sex].book}}" class="image" />
+          <text class="count">{{partner.total_notes}}</text>
+          <text>日记数量</text>
+        </view>
+      </view>
+    </view> 
+    <view class="profile">
+      <view class="match" bindtap='goMatch' wx:if="{{!showMatch}}">
+        <image src="../Images/match.png" class="image" />
+        <view class="text">
+          <view class="name">匹配</view>
+        </view>
+      </view>
+      <!-- <view class="sync">
+        <image src="../Images/cloud.png" class="image" />
+        <view class="text">
+          <view class="name">同步</view>
+          <view class="time">{{time}}</view>
+        </view>
+      </view>  -->
+      <view class="feedback" bindtap='goFeedback'>
+        <image src="../Images/feedback.png" class="image" />
+        <view class="text">
+          <view class="name">反馈</view>
+        </view>
+      </view>
+      <!-- <view class="chart" bindtap="goChart">
+        <view class="text">
+          <view class="name">情绪图表</view>
+        </view>
+      </view> -->
+    </view>
   </view>
-  <view class="profile">
-    <view class="info" bindtap='goInfo'>
-      <view class="intro">
-        <view class="name">
-          <text>{{user.name}}</text>
-        </view>
-        <view class="edit">
-          <text>查看资料</text>
-        </view>
-      </view>
-      <image src="{{user.face}}" class="avatar"  mode="aspectFill">
-        <image src="{{user.sex === 0 ? male : female}}" class="gender" />
-      </image>
+  <view class="nld {{showAgreement ? 'filter' : ''}}" wx:if="{{!hld}}">
+    <view class="title">
+      <text>未登录</text>
     </view>
-    <view class="msg">
-      <view class="item">
-        <image src="{{icon[user.sex].smile}}" class="image" />
-        <text class="count">{{user.mode}}</text>
-        <text>平均情绪值</text>
-      </view>
-      <view class="item">
-        <image src="{{icon[user.sex].book}}" class="image" />
-        <text class="count">{{user.total_notes}}</text>
-        <text>日记数量</text>
-      </view>
+    <view class="tips">
+      <text>登陆后可享受情绪管理、匹配日记对象等更多好玩功能！赶紧登陆吧！</text>
     </view>
+    <view class="login" data-handle="{{true}}" bindtap='agreementViewHandler'>
+      现在登录
+    </view>
+    <view class="mask" wx:if="{{showAgreement && !hld}}" data-handle="{{false}}" bindtap='agreementViewHandler'></view>
   </view>
-   <view class="profile" wx:if="{{user.user_other_id !== -1}}">
-    <view class="info matched">
-      <view class="intro">
-        <view class="name">
-          <text>{{partner.name}}</text>
-        </view>
-        <view class="edit">
-          <image class="image" src="../Images/matched.png" />
-          <text>你的匹配对象</text>
-        </view>
-      </view>
-      <image src="{{partner.face}}" class="avatar">
-        <image src="{{partner.sex ? female : male}}" class="gender" />
-      </image>
+  <view class="agreement" wx:if="{{showAgreement && !hld}}">
+    <view class="content">
+      <template is="entry" data="{{...agreement}}" />
     </view>
-    <view class="msg">
-      <view class="item">
-        <image src="{{icon[partner.sex].book}}" class="image" />
-        <text class="count">{{partner.mode}}</text>
-        <text>平均情绪值</text>
-      </view>
-      <view class="item">
-        <image src="{{icon[partner.sex].book}}" class="image" />
-        <text class="count">{{partner.total_notes}}</text>
-        <text>日记数量</text>
-      </view>
-    </view>
-  </view> 
-  <view class="profile">
-    <view class="match" bindtap='goMatch' wx:if="{{!showMatch}}">
-      <image src="../Images/match.png" class="image" />
-      <view class="text">
-        <view class="name">匹配</view>
-      </view>
-    </view>
-    <!-- <view class="sync">
-      <image src="../Images/cloud.png" class="image" />
-      <view class="text">
-        <view class="name">同步</view>
-        <view class="time">{{time}}</view>
-      </view>
-    </view>  -->
-    <view class="feedback" bindtap='goFeedback'>
-      <image src="../Images/feedback.png" class="image" />
-      <view class="text">
-        <view class="name">反馈</view>
-      </view>
+    <view class="agree" bindtap='agree'>
+      <button open-type='getUserInfo'>
+        同意该隐私条款并注册
+      </button>
     </view>
   </view>
 </view>
+
+<import src="/towxml/entry.wxml" />

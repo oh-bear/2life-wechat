@@ -1,0 +1,79 @@
+/* Pages/Profile/Charts/Charts.wxss */
+@import '../../Home/Calendar/index.wxss';
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.options {
+  display: flex;
+  display: -webkit-flex;
+  height: 30px;
+  margin: 43rpx 43rpx 0 43rpx;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 30px;
+  font-size: 32rpx;
+  color: #2DC3A6;
+}
+
+.options .option {
+  width: 33%;
+  height: 100%;
+  border: 1px solid #2DC3A6;
+}
+
+.option:first-child {
+  border-right: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.option:last-child {
+  border-left: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.options .sel {
+  color: white;
+  background-color: #2DC3A6;
+}
+
+.date {
+  margin-top: 20rpx;
+}
+
+.date .now {
+  color: #2DC3A6;
+}
+
+.date .pick {
+  
+}
+
+.date .hide {
+  display: none;
+}
+
+.chart {
+  position: relative;
+  width: 100%;
+  height: 800rpx;
+}
+
+.chart .touchMove {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* calendar */
+.date-area {
+  width: 460rpx;
+}
