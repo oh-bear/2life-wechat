@@ -88,10 +88,41 @@ Page({
   },
 
   getOcrImage () {
+    let _this = this
+    let content = this.data.content
     wx.chooseImage({
       count: 1,
       success: function(res) {
-        console.log(res)
+        let imgList = [
+          {
+            name: '2life/user/' + getApp().data.user.id + '/img_' + new Date().getTime() + '.png-2life_note.jpg',
+            file: res.tempFilePaths[0]
+          }
+        ]
+        wx.showLoading({
+          title: '正在识别',
+        })
+        getApp().imageUpload(imgList).then(data => {
+          getApp().getOcr(data[0]).then(data => {
+            console.log(data)
+            if (content) {
+              content = content + '\n'
+            }
+            getApp().lodash.forEach(data.items, (val) => {
+              content = content + val.itemstring + '\n'
+            })
+            _this.setData({
+              content: content
+            })
+            wx.hideLoading()
+          }, err => {
+            console.log(err)
+            wx.hideLoading()
+            wx.showToast({
+              title: '识别失败',
+            })
+          })
+        })
       }
     })
   },

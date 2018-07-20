@@ -421,27 +421,53 @@ App({
   },
 
   getOcr (image) {
-    // wx.request({
-    //   url: 'https://recognition.image.myqcloud.com/ocr/handwriting',
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/json',
-    //     'authorization': sign
-    //   },
-    //   data: {
-    //     appid: ocr.appid,
-    //     url: 'https://airing.ursb.me/2life/user/160/img_1527775537202.png-2life_face.jpg'
-    //   },
-    //   success (res) {
-    //     console.log(res)
-    //   },
-    //   fail (err) {
-    //     console.log(err)
-    //   }
-    // })
+    let ocr = config.ocr
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: this.data.domain + 'utils/get_ocr_sign',
+        data: {
+          uid: this.data.key.uid,
+          timestamp: this.data.key.timestamp,
+          token: this.data.key.token
+        },
+        success(res) {
+          if (res.data.code !== 0) {{
+            reject(res.data.code)
+            return
+          }}
+          wx.request({
+            url: 'https://recognition.image.myqcloud.com/ocr/handwriting',
+            method: 'POST',
+            header: {
+              'content-type': 'application/json',
+              'authorization': res.data.data
+            },
+            data: {
+              appid: ocr.appid,
+              url: image
+            },
+            success(res) {
+              console.log('getOcr')
+              if (res.data.code !== 0) {
+                reject(res.data)
+              } else {
+                resolve(res.data.data)
+              }
+            },
+            fail(err) {
+              reject(err)
+            }
+          })
+        },
+        fail(err) {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
   },
 
   onLaunch: function () {
-    this.getOcr(1)
+
   }
 })
