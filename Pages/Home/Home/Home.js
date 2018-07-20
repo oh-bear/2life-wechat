@@ -40,7 +40,7 @@ Page({
         if (res.data.code === 0) {
           let arr = res.data.data.user.concat(res.data.data.partner)
           arr = lodash.orderBy(arr, (val) => {
-            return val.created_at
+            return val.date ? val.date : val.created_at
           }, 'desc')
           _this.setData({
             notes: arr
@@ -144,6 +144,7 @@ Page({
         uid: key.uid,
         timestamp: key.timestamp,
         token: key.token,
+        date: note.date,
         title: note.title,
         content: note.content,
         images: note.images,
@@ -189,6 +190,7 @@ Page({
       timestamp: key.timestamp,
       token: key.token,
       note_id: note.id,
+      date: note.date,
       title: note.title,
       content: note.content,
       images: note.images,

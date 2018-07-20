@@ -91,26 +91,6 @@ Page({
     this.setData({
       change: !this.data.change
     })
-    // let change = this.data.change
-    // this.modeAnimation = wx.createAnimation({
-    //   duration: 500
-    // })
-    // let width = change ? '0' : '475rpx'
-    // this.modeAnimation.width(width).step()
-    // this.setData({
-    //   modeAnimation: this.modeAnimation
-    // })
-    // if (!change) {
-    //   this.setData({
-    //     change: !change
-    //   })
-    // } else {
-    //   setTimeout(function () {
-    //     this.setData({
-    //       change: !change
-    //     })
-    //   }.bind(this), 500)
-    // }
   },
 
   changeMode: function (event) {

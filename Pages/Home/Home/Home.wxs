@@ -7,8 +7,8 @@ var home = {
     },
     showDate: function (notes, index) {
       if (index === 0) return true
-      var currentIndex = getDate(notes[index].created_at).toDateString()
-      var backIndex = getDate(notes[index-1].created_at).toDateString()
+      var currentIndex = getDate(notes[index].date ? notes[index].date : notes[index].created_at).toDateString()
+      var backIndex = getDate(notes[index - 1].date ? notes[index - 1].date : notes[index - 1].created_at).toDateString()
       if (currentIndex === backIndex) {
         return false
       } else {

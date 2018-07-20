@@ -81,7 +81,8 @@ Page({
       content: data.content,
       images: data.images,
       id: data.id,
-      mode: data.mode
+      mode: data.mode,
+      date: data.date
     }
     getApp().data.savedNote = note
   },
@@ -136,16 +137,13 @@ Page({
       title: savedNote.title || '',
       content: savedNote.content || '',
       id: savedNote.id || '',
-      mode: savedNote.mode || 0
+      mode: savedNote.mode || 0,
+      date: savedNote.created_at ? new Date(savedNote.created_at).getTime() : new Date().getTime()
     })
     wx.setNavigationBarTitle({
       title: '写日记',
     })
     getApp().data.publish = true
-
-    this.setData({
-      date: new Date().getTime()
-    })
 
     let _this = this
     initCalendar({
