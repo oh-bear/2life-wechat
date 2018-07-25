@@ -29,12 +29,8 @@
 .notification .item .icon {
   display: block;
   width: 45rpx;
-  height: 36rpx;
-  margin: 35rpx 0;
-}
-
-.notification .item .big {
   height: 45rpx;
+  margin: 35rpx 0;
 }
 
 .notification .item .content {
