@@ -1,0 +1,57 @@
+<view class="container">
+  <view wx:if="{{!start}}">
+    <view class="card">
+      <view class="title">
+        “
+      </view>
+      <view class="question">
+        欢迎来到我们的性格测试环节，这里有{{ subject.length }}道题目，可以测出你的性格特征哦
+      </view>
+    </view>
+    <view>
+    <view class="answer normal">
+      <view class="button" bindtap='start'>
+        开始测试
+      </view>
+    </view>
+    </view>
+  </view>
+  <view wx:if="{{start && !finish}}">
+    <view class="card">
+      <view class="title">
+        “
+      </view>
+      <view class="question">
+        {{ subject[index].title }}
+      </view>
+      <view class="process">
+        {{ index + 1 }} / {{ subject.length }}
+      </view>
+    </view>
+    <view class="answer">
+      <view class="button" data-answer="a" bindtap="chooseAnswer">
+        {{ subject[index].a }}
+      </view>
+      <view class="button" data-answer="b" bindtap="chooseAnswer">
+        {{ subject[index].b }}    
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{finish}}">
+    <view class="card">
+      <view class="title">
+        恭喜
+      </view>
+      <view class="question">
+        你的性格测试已经完成啦，但是为了得到更准确的数据，你还需要多写几篇真情流露的日记呢，稍后可在个人页面查看性格分析
+      </view>
+    </view>
+    <view>
+    <view class="answer normal">
+      <view class="button" bindtap='end'>
+        完成测试
+      </view>
+    </view>
+    </view>
+  </view>
+</view>
