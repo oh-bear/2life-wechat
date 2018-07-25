@@ -467,7 +467,29 @@ App({
     })
   },
 
-  onLaunch: function () {
+  getAccessToken () {
+    let wechatConfig = config.wechat
+    wx.request({
+      url: 'https://api.weixin.qq.com/cgi-bin/token',
+      data: {
+        grant_type: 'client_credential',
+        appid: wechatConfig.appid,
+        secret: wechatConfig.secret
+      },
+      success(res) {
+        console.log(res.data)
+        wx.setStorageSync('access_token', res.data.access_token)
+      },
+      fail(err) {
+        console.log(err)
+      }
+    })
+  },
 
+  onLaunch: function () {
+    this.getAccessToken()
+    setTimeout(function () {
+      this.getAccessToken()
+    }.bind(this), 7000000)
   }
 })
