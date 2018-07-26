@@ -22,11 +22,6 @@
     </view>
   </view>
   <view class="mood">
-    <view class="normal" wx:if="{{!change}}">
-      <image src="{{detail.mode(note.mode)}}" class="image" />
-      <text>{{note.mode}}</text>
-      <text class="description">情绪值</text>
-    </view> 
     <view class="change" wx:if="{{change}}">
       <image src="../Images/verySad.png" class="image" data-mode="0" bindtap='changeMode' />
       <image src="../Images/sad.png" class="image" data-mode="25" bindtap='changeMode' />
@@ -34,13 +29,33 @@
       <image src="../Images/happy.png" class="image" data-mode="75" bindtap='changeMode' />
       <image src="../Images/veryHappy.png" class="image" data-mode="100" bindtap='changeMode' />
     </view>
-    <view class="edit" bindtap='change' wx:if="{{note.user_id === user.id}}">更改</view> 
+    <view class="normal">
+      <image src="{{detail.mode(note.mode)}}" class="image" wx:if="{{!change}}" />
+    </view> 
+    <view class="description">
+      <view wx:if="{{change}}"></view>
+      <view wx:if="{{!change}}">
+        <text>{{note.mode}}</text>
+        <text class="mode">情绪值</text>
+      </view>
+      <view class="edit" bindtap='change' wx:if="{{note.user_id === user.id}}">更改</view> 
+    </view>
+  </view>
+  <view class="discuss">
+    <view class="image">
+      <image src="../Images/discuss.png" />
+    </view>
+    <view class="description">
+      <view>
+        <text>有什么想说的</text>
+      </view>
+    </view>
   </view>
   <view class="like" bindtap="like" wx:if="{{note.user_id !== user.id}}">
     <image src="../Images/like.png" class="image" wx:if="{{!note.is_liked}}" />
     <image src="../Images/liked.png" class="image" wx:if="{{note.is_liked}}" />
   </view>
-  <view class="edit-btn" wx:if="{{note.user_id === user.id}}">
+  <!-- <view class="edit-btn" wx:if="{{note.user_id === user.id}}">
     <view bindtap='edit'>
       <image src="../Images/edit.png" />
       <text>修改日记</text>
@@ -49,7 +64,7 @@
       <image src="../Images/delete.png" />
       <text>删除日记</text>
     </view>
-  </view>
+  </view> -->
 </view>
 
 <wxs module="detail" src="./detail.wxs"></wxs>

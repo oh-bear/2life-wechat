@@ -18,7 +18,6 @@
   position: relative;
   min-height: 50%;
   margin: 43rpx;
-  padding-bottom: 45rpx;
 }
 
 .content .date, .content .location {
@@ -54,45 +53,73 @@
   margin-right: 20rpx;
 }
 
-.container .mood {
+.container .mood, .container .discuss {
+  position: relative;
   display: flex;
   display: -webkit-flex;
-  position: absolute;
-  width: 100%;
-  height: 45rpx;
-  bottom: 142rpx;
-  line-height: 45rpx;
-  justify-content: space-between;
+  height: 128rpx;
+  margin: 48rpx 48rpx 0;
+  line-height: 128rpx;
+  align-items: center;
   font-size: 29rpx;
 }
 
-.container .mood .normal, .container .mood .change {
+.container .discuss {
+  margin-top: 0;
+}
+
+.mood .normal, .discuss .image {
   display: flex;
   display: -webkit-flex;
-  margin-left: 43rpx;
+  width: 82rpx;
+  height: 132rpx;
+  align-items: center;
 }
 
-.container .mood .image {
-  width: 45rpx;
-  height: 45rpx;
-  margin-right: 10rpx;
+.mood .normal image, .discuss .image image {
+  width: 50rpx;
+  height: 50rpx;
 }
 
-.container .mood .change .image {
-  margin-right: 50rpx;
+.mood .description, .discuss .description {
+  display: flex;
+  display: -webkit-flex;
+  width: 574rpx;
+  border-bottom: 1px solid #F1F1F1;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
 }
 
-.container .mood .normal text {
-  margin: 0 10rpx;
+.description text {
+  margin-right: 16rpx;
+  color: #444444
 }
 
-.container .mood .normal .description {
-  color: #AAAAAA;
+.description .mode {
+  color: #AAAAAA
 }
 
-.container .mood .edit {
-  margin-right: 43rpx;
+.description .edit {
   color: #2DC3A6;
+}
+
+.mood .change {
+  position: absolute;
+  display: flex;
+  display: -webkit-flex;
+  top: 0;
+  left: 0;
+  right: 120rpx;
+  bottom: 0;
+  align-items: center;
+  z-index: 999;
+}
+
+.change image {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 30rpx;
 }
 
 .like {

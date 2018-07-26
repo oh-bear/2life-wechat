@@ -54,8 +54,8 @@
     "selectedColor": "#444444"
   },
   "pages": [
-    "Pages/Profile/Analysis/Analysis",
     "Pages/Home/Home/Home",
+    "Pages/Profile/Analysis/Analysis",
     "Pages/Profile/Charts/Charts",
     "Pages/Profile/Feedback/Feedback",
     "Pages/Profile/Match/Match",
