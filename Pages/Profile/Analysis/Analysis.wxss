@@ -20,6 +20,11 @@
   font-size: 40rpx;
 }
 
+.card .title image {
+  width: 50rpx;
+  height: 38rpx;
+}
+
 .card .question {
   margin-top: 84rpx;
   font-size: 40rpx;

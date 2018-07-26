@@ -2,7 +2,7 @@
   <view wx:if="{{!start}}">
     <view class="card">
       <view class="title">
-        “
+        <image src="../Images/sign.png" />
       </view>
       <view class="question">
         欢迎来到我们的性格测试环节，这里有{{ subject.length }}道题目，可以测出你的性格特征哦
@@ -19,7 +19,7 @@
   <view wx:if="{{start && !finish}}">
     <view class="card">
       <view class="title">
-        “
+        <image src="../Images/sign.png" />
       </view>
       <view class="question">
         {{ subject[index].title }}
