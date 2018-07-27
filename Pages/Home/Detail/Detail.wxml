@@ -51,11 +51,41 @@
       </view>
     </view>
   </view>
+  <view class="comment">
+    <view class="title">
+      日记评论
+    </view>
+    <view class="item">
+      <image src="../Images/avatar1.png" class="avatar" />
+      <view class="sub">
+        <view class="des">
+          <text>傻逼</text>
+          <text class="date">19:52</text>
+        </view>
+        <view class="content">
+          看来你有点傻逼
+        </view>
+      </view>
+    </view><view class="item">
+      <image src="../Images/avatar2.png" class="avatar" />
+      <view class="sub">
+        <view class="des">
+          <text class="from">邓国雄</text>
+          <text>回复了</text>
+          <text class="to">傻逼</text>
+          <text class="date">19:52</text>
+        </view>
+        <view class="content">
+          看来你有点傻逼
+        </view>
+      </view>
+    </view>
+  </view>
   <view class="like" bindtap="like" wx:if="{{note.user_id !== user.id}}">
     <image src="../Images/like.png" class="image" wx:if="{{!note.is_liked}}" />
     <image src="../Images/liked.png" class="image" wx:if="{{note.is_liked}}" />
   </view>
-  <!-- <view class="edit-btn" wx:if="{{note.user_id === user.id}}">
+  <view class="edit-btn" wx:if="{{note.user_id === user.id}}">
     <view bindtap='edit'>
       <image src="../Images/edit.png" />
       <text>修改日记</text>
@@ -64,7 +94,7 @@
       <image src="../Images/delete.png" />
       <text>删除日记</text>
     </view>
-  </view> -->
+  </view>
 </view>
 
 <wxs module="detail" src="./detail.wxs"></wxs>

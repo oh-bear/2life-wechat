@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   min-height: 90%;
-  padding-bottom: 108rpx;
+  padding-bottom: 96rpx;
 }
 
 .swiper {
@@ -122,6 +122,58 @@
   margin-right: 30rpx;
 }
 
+.container .comment {
+  margin: 64rpx 48rpx 0;
+}
+
+.comment .title {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.comment .item {
+  display: flex;
+  display: -webkit-flex;
+  padding: 33rpx 0;
+  font-size: 28rpx;
+  color: #444444;
+}
+
+.item .avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+}
+
+.item .sub {
+  margin-left: 24rpx;
+}
+
+.sub .des {
+  font-size: 24rpx;
+}
+
+.sub .des .from {
+  margin-right: 8rpx
+}
+
+.sub .des .to {
+  margin-left: 4rpx;
+  color: #2DC3A6;
+}
+
+.sub .des .date {
+  margin-left: 8rpx;
+  color: #AAAAAA;
+}
+
+.sub .content {
+  min-height: auto;
+  margin: 0;
+  margin-top: 16rpx;
+  line-height: 40rpx;
+}
+
 .like {
   position: absolute;
   right: 43rpx;
@@ -153,8 +205,8 @@
   display: -webkit-flex;
   bottom: 0;
   width: 100%;
-  height: 108rpx;
-  line-height: 108rpx;
+  height: 96rpx;
+  line-height: 96rpx;
   justify-content: space-between;
   align-items: center;
   background: #fafafa;
