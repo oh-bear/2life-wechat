@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="hld" wx:if="{{hld}}">
+  <view class="hld" wx:if="{{hasAuthorize}}">
     <view class="title">
       <text>关于我</text>
     </view>
@@ -85,25 +85,25 @@
       </view> -->
     </view>
   </view>
-  <view class="nld {{showAgreement ? 'filter' : ''}}" wx:if="{{!hld}}">
+  <view class="nld {{showAgreement ? 'filter' : ''}}" wx:if="{{!hasAuthorize}}">
     <view class="title">
       <text>未登录</text>
     </view>
     <view class="tips">
       <text>登陆后可享受情绪管理、匹配日记对象等更多好玩功能！赶紧登陆吧！</text>
     </view>
-    <view class="login" data-handle="{{true}}" bindtap='agreementViewHandler'>
+    <view class="login" data-handle="{{true}}" bindtap='login'>
       现在登录
     </view>
-    <view class="mask" wx:if="{{showAgreement && !hld}}" data-handle="{{false}}" bindtap='agreementViewHandler'></view>
+    <view class="mask" wx:if="{{showAgreement && !hasAuthorize}}" data-handle="{{false}}" bindtap='agreementViewHandler'></view>
   </view>
-  <view class="agreement" wx:if="{{showAgreement && !hld}}">
+  <view class="agreement" wx:if="{{showAgreement && !hasAuthorize}}">
     <view class="content">
       <template is="entry" data="{{...agreement}}" />
     </view>
     <view class="agree" bindtap='agree'>
       <button open-type='getUserInfo'>
-        同意该隐私条款并注册
+        同意该隐私条款
       </button>
     </view>
   </view>

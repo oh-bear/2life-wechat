@@ -17,7 +17,9 @@ Page({
     id: '',
     mode: '',
     date: 0,
-    showCalendar: false
+    showCalendar: false,
+    finish: false,
+    accessToken: {}
   },
 
   // methods
@@ -142,14 +144,228 @@ Page({
     console.log(date)
   },
 
+  save () {
+    if (!this.data.title || !this.data.content) {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入标题或内容',
+        mask: true
+      })
+      return
+    }
+    if (this.data.id) {
+      this.updateNote()
+    } else {
+      this.publishNote()
+    }
+  },
+
+  publishNote: function () {
+    let _this = this
+    let key = getApp().data.key
+    let user = getApp().data.user
+    let images = this.data.images
+    if (typeof (images) === 'object') {
+      images = images.join()
+    }
+    let data = {
+      uid: key.uid,
+      timestamp: key.timestamp,
+      token: key.token,
+      date: this.data.date,
+      title: this.data.title,
+      content: this.data.content,
+      images: images,
+      latitude: getApp().data.location.latitude || user.latitude,
+      longitude: getApp().data.location.longitude || user.longitude,
+      location: getApp().data.location.location.join('，') || '地球上的某个角落'
+    }
+    wx.showLoading({
+      title: '正在上传',
+      mask: true
+    })
+    this.checkContent(data.title, data.content).then(res => {
+      wx.request({
+        url: getApp().data.domain + 'notes/publish',
+        method: 'POST',
+        data: data,
+        success: function (res) {
+          if (res.data.code === 0) {
+            console.log(res.data)
+            getApp().data.savedNote = {}
+            _this.setData({
+              finish: true
+            })
+            wx.showToast({
+              title: '上传成功',
+            })
+            wx.switchTab({
+              url: '/Pages/Home/Home/Home',
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '上传失败',
+            })
+            console.log(res.data)
+          }
+        },
+        fail: function (err) {
+          console.log(err)
+          wx.showToast({
+            icon: 'none',
+            title: '上传失败',
+          })
+        },
+        complete () {
+          wx.hideLoading()
+        }
+      })
+    }, err => {
+      
+    })
+  },
+
+  updateNote: function () {
+    let _this = this
+    let key = getApp().data.key
+    let images = this.data.images
+    if (typeof (images) === 'object') {
+      images = images.join()
+    }
+    wx.showLoading({
+      title: '正在上传',
+      mask: true
+    })
+    let data = {
+      uid: key.uid,
+      timestamp: key.timestamp,
+      token: key.token,
+      note_id: this.data.id,
+      date: this.data.date,
+      title: this.data.title,
+      content: this.data.content,
+      images: images,
+      mode: parseInt(this.data.mode)
+    }
+    this.checkContent(data.title, data.content).then(res => {
+      wx.request({
+        url: getApp().data.domain + 'notes/update',
+        method: 'POST',
+        data: data,
+        success: function (res) {
+          if (res.data.code === 0) {
+            console.log(res.data)
+            getApp().data.savedNote = {}
+            _this.setData({
+              finish: true
+            })
+            wx.showToast({
+              title: '上传成功',
+            })
+            wx.switchTab({
+              url: '/Pages/Home/Home/Home',
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '上传失败',
+            })
+            console.log(res.data)
+          }
+        },
+        fail: function (err) {
+          wx.showToast({
+            icon: 'none',
+            title: '上传失败',
+          })
+          console.log(err)
+        },
+        complete () {
+          wx.hideLoading()
+        }
+      })
+    }, err => {
+      
+    })
+  },
+
+  checkContent(title, content) {
+    let access_token = this.data.accessToken.code
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + access_token,
+        method: 'POST',
+        data: {
+          content: content
+        },
+        success(res) {
+          console.log(res.data)
+          if (res.data.errcode === 0) {
+            resolve(res.data.errcode)
+          } else {
+            wx.hideLoading()
+            wx.showToast({
+              icon: 'none',
+              title: '内容含敏感词',
+              mask: true
+            })
+            reject(res.data.errcode)
+          }
+        },
+        fail(err) {
+          console.log(err)
+          wx.hideLoading()
+          wx.showToast({
+            icon: 'none',
+            title: '内容检测失败',
+            mask: true
+          })
+          reject(err)
+        }
+      })
+    })
+  },
+
+  getAccessToken () {
+    let _this = this
+    let now = new Date().getTime()
+    let accessToken = wx.getStorageSync('access_token')
+    if (accessToken.deadline - now  < 60 * 1000 || !accessToken.deadline) {
+      wx.request({
+        url: getApp().data.domain + 'utils/access_token',
+        data: getApp().data.key,
+        success(res) {
+          console.log(res.data)
+          if (res.data.code === 0) {
+            _this.setData({
+              accessToken: res.data.data.access_token
+            })
+            wx.setStorageSync('access_token', res.data.data.access_token)
+          }
+        },
+        fail(err) {
+          console.log(err)
+        }
+      })
+    } else {
+      this.setData({
+        accessToken
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getAccessToken()
+    this.setData({
+      finish: false
+    })
   },
 
-  /**
+/**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
@@ -162,7 +378,6 @@ Page({
   onShow: function () {
     let savedNote = getApp().data.savedNote
     console.log(savedNote)
-    console.log()
     this.setData({
       images: savedNote.images || [],
       title: savedNote.title || '',
@@ -208,6 +423,16 @@ Page({
     wx.setNavigationBarTitle({
       title: '双生',
     })
+    if (this.data.finish) {
+      getApp().data.savedNote = {
+        id: this.data.id,
+        title: this.data.title,
+        content: this.data.content,
+        images: this.data.images,
+        mode: this.data.mode,
+        date: this.data.date
+      }
+    }
   },
 
   /**

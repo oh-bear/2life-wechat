@@ -95,54 +95,17 @@
   color: #333333;
 }
 
-.content .location {
-  display: flex;
-  display: -webkit-flex;
-  margin: 43rpx 0;
-}
-
-.content .location .image {
-  width: 21.6rpx;
-  height: 27rpx;
-  margin-right: 20rpx;
-}
-
-.content .mood {
-  display: flex;
-  display: -webkit-flex;
-  position: relative;
-  height: 45rpx;
-  line-height: 45rpx;
-  font-size: 29rpx;
-}
-
-.content .mood .image {
-  width: 45rpx;
-  height: 45rpx;
-  margin-right: 10rpx;
-}
-
-.content .mood text {
-  margin: 0 10rpx;
-}
-
-.content .mood .description {
-  color: #AAAAAA;
-}
-
-.content .mood .edit {
+.save {
   position: absolute;
-  right: 0;
+  right: 48rpx;
+  bottom: 48rpx;
+  width: 120rpx;
+  height: 80rpx;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  font-weight: bold;
   color: #2DC3A6;
-}
-
-.like {
-  position: absolute;
-  right: 43rpx;
-  bottom: 43rpx;
-}
-
-.like .image {
-  width: 115rpx;
-  height: 115rpx;
+  background: #F5F5F5;
 }

@@ -1,8 +1,6 @@
 //app.js
 const Towxml = require('/towxml/main')
 const config = require('/config.js')
-const hamcsha1 = require('/utils/hmacsha1/index.js')
-const base64 = require('/utils/base64/base64.js').Base64
 
 App({
   data: {
@@ -27,7 +25,7 @@ App({
       imageUrl: '/Images/cover.png'
     },
     weatherSavedTime: 3600000,
-    ld: -1
+    hasAuthorize: false
   },
 
   lodash: {
@@ -97,99 +95,110 @@ App({
     })
   },
 
+  getUserInfo () {
+    let _this = this
+    return new Promise((resolve, reject) => {
+      wx.getUserInfo({
+        success: function (userInfo) {
+          console.log('success to get userInfo')
+          wx.showLoading({
+            title: '正在登录',
+            mask: true
+          })
+          wx.login({
+            success: function (res) {
+              console.log(res)
+              if (res.code) {
+                wx.request({
+                  url: _this.data.domain + 'users/wxp_login',
+                  method: 'POST',
+                  data: {
+                    code: res.code,
+                    userInfo: userInfo.userInfo
+                  },
+                  success: function (response) {
+                    console.log(response)
+                    if (response.data.code === 0) {
+                      let data = response.data.data
+                      _this.data.user = data.user
+                      _this.data.partner = data.partner
+                      _this.data.key = data.key
+                      _this.data.showMatch = response.data.is_checking
+                      if (data.partner.id) {
+                        _this.getLocation({
+                          longitude: res.partner.longitude,
+                          latitude: res.partner.latitude
+                        }).then(data => {
+                          _this.getWeather(location, 'partnerWeather')
+                        })
+                      }
+                      wx.getLocation({
+                        success: function (location) {
+                          _this.getLocation(location).then(data => {
+                            _this.getWeather(data, 'userWeather')
+                            _this.data.location = data
+                          })
+                        },
+                        fail: function (err) {
+                          let location = {
+                            longitude: data.user.longitude,
+                            latitude: data.user.latitude
+                          }
+                          _this.getLocation(location).then(data => {
+                            _this.getWeather(data, 'userWeather')
+                            _this.data.location = data
+                          })
+                        }
+                      })
+                      _this.data.hasAuthorize = true
+                      wx.hideLoading()
+                      resolve(data)
+                    } else {
+                      reject(response.data.code)
+                    }
+                  },
+                  fail: function (err) {
+                    wx.hideLoading()
+                    console.log(err)
+                    reject(err)
+                  }
+                })
+              }
+            }
+          })
+        },
+        fail: function (err) {
+          console.log('fail to get userInfo')
+          reject(false)
+        }
+      })
+    })
+  },
+
   wxLogin: function (agree) {
     let _this = this
-    let ld = wx.getStorageSync('ld')
     return new Promise((resolve, reject) => {
-      if (ld || agree) {
-        let handle = function () {
-          wx.getUserInfo({
-            success: function (userInfo) {
-              wx.login({
-                success: function (res) {
-                  if (res.code) {
-                    wx.request({
-                      url: _this.data.domain + 'users/wxp_login',
-                      method: 'POST',
-                      data: {
-                        code: res.code,
-                        userInfo: userInfo.userInfo
-                      },
-                      success: function (response) {
-                        console.log(response)
-                        if (response.data.code === 0) {
-                          let data = response.data.data
-                          _this.data.user = data.user
-                          _this.data.partner = data.partner
-                          _this.data.key = data.key
-                          _this.data.showMatch = response.data.is_checking
-                          wx.setStorage({
-                            key: 'ld',
-                            data: data.key.uid,
-                          })
-                          _this.data.ld = data.key.uid
-                          if (data.partner.id) {
-                            _this.getLocation({
-                              longitude: res.partner.longitude,
-                              latitude: res.partner.latitude
-                            }).then(data => {
-                              _this.getWeather(location, 'partnerWeather')
-                            })
-                          }
-                          wx.getLocation({
-                            success: function (location) {
-                              _this.getLocation(location).then(data => {
-                                _this.getWeather(data, 'userWeather')
-                                _this.data.location = data
-                              })
-                            },
-                            fail: function (err) {
-                              let location = {
-                                longitude: data.user.longitude,
-                                latitude: data.user.latitude
-                              }
-                              _this.getLocation(location).then(data => {
-                                _this.getWeather(data, 'userWeather')
-                                _this.data.location = data
-                              })
-                            }
-                          })
-                          resolve(data)
-                        } else {
-                          reject(response.data.code)
-                        }
-                      },
-                      fail: function (err) {
-                        console.log(err)
-                        reject(false)
-                      }
-                    })
-                  }
-                }
-              })
-            }
-          })
-        }
-        if (ld) {
-          wx.request({
-            url: _this.data.domain + 'users/check_uid',
-            data: {
-              uid: ld
-            },
-            success(ldRes) {
-              console.log(ldRes)
-              if (ldRes.data.code !== 0) return
-              handle()
-            },
-            fail(err) {
-              wx.removeStorageSync('ld')
-            }
-          })
-        }
-        if (agree) {
-          handle()
-        }
+      if (agree) {
+        console.log('agree')
+        _this.getUserInfo().then(res => {
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+        return
       }
+      wx.getSetting({
+        success (res) {
+          if (res.authSetting['scope.userInfo']) {
+            _this.getUserInfo().then(res => {
+              resolve(res)
+            }, err => {
+              reject(err)
+            })
+            return
+          }
+        }
+      })
     })
   },
 
@@ -487,9 +496,6 @@ App({
   },
 
   onLaunch: function () {
-    this.getAccessToken()
-    setTimeout(function () {
-      this.getAccessToken()
-    }.bind(this), 7000000)
+    
   }
 })
