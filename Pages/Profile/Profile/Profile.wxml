@@ -18,7 +18,7 @@
         </image>
       </view>
       <view class="msg">
-        <view class="item" bindtap="goChart">
+        <view class="item">
           <image src="{{icon[user.sex].smile}}" class="image" />
           <text class="count">{{user.mode}}</text>
           <text>平均情绪值</text>
@@ -59,6 +59,15 @@
       </view>
     </view> 
     <view class="profile">
+      <view class="chart item" bindtap="goChart">
+        <image src="../Images/chart.png" class="image" />
+        <view class="text">
+          <view class="name">情绪管理</view>
+        </view>
+        <view class="right">
+          <view class="arrow"></view>
+        </view>
+      </view>
       <view class="match item" bindtap='goMatch' wx:if="{{!showMatch}}">
         <image src="../Images/match.png" class="image" />
         <view class="text">
@@ -75,6 +84,15 @@
           <view class="time">{{time}}</view>
         </view>
       </view>  -->
+      <view class="analysis item" bindtap="goAnalysis">
+        <image src="../Images/analysis.png" class="image" />
+        <view class="text">
+          <view class="name">人格测试</view>
+        </view>
+        <view class="right">
+          <view class="arrow"></view>
+        </view>
+      </view>
       <view class="setting item" bindtap="goSetting">
         <image src="../Images/setting.png" class="image" />
         <view class="text">

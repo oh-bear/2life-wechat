@@ -35,6 +35,12 @@ Page({
     })
   },
 
+  goAnalysis: function () {
+    wx.navigateTo({
+      url: '../Analysis/Analysis',
+    })
+  },
+
   goSetting: function () {
     wx.navigateTo({
       url: '../Setting/Setting',
