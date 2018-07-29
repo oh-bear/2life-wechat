@@ -60,11 +60,11 @@
     <view class="radar">
       <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
     </view>
-  </view>
-  <view class="text">
-    性格测试完成啦，但为了让结果更准确，你还需要多写几篇真情流露的日记呢。
-  </view>
-  <view class="button" bindtap='goAdd'>
-    去写一篇日记
+    <view class="text">
+      性格测试完成啦，但为了让结果更准确，你还需要多写几篇真情流露的日记呢。
+    </view>
+    <view class="button" bindtap='goAdd'>
+      去写一篇日记
+    </view>
   </view>
 </view>
