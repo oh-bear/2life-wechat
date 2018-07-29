@@ -330,6 +330,7 @@ Page({
   },
 
   updateEmotion () {
+    if (!getApp().data.user.emotions) return
     let data = getApp().data.key
     return new Promise ((resolve, reject) => {
       wx.request({

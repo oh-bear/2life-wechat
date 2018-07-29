@@ -84,7 +84,7 @@
           <view class="time">{{time}}</view>
         </view>
       </view>  -->
-      <view class="analysis item" bindtap="goAnalysis">
+      <view class="analysis item" bindtap="goAnalysis" wx:if="{{!user.emotions}}">
         <image src="../Images/analysis.png" class="image" />
         <view class="text">
           <view class="name">人格测试</view>
