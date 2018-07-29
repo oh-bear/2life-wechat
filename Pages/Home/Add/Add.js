@@ -196,6 +196,7 @@ Page({
             _this.setData({
               finish: true
             })
+            _this.updateEmotion()
             wx.showToast({
               title: '上传成功',
             })
@@ -260,6 +261,7 @@ Page({
             _this.setData({
               finish: true
             })
+            _this.updateEmotion()
             wx.showToast({
               title: '上传成功',
             })
@@ -322,6 +324,24 @@ Page({
             mask: true
           })
           reject(err)
+        }
+      })
+    })
+  },
+
+  updateEmotion () {
+    let data = getApp().data.key
+    return new Promise ((resolve, reject) => {
+      wx.request({
+        url: getApp().data.domain + 'utils/update_emotion_report',
+        data: data,
+        success(res) {
+          console.log(res.data)
+          resolve(true)
+        },
+        fail(err) {
+          console.log(err)
+          reject(false)
         }
       })
     })
@@ -423,7 +443,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '双生',
     })
-    if (this.data.finish) {
+    if (!this.data.finish) {
       getApp().data.savedNote = {
         id: this.data.id,
         title: this.data.title,

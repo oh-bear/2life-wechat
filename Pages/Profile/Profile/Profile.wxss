@@ -68,6 +68,7 @@
   display: flex;
   display: -webkit-flex;
   height: 79.2rpx;
+  justify-content: left !important;
   align-items: center;
 }
 
@@ -92,28 +93,49 @@
   color: #AAAAAA;
 }
 
-.profile .match, .profile .feedback, .profile .chart {
+.profile .item {
+  position: relative;
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
 }
 
-.match .image, .feedback .image, .chart .image {
+.profile .item .image {
   width: 45rpx;
   height: 45rpx;
   padding: 43rpx 0;
 }
 
-.match .text, .feedback .text, .chart .text {
+.profile .item .text {
   border-top: 1px solid rgba(228, 228, 228, 0.5);
   border-bottom: 1px solid rgba(228, 228, 228, 0.5);
   width: 88%;
 }
 
-.match .text .name, .feedback .text .name, .chart .text .name {
+.profile .item .text .name {
   height: 122rpx;
   line-height: 122rpx;
   font-size: 36rpx;
+}
+
+.item .right {
+  position: absolute;
+  display: flex;
+  display: -webkit-flex;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 108rpx;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.item .right .arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 2px solid #DDDDDD;
+  border-right: 2px solid #DDDDDD;
+  transform: rotate(45deg);
 }
 
 .match .text .description {

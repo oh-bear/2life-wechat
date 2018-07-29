@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="item">
+    允许推荐日记
+    <view class="right">
+      <switch class="switch" checked='{{recommend}}' bindchange="changeRecommend" />
+    </view>
+  </view>
+  <view class="item" bindtap='goFeedback'>
+    反馈
+    <view class="right"> 
+      <view class="arrow"></view>
+    </view>
+  </view>
+  <view class="item">
+    隐私协议
+    <view class="right">
+      <view class="arrow"></view>
+    </view>
+  </view>
+</view>

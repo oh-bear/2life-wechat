@@ -4,7 +4,7 @@ const config = require('/config.js')
 
 App({
   data: {
-    domain: 'https://2life.api.ursb.me/',
+    domain: 'http://127.0.0.1:3002/',
     user: {},
     key: {},
     partner: {},

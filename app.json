@@ -55,6 +55,7 @@
   },
   "pages": [
     "Pages/Home/Home/Home",
+    "Pages/Profile/Setting/Setting",
     "Pages/Profile/Analysis/Analysis",
     "Pages/Profile/Charts/Charts",
     "Pages/Profile/Feedback/Feedback",

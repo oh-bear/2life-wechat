@@ -59,10 +59,13 @@
       </view>
     </view> 
     <view class="profile">
-      <view class="match" bindtap='goMatch' wx:if="{{!showMatch}}">
+      <view class="match item" bindtap='goMatch' wx:if="{{!showMatch}}">
         <image src="../Images/match.png" class="image" />
         <view class="text">
           <view class="name">匹配</view>
+        </view>
+        <view class="right">
+          <view class="arrow"></view>
         </view>
       </view>
       <!-- <view class="sync">
@@ -72,10 +75,13 @@
           <view class="time">{{time}}</view>
         </view>
       </view>  -->
-      <view class="feedback" bindtap='goFeedback'>
-        <image src="../Images/feedback.png" class="image" />
+      <view class="setting item" bindtap="goSetting">
+        <image src="../Images/setting.png" class="image" />
         <view class="text">
-          <view class="name">反馈</view>
+          <view class="name">设置</view>
+        </view>
+        <view class="right">
+          <view class="arrow"></view>
         </view>
       </view>
       <!-- <view class="chart" bindtap="goChart">

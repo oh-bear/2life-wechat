@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.item {
+  position: relative;
+  height: 128rpx;
+  margin: 0 48rpx;
+  border-bottom: 1px solid #F1F1F1;
+  line-height: 128rpx;
+  font-size: 32rpx;
+  color: #444444;
+}
+
+.item:first-child {
+  margin-top: 34rpx;
+}
+
+.item .right {
+  position: absolute;
+  display: flex;
+  display: -webkit-flex;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 108rpx;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.item .right .arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 2px solid #DDDDDD;
+  border-right: 2px solid #DDDDDD;
+  transform: rotate(45deg);
+}

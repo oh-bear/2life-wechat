@@ -35,9 +35,9 @@ Page({
     })
   },
 
-  goFeedback: function () {
+  goSetting: function () {
     wx.navigateTo({
-      url: '../Feedback/Feedback',
+      url: '../Setting/Setting',
     })
   },
 
