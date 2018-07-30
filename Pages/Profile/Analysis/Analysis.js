@@ -330,10 +330,17 @@ Page({
       data: data,
       success (res) {
         console.log(res.data)
-        _this.showRadar(res.data.data.emotions)
+        let data = res.data.data
+        _this.showRadar(data.emotions)
         _this.setData({
           hasTested: true
         })
+        let user = getApp().data.user
+        user.emotions = data.emotions
+        user.emotions_basis = data.emotions_basis
+        user.emotions_type = data.emotions_type
+        user.emotions_report = data.emotions_report
+        getApp().data.user = user
       },
       fail (err) {
         console.log(err)

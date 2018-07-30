@@ -9,37 +9,35 @@
 .options {
   display: flex;
   display: -webkit-flex;
-  height: 30px;
-  margin: 43rpx 43rpx 0 43rpx;
+  height: 88rpx;
+  margin: 16rpx 43rpx 0;
+  border-bottom: 1px solid #F1F1F1;
   justify-content: center;
   align-items: center;
   text-align: center;
-  line-height: 30px;
-  font-size: 32rpx;
-  color: #2DC3A6;
+  line-height: 88rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #AAAAAA;
 }
 
 .options .option {
+  display: flex;
+  display: -webkit-flex;
   width: 33%;
   height: 100%;
-  border: 1px solid #2DC3A6;
+  justify-content: center;
+  align-items: center;
 }
 
-.option:first-child {
-  border-right: 0;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+.option view {
+  width: 48rpx;
+  height: 100%;
 }
 
-.option:last-child {
-  border-left: 0;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.options .sel {
-  color: white;
-  background-color: #2DC3A6;
+.options .sel view {
+  color: #333333;
+  border-bottom: 2px solid #2DC3A6;
 }
 
 .date {
@@ -76,4 +74,107 @@
 /* calendar */
 .date-area {
   width: 460rpx;
+}
+
+.pie .average {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.average .item {
+  width: 50%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.average .item .number {
+  margin: 4rpx 0;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.pie .pieChart {
+  width: 100%;
+  height: 354rpx;
+}
+
+.radar {
+  width: 100%;
+  height: 550rpx;
+  margin-top: 112rpx;
+}
+
+.description, .analysis {
+  margin-top: 80rpx;
+}
+
+.description .type {
+  margin: 0 48rpx;
+}
+
+.type view {
+  padding: 10rpx 0;
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.type .title {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.description .img {
+  width: 750rpx;
+  height: 392rpx;
+  margin-top: 20rpx;
+}
+
+.description .report {
+  margin: 62rpx 48rpx 0;
+}
+
+.report .title {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.report .content {
+  padding: 16rpx 0;
+  text-align: justify;
+  line-height: 52rpx;
+  font-size: 32rpx;
+}
+
+.analysis .img {
+  width: 654rpx;
+  height: 370rpx;
+  margin: 0 48rpx;
+}
+
+.analysis .text {
+  margin: 48rpx;
+  text-align: justify;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.analysis .text .title {
+  margin: 16rpx 0;
+  font-weight: bold;
+  color: #333333;
+}
+
+.analysis .test {
+  height: 104rpx;
+  margin: 48rpx;
+  border-radius: 8px;
+  text-align: center;
+  line-height: 104rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2DC3A6;
+  background: #F5F5F5;
 }

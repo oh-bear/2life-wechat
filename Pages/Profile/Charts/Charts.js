@@ -29,6 +29,11 @@ function initChart(canvas, width, height) {
       axisTick: {
         show: false
       },
+      splitLine: {
+        lineStyle: {
+          color: '#DDF3E5'
+        }
+      },
       min: 0,
       max: 100
     },
@@ -46,6 +51,174 @@ function initChart(canvas, width, height) {
   return chart
 }
 
+let pie = null
+function initPie(canvas, width, height) {
+  pie = echarts.init(canvas, null, {
+    width: width,
+    height: height
+  })
+  canvas.setChart(pie)
+
+  let option = {
+    title: {
+      text: '情绪饼状图',
+      textStyle: {
+        color: '#AAAAAA',
+        fontSize: 12,
+        align: 'center'
+      },
+      left: 'center',
+      bottom: 0
+    },
+    legend: {
+      type: 'plain',
+      orient: 'vertical',
+      top: '25%',
+      right: '12.8%',
+      data: [
+        {
+          name: '积极情绪',
+          icon: 'circle',
+          textStyle: {
+            fontSize: '16',
+            color: '#333333'
+          }
+        },
+        {
+          name: '一般情绪',
+          icon: 'circle',
+          textStyle: {
+            fontSize: '16',
+            color: '#333333'
+          }
+        },
+        {
+          name: '消极情绪',
+          icon: 'circle',
+          textStyle: {
+            fontSize: '16',
+            color: '#333333'
+          }
+        }
+      ]
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: ['50%', '70%'],
+        center: ['27%', '50%'],
+        avoidLabelOverlap: false,
+        label: {
+          normal: {
+            show: false,
+            position: 'center'
+          }
+        },
+        labelLine: {
+          normal: {
+            show: false
+          }
+        },
+        data: [
+          {
+            value: 335,
+            name: '积极情绪',
+            itemStyle: {
+              color: '#2DC3A6'
+            }
+          },
+          {
+            value: 335,
+            name: '一般情绪',
+            itemStyle: {
+              color: '#FAA755'
+            }
+          },
+          {
+            value: 335,
+            name: '消极情绪',
+            itemStyle: {
+              color: '#F54E4E'
+            }
+          },
+        ]
+      }
+    ]
+  }
+  pie.setOption(option)
+  return pie
+}
+
+let radar = null
+function initRadar(canvas, width, height) {
+  radar = echarts.init(canvas, null, {
+    width: width,
+    height: height
+  })
+  canvas.setChart(radar)
+
+  let option = {
+    title: {
+      text: '五维情绪雷达图',
+      textStyle: {
+        color: '#AAAAAA',
+        fontSize: 12,
+        align: 'center'
+      },
+      left: 'center',
+      bottom: 0
+    },
+    radar: {
+      indicator: [
+        { text: '喜悦', max: 0 },
+        { text: '愤怒', max: 0 },
+        { text: '厌恶', max: 0 },
+        { text: '低落', max: 0 },
+        { text: '温和', max: 0 }
+      ],
+      name: {
+        textStyle: {
+          color: '#333333',
+          fontSize: 14
+        }
+      },
+      center: ['50%', '50%'],
+      radius: '70%',
+      shape: 'circle'
+    },
+    series: [
+      {
+        name: '北京',
+        type: 'radar',
+        lineStyle: {
+          normal: {
+            width: 1,
+            opacity: 0.5
+          }
+        },
+        data: [
+          {
+            value: [0, 0, 0, 0, 0]
+          }
+        ],
+        symbol: 'none',
+        itemStyle: {
+          normal: {
+            color: '#2DC3A6'
+          }
+        },
+        areaStyle: {
+          normal: {
+            opacity: 0.2
+          }
+        }
+      }
+    ]
+  }
+  radar.setOption(option)
+  return radar
+}
+
 Page({
 
   /**
@@ -54,6 +227,12 @@ Page({
   data: {
     ec: {
       onInit: initChart
+    },
+    pie: {
+      onInit: initPie
+    },
+    radar: {
+      onInit: initRadar
     },
     options: [
       {
@@ -88,6 +267,14 @@ Page({
         axisLine: {
           show: false
         },
+        axisTick: {
+          show: false
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#DDF3E5'
+          }
+        },
         min: 0,
         max: 100
       },
@@ -101,8 +288,156 @@ Page({
         }
       }]
     },
+    pieOption: {
+      title: {
+        text: '情绪饼状图',
+        textStyle: {
+          color: '#AAAAAA',
+          fontSize: 12,
+          align: 'center'
+        },
+        left: 'center',
+        bottom: 0
+      },
+      legend: {
+        type: 'plain',
+        orient: 'vertical',
+        top: '25%',
+        right: '12.8%',
+        data: [
+          {
+            name: '积极情绪',
+            icon: 'circle',
+            textStyle: {
+              fontSize: '16',
+              color: '#333333'
+            }
+          },
+          {
+            name: '一般情绪',
+            icon: 'circle',
+            textStyle: {
+              fontSize: '16',
+              color: '#333333'
+            }
+          },
+          {
+            name: '消极情绪',
+            icon: 'circle',
+            textStyle: {
+              fontSize: '16',
+              color: '#333333'
+            }
+          }
+        ]
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: ['50%', '70%'],
+          center: ['27%', '50%'],
+          avoidLabelOverlap: false,
+          label: {
+            normal: {
+              show: false,
+              position: 'center'
+            }
+          },
+          labelLine: {
+            normal: {
+              show: false
+            }
+          },
+          data: [
+            {
+              value: 335,
+              name: '积极情绪',
+              itemStyle: {
+                color: '#2DC3A6'
+              }
+            },
+            {
+              value: 335,
+              name: '一般情绪',
+              itemStyle: {
+                color: '#FAA755'
+              }
+            },
+            {
+              value: 335,
+              name: '消极情绪',
+              itemStyle: {
+                color: '#F54E4E'
+              }
+            },
+          ]
+        }
+      ]
+    },
+    radarOption: {
+      title: {
+        text: '五维情绪雷达图',
+        textStyle: {
+          color: '#AAAAAA',
+          fontSize: 12,
+          align: 'center'
+        },
+        left: 'center',
+        bottom: 0
+      },
+      radar: {
+        indicator: [
+          { text: '喜悦', max: 0 },
+          { text: '愤怒', max: 0 },
+          { text: '厌恶', max: 0 },
+          { text: '低落', max: 0 },
+          { text: '温和', max: 0 }
+        ],
+        name: {
+          textStyle: {
+            color: '#333333',
+            fontSize: 14
+          }
+        },
+        center: ['50%', '50%'],
+        radius: '70%',
+        shape: 'circle'
+      },
+      series: [
+        {
+          name: '北京',
+          type: 'radar',
+          lineStyle: {
+            normal: {
+              width: 1,
+              opacity: 0.5
+            }
+          },
+          data: [
+            {
+              value: [0, 0, 0, 0, 0]
+            }
+          ],
+          symbol: 'none',
+          itemStyle: {
+            normal: {
+              color: '#2DC3A6'
+            }
+          },
+          areaStyle: {
+            normal: {
+              opacity: 0.2
+            }
+          }
+        }
+      ]
+    },
     diary: [],
-    touchStart: 0
+    touchStart: 0,
+    emotionsType: '',
+    emotionsReport: [],
+    hasTested: false,
+    user: {}
   },
 
   // method
@@ -352,11 +687,71 @@ Page({
     
   },
 
+  showPie (data) {
+    if (data.length === 0) return
+    let vals = []
+    getApp().lodash.forEach(data, obj => {
+      vals.push(getApp().lodash.values(obj)[0])
+    })
+    let filter = function (vals, max, min) {
+      return getApp().lodash.filter(vals, val => { return val < max && val >= min})
+    }
+    let positive = filter(vals, 100, 66)
+    let normal = filter(vals, 66, 33)
+    let negative =  filter(vals, 33, 0)
+
+    let option = this.data.pieOption
+    let values = option.series[0].data
+    getApp().lodash.forEach(values, (val, index) => {
+      val.value = [positive, normal, negative][index]
+    })
+    option.series[0].data = values
+    pie.setOption(option)
+  }, 
+  
+  showRadar() {
+    if (!getApp().data.user.emotions) return
+    let emotions = getApp().data.user.emotions.split(',')
+    let max = Math.max.apply(null, emotions) * 1.1
+    let option = this.data.radarOption
+    let indicator = option.radar.indicator
+    getApp().lodash.forEach(indicator, val => { val.max = max })
+    option.indicator = indicator
+    option.series[0].data[0].value = emotions
+    radar.setOption(option)
+  },
+
+  showReport() {
+    if (!getApp().data.user.emotions) return
+    let origin = getApp().data.user.emotions_report.split('\n')
+    console.log('origin', origin)
+    getApp().lodash.forEach(origin, (val, index) => {
+      let item = val.split('（')
+      console.log('item', item)
+      origin[index] = {
+        title: item[1].substr(0, item[1].length - 1),
+        content: item[0]
+      }
+    })
+    this.setData({
+      emotionsType: getApp().data.user.emotions_type,
+      emotionsReport: origin
+    })
+  },
+
+  goAnalysis() {
+    wx.navigateTo({
+      url: '../Analysis/Analysis',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.setNavigationBarTitle({
+      title: '情绪图表',
+    })
   },
 
   /**
@@ -411,8 +806,17 @@ Page({
           diary: data
         })
         console.log(_this.data.diary)
-        _this.getChoosenDate(_this.data.choose)
+        setTimeout(function () {
+          _this.getChoosenDate(_this.data.choose)
+          _this.showPie(data)
+          _this.showRadar()
+          _this.showReport()
+        }, 100)
       }
+    })
+
+    this.setData({
+      user: getApp().data.user
     })
   },
 
@@ -420,7 +824,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    wx.setNavigationBarTitle({
+      title: '双生',
+    })
   },
 
   /**

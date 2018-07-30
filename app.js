@@ -4,6 +4,7 @@ const config = require('/config.js')
 
 App({
   data: {
+    // domain: 'http://127.0.0.1:3002/',
     domain: 'https://2life.api.ursb.me/',
     user: {},
     key: {},
@@ -33,7 +34,8 @@ App({
     orderBy: require('./utils/lodash.orderby/index.js'),
     find: require('./utils/lodash.find/index.js'),
     filter: require('./utils/lodash.filter/index.js'),
-    forEach: require('./utils/lodash.foreach/index.js')
+    forEach: require('./utils/lodash.foreach/index.js'),
+    values: require('./utils/lodash.values/index.js')
   },
 
   towxml: new Towxml(),

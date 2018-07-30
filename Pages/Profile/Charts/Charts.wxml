@@ -1,6 +1,8 @@
 <view class="container">
   <view class="options">
-    <view class="option {{choose === item.type ? 'sel' : ''}}" wx:for="{{options}}" wx:key="{{key}}" data-type="{{item.type}}" bindtap="getOption">{{item.title}}</view>
+    <view class="option {{choose === item.type ? 'sel' : ''}}" wx:for="{{options}}" wx:key="{{key}}" data-type="{{item.type}}" bindtap="getOption">
+      <view>{{item.title}}</view>
+    </view>
   </view>
   <view class="date">
     <view class="now {{dateShow ? 'hide' : ''}}">
@@ -20,6 +22,51 @@
   </view>
   <view class="chart" bindtouchmove='handleTouchMove' bindtouchstart='handleTouchStart' bindtouchend='handleTouchEnd'>
     <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+  </view>
+  <view class="pie">
+    <view class="average">
+      <view class="item">
+        <view class="number">
+          {{user.mode}}
+        </view>
+        <view>
+          累计写日记/天
+        </view>
+      </view>
+      <view class="item">
+        <view class="number">
+          {{user.total_notes}}
+        </view>
+        <view>
+          平均情绪值
+        </view>
+      </view>
+    </view>
+    <view class="pieChart">
+      <ec-canvas id="pie-dom-bar" canvas-id="pie-bar" ec="{{ pie }}"></ec-canvas>
+    </view>
+  </view>
+  <view class="radar">
+    <ec-canvas id="radar-dom-bar" canvas-id="radar-bar" ec="{{ radar }}"></ec-canvas>
+  </view>
+  <view class="description" wx:if="{{user.emotions}}">
+    <view class="type">
+      <view class="title">{{emotionsType}}</view>
+      <view>你的性格属性</view>
+    </view>
+    <image src="/Images/cover.png" class="img"></image>
+    <view class="report" wx:for="{{emotionsReport}}" wx:key="{{index}}">
+      <view class="title">{{item.title}}</view>
+      <view class="content">{{item.content}}</view>
+    </view>
+  </view>
+  <view class="analysis" wx:if="{{!user.emotions}}">
+    <image src="../Images/analysis_img.png" class="img"></image>
+    <view class="text">
+      <view class="title">性格测试</view>
+      <view>我们准备了一个好玩的测试，可以分析出你的性格属性。测试完成后你不但可以看到你的四维情绪雷达图，还有你的性格属性哦</view>
+    </view>
+    <view class="test" bindtap='goAnalysis'>开始测试</view>
   </view>
 </view>
 
