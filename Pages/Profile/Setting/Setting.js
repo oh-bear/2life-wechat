@@ -14,9 +14,18 @@ Page({
     })
   },
 
-  goFeedback () {
+  goFeedback() {
+    wx.setNavigationBarTitle({
+      title: '设置',
+    })
     wx.navigateTo({
       url: '../Feedback/Feedback',
+    })
+  },
+
+  goAgreement () {
+    wx.navigateTo({
+      url: '../Agreement/Agreement',
     })
   },
 
@@ -45,7 +54,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    wx.setNavigationBarTitle({
+      title: '双生',
+    })
   },
 
   /**

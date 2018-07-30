@@ -80,7 +80,7 @@
   line-height: 44rpx;
 }
 
-.button {
+.goAdd {
   height: 104rpx;
   margin: 148rpx 48rpx 0;
   border-radius: 10px;
@@ -90,4 +90,8 @@
   font-weight: bold;
   color: #2DC3A6;
   background: #F5F5F5;
+}
+
+.hide {
+  visibility: hidden;
 }

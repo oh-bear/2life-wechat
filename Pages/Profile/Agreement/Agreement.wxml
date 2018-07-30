@@ -1,0 +1,7 @@
+<view class="cotnainer">
+  <view class="agreement">
+    <template is="entry" data="{{...data}}" />
+  </view>
+</view>
+
+<import src="/towxml/entry.wxml" />

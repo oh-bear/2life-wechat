@@ -16,10 +16,19 @@ function initChart(canvas, width, height) {
   let option = {
     xAxis: {
       type: 'category',
+      axisLine: {
+        show: false
+      },
       data: ['1', '2', '3', '4', '5', '6', '7']
     },
     yAxis: {
       type: 'value',
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
       min: 0,
       max: 100
     },
@@ -27,10 +36,10 @@ function initChart(canvas, width, height) {
       data: [0, 0, 0, 0, 0, 0, 0],
       type: 'bar',
       itemStyle: {
-        normal: {
-          color: '#2DC3A6'
-        }
-      }
+        color: '#2DC3A6',
+        barBorderRadius: 10
+      },
+      barWidth: 10
     }]
   }
   chart.setOption(option)
@@ -66,10 +75,19 @@ Page({
     chartOption: {
       xAxis: {
         type: 'category',
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
         data: []
       },
       yAxis: {
         type: 'value',
+        axisLine: {
+          show: false
+        },
         min: 0,
         max: 100
       },

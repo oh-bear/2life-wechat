@@ -1,0 +1,6 @@
+@import '/towxml/style/main.wxss';
+
+.container {
+  width: 100%;
+  height: 100%;
+}

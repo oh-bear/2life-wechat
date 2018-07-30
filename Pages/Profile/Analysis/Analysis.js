@@ -330,7 +330,7 @@ Page({
       data: data,
       success (res) {
         console.log(res.data)
-        _this.showRadar(res.data.data)
+        _this.showRadar(res.data.data.emotions)
         _this.setData({
           hasTested: true
         })
@@ -365,6 +365,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '量表测试',
+    })
     this.setData({
       hasTested: getApp().data.user.emotions ? true : false
     })
@@ -392,7 +395,9 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    wx.setNavigationBarTitle({
+      title: '双生',
+    })
   },
 
   /**
