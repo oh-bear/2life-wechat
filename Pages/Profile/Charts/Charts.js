@@ -1,222 +1,52 @@
 // Pages/Profile/Charts/Charts.js
 // init calendar
 import initCalendar, { getSelectedDay, jumpToToday } from '../../Home/Calendar/index.js';
+import options from './options.js'
 
 // init echart
 import * as echarts from '../Echarts/echarts'
 let chart = null
 
-function initChart(canvas, width, height) {
-  chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(chart)
+// function initChart(canvas, width, height) {
+//   chart = echarts.init(canvas, null, {
+//     width: width,
+//     height: height
+//   })
+//   canvas.setChart(chart)
 
-  let option = {
-    xAxis: {
-      type: 'category',
-      axisLine: {
-        show: false
-      },
-      data: ['1', '2', '3', '4', '5', '6', '7']
-    },
-    yAxis: {
-      type: 'value',
-      axisLine: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      splitLine: {
-        lineStyle: {
-          color: '#DDF3E5'
-        }
-      },
-      min: 0,
-      max: 100
-    },
-    series: [{
-      data: [0, 0, 0, 0, 0, 0, 0],
-      type: 'bar',
-      itemStyle: {
-        color: '#2DC3A6',
-        barBorderRadius: 10
-      },
-      barWidth: 10
-    }]
-  }
+//   let option = options.chart
+//   chart.setOption(option)
+//   return chart
+// }
+
+// let pie = null
+// function initPie(canvas, width, height) {
+//   pie = echarts.init(canvas, null, {
+//     width: width,
+//     height: height
+//   })
+//   canvas.setChart(pie)
+
+//   let option = options.pie
+//   pie.setOption(option)
+//   return pie
+// }
+
+// let radar = null
+// function initRadar(canvas, width, height) {
+//   radar = echarts.init(canvas, null, {
+//     width: width,
+//     height: height
+//   })
+//   canvas.setChart(radar)
+
+//   let option = options.radar
+//   radar.setOption(option)
+//   return radar
+// }
+
+function initChart(chart, option) {
   chart.setOption(option)
-  return chart
-}
-
-let pie = null
-function initPie(canvas, width, height) {
-  pie = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(pie)
-
-  let option = {
-    title: {
-      text: '情绪饼状图',
-      textStyle: {
-        color: '#AAAAAA',
-        fontSize: 12,
-        align: 'center'
-      },
-      left: 'center',
-      bottom: 0
-    },
-    legend: {
-      type: 'plain',
-      orient: 'vertical',
-      top: '25%',
-      right: '12.8%',
-      data: [
-        {
-          name: '积极情绪',
-          icon: 'circle',
-          textStyle: {
-            fontSize: '16',
-            color: '#333333'
-          }
-        },
-        {
-          name: '一般情绪',
-          icon: 'circle',
-          textStyle: {
-            fontSize: '16',
-            color: '#333333'
-          }
-        },
-        {
-          name: '消极情绪',
-          icon: 'circle',
-          textStyle: {
-            fontSize: '16',
-            color: '#333333'
-          }
-        }
-      ]
-    },
-    series: [
-      {
-        type: 'pie',
-        radius: ['50%', '70%'],
-        center: ['27%', '50%'],
-        avoidLabelOverlap: false,
-        label: {
-          normal: {
-            show: false,
-            position: 'center'
-          }
-        },
-        labelLine: {
-          normal: {
-            show: false
-          }
-        },
-        data: [
-          {
-            value: 335,
-            name: '积极情绪',
-            itemStyle: {
-              color: '#2DC3A6'
-            }
-          },
-          {
-            value: 335,
-            name: '一般情绪',
-            itemStyle: {
-              color: '#FAA755'
-            }
-          },
-          {
-            value: 335,
-            name: '消极情绪',
-            itemStyle: {
-              color: '#F54E4E'
-            }
-          },
-        ]
-      }
-    ]
-  }
-  pie.setOption(option)
-  return pie
-}
-
-let radar = null
-function initRadar(canvas, width, height) {
-  radar = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(radar)
-
-  let option = {
-    title: {
-      text: '五维情绪雷达图',
-      textStyle: {
-        color: '#AAAAAA',
-        fontSize: 12,
-        align: 'center'
-      },
-      left: 'center',
-      bottom: 0
-    },
-    radar: {
-      indicator: [
-        { text: '喜悦', max: 0 },
-        { text: '愤怒', max: 0 },
-        { text: '厌恶', max: 0 },
-        { text: '低落', max: 0 },
-        { text: '温和', max: 0 }
-      ],
-      name: {
-        textStyle: {
-          color: '#333333',
-          fontSize: 14
-        }
-      },
-      center: ['50%', '50%'],
-      radius: '70%',
-      shape: 'circle'
-    },
-    series: [
-      {
-        name: '北京',
-        type: 'radar',
-        lineStyle: {
-          normal: {
-            width: 1,
-            opacity: 0.5
-          }
-        },
-        data: [
-          {
-            value: [0, 0, 0, 0, 0]
-          }
-        ],
-        symbol: 'none',
-        itemStyle: {
-          normal: {
-            color: '#2DC3A6'
-          }
-        },
-        areaStyle: {
-          normal: {
-            opacity: 0.2
-          }
-        }
-      }
-    ]
-  }
-  radar.setOption(option)
-  return radar
 }
 
 Page({
@@ -226,13 +56,13 @@ Page({
    */
   data: {
     ec: {
-      onInit: initChart
+      lazyLoad: true
     },
     pie: {
-      onInit: initPie
+      lazyLoad: true
     },
     radar: {
-      onInit: initRadar
+      lazyLoad: true
     },
     options: [
       {
@@ -251,187 +81,9 @@ Page({
     choose: 'week',
     dateShow: false,
     selectedDate: {},
-    chartOption: {
-      xAxis: {
-        type: 'category',
-        axisLine: {
-          show: false
-        },
-        axisTick: {
-          show: false
-        },
-        data: []
-      },
-      yAxis: {
-        type: 'value',
-        axisLine: {
-          show: false
-        },
-        axisTick: {
-          show: false
-        },
-        splitLine: {
-          lineStyle: {
-            color: '#DDF3E5'
-          }
-        },
-        min: 0,
-        max: 100
-      },
-      series: [{
-        data: [],
-        type: 'bar',
-        itemStyle: {
-          normal: {
-            color: '#2DC3A6'
-          }
-        }
-      }]
-    },
-    pieOption: {
-      title: {
-        text: '情绪饼状图',
-        textStyle: {
-          color: '#AAAAAA',
-          fontSize: 12,
-          align: 'center'
-        },
-        left: 'center',
-        bottom: 0
-      },
-      legend: {
-        type: 'plain',
-        orient: 'vertical',
-        top: '25%',
-        right: '12.8%',
-        data: [
-          {
-            name: '积极情绪',
-            icon: 'circle',
-            textStyle: {
-              fontSize: '16',
-              color: '#333333'
-            }
-          },
-          {
-            name: '一般情绪',
-            icon: 'circle',
-            textStyle: {
-              fontSize: '16',
-              color: '#333333'
-            }
-          },
-          {
-            name: '消极情绪',
-            icon: 'circle',
-            textStyle: {
-              fontSize: '16',
-              color: '#333333'
-            }
-          }
-        ]
-      },
-      series: [
-        {
-          type: 'pie',
-          radius: ['50%', '70%'],
-          center: ['27%', '50%'],
-          avoidLabelOverlap: false,
-          label: {
-            normal: {
-              show: false,
-              position: 'center'
-            }
-          },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
-          data: [
-            {
-              value: 335,
-              name: '积极情绪',
-              itemStyle: {
-                color: '#2DC3A6'
-              }
-            },
-            {
-              value: 335,
-              name: '一般情绪',
-              itemStyle: {
-                color: '#FAA755'
-              }
-            },
-            {
-              value: 335,
-              name: '消极情绪',
-              itemStyle: {
-                color: '#F54E4E'
-              }
-            },
-          ]
-        }
-      ]
-    },
-    radarOption: {
-      title: {
-        text: '五维情绪雷达图',
-        textStyle: {
-          color: '#AAAAAA',
-          fontSize: 12,
-          align: 'center'
-        },
-        left: 'center',
-        bottom: 0
-      },
-      radar: {
-        indicator: [
-          { text: '喜悦', max: 0 },
-          { text: '愤怒', max: 0 },
-          { text: '厌恶', max: 0 },
-          { text: '低落', max: 0 },
-          { text: '温和', max: 0 }
-        ],
-        name: {
-          textStyle: {
-            color: '#333333',
-            fontSize: 14
-          }
-        },
-        center: ['50%', '50%'],
-        radius: '70%',
-        shape: 'circle'
-      },
-      series: [
-        {
-          name: '北京',
-          type: 'radar',
-          lineStyle: {
-            normal: {
-              width: 1,
-              opacity: 0.5
-            }
-          },
-          data: [
-            {
-              value: [0, 0, 0, 0, 0]
-            }
-          ],
-          symbol: 'none',
-          itemStyle: {
-            normal: {
-              color: '#2DC3A6'
-            }
-          },
-          areaStyle: {
-            normal: {
-              opacity: 0.2
-            }
-          }
-        }
-      ]
-    },
+    chartOption: options.chart,
+    pieOption: options.pie,
+    radarOption: options.radar,
     diary: [],
     touchStart: 0,
     emotionsType: '',
@@ -572,7 +224,18 @@ Page({
     let chartOption = this.data.chartOption
     chartOption.xAxis.data = dataObj.label
     chartOption.series[0].data = dataObj.value
-    chart.setOption(chartOption)
+    
+
+    this.chartComponent.init((canvas, width, height) => {
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      })
+      initChart(chart, chartOption)
+      this.chart = chart
+
+      return chart
+    })
   },
 
   getDateObj(timestamp) {
@@ -687,38 +350,59 @@ Page({
     
   },
 
-  showPie (data) {
-    if (data.length === 0) return
-    let vals = []
-    getApp().lodash.forEach(data, obj => {
-      vals.push(getApp().lodash.values(obj)[0])
-    })
-    let filter = function (vals, max, min) {
-      return getApp().lodash.filter(vals, val => { return val < max && val >= min})
-    }
-    let positive = filter(vals, 100, 66)
-    let normal = filter(vals, 66, 33)
-    let negative =  filter(vals, 33, 0)
-
+  showPie(data) {
     let option = this.data.pieOption
-    let values = option.series[0].data
-    getApp().lodash.forEach(values, (val, index) => {
-      val.value = [positive, normal, negative][index]
+    if (data.length > 0) {
+      let vals = []
+      getApp().lodash.forEach(data, obj => {
+        vals.push(getApp().lodash.values(obj)[0])
+      })
+      let filter = function (vals, max, min) {
+        return getApp().lodash.filter(vals, val => { return val < max && val >= min })
+      }
+      let positive = filter(vals, 100, 66)
+      let normal = filter(vals, 66, 33)
+      let negative = filter(vals, 33, 0)
+
+      let values = option.series[0].data
+      getApp().lodash.forEach(values, (val, index) => {
+        val.value = [positive, normal, negative][index]
+      })
+      option.series[0].data = values
+    }
+
+    this.pieComponent.init((canvas, width, height) => {
+      const pie = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      })
+      initChart(pie, option)
+      this.pie = pie
+
+      return pie
     })
-    option.series[0].data = values
-    pie.setOption(option)
   }, 
   
   showRadar() {
-    if (!getApp().data.user.emotions) return
-    let emotions = getApp().data.user.emotions.split(',')
-    let max = Math.max.apply(null, emotions) * 1.1
     let option = this.data.radarOption
-    let indicator = option.radar.indicator
-    getApp().lodash.forEach(indicator, val => { val.max = max })
-    option.indicator = indicator
-    option.series[0].data[0].value = emotions
-    radar.setOption(option)
+    if (getApp().data.user.emotions) {
+      let emotions = getApp().data.user.emotions.split(',')
+      let max = Math.max.apply(null, emotions) * 1.1
+      let indicator = option.radar.indicator
+      getApp().lodash.forEach(indicator, val => { val.max = max })
+      option.indicator = indicator
+      option.series[0].data[0].value = emotions
+    }
+    this.radarComponent.init((canvas, width, height) => {
+      const radar = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      })
+      initChart(radar, option)
+      this.radar = radar
+
+      return radar
+    })
   },
 
   showReport() {
@@ -727,7 +411,6 @@ Page({
     console.log('origin', origin)
     getApp().lodash.forEach(origin, (val, index) => {
       let item = val.split('（')
-      console.log('item', item)
       origin[index] = {
         title: item[1].substr(0, item[1].length - 1),
         content: item[0]
@@ -758,7 +441,34 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    this.chartComponent = this.selectComponent('#mychart-dom-bar')
+    this.pieComponent = this.selectComponent('#pie-dom-bar')
+    this.radarComponent = this.selectComponent('#radar-dom-bar')
+
+    let _this = this
+    let key = getApp().data.key
+    wx.request({
+      url: getApp().data.domain + 'modes/show',
+      data: {
+        uid: key.uid,
+        timestamp: key.timestamp,
+        token: key.token
+      },
+      success(res) {
+        let data = res.data.data
+        _this.setData({
+          diary: data
+        })
+        console.log(_this.data.diary)
+        _this.getChoosenDate(_this.data.choose)
+        _this.showPie(data)
+      }
+    })
+    this.showRadar()
+    this.showReport()
+    this.setData({
+      user: getApp().data.user
+    })
   },
 
   /**
@@ -789,34 +499,6 @@ Page({
       //   console.log(currentSelect);
       //   console.log(event);
       // },
-    })
-
-    let _this = this
-    let key = getApp().data.key
-    wx.request({
-      url: getApp().data.domain + 'modes/show',
-      data: {
-        uid: key.uid,
-        timestamp: key.timestamp,
-        token: key.token
-      },
-      success(res) {
-        let data = res.data.data
-        _this.setData({
-          diary: data
-        })
-        console.log(_this.data.diary)
-        setTimeout(function () {
-          _this.getChoosenDate(_this.data.choose)
-          _this.showPie(data)
-          _this.showRadar()
-          _this.showReport()
-        }, 100)
-      }
-    })
-
-    this.setData({
-      user: getApp().data.user
     })
   },
 

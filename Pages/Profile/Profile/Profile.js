@@ -132,7 +132,9 @@ Page({
     let _this = this
     this.setData({
       hasAuthorize: getApp().data.hasAuthorize,
-      showMatch: getApp().data.showMatch
+      showMatch: getApp().data.showMatch,
+      user: getApp().data.user,
+      partner: getApp().data.partner
     })
     if (!getApp().data.user.id) return
     getApp().getUser().then(data => {
