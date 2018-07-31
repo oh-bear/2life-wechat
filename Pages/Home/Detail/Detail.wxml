@@ -51,7 +51,7 @@
       </view>
     </view>
   </view>
-  <view class="comment">
+  <!-- <view class="comment">
     <view class="title">
       日记评论
     </view>
@@ -80,7 +80,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class="like" bindtap="like" wx:if="{{note.user_id !== user.id}}">
     <image src="../Images/like.png" class="image" wx:if="{{!note.is_liked}}" />
     <image src="../Images/liked.png" class="image" wx:if="{{note.is_liked}}" />

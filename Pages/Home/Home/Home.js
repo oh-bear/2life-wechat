@@ -108,6 +108,7 @@ Page({
     this.setData({
       notes: selectedNotes
     })
+    this.showCalendar()
   },
 
   goAdd: function () {

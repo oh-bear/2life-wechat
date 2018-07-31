@@ -160,6 +160,17 @@ Page({
     }
   },
 
+  clearData () {
+    this.setData({
+      images: [],
+      title: '',
+      content: '',
+      id: '',
+      mode: '',
+      date: 0
+    })
+  },
+
   publishNote: function () {
     let _this = this
     let key = getApp().data.key
@@ -197,6 +208,7 @@ Page({
               finish: true
             })
             _this.updateEmotion()
+            _this.clearData()
             wx.showToast({
               title: '上传成功',
             })
@@ -262,6 +274,7 @@ Page({
               finish: true
             })
             _this.updateEmotion()
+            _this.clearData()
             wx.showToast({
               title: '上传成功',
             })
