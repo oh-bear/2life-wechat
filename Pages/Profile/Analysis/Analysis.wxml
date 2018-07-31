@@ -56,7 +56,7 @@
       </view>
     </view>
   </view>
-  <view class="{{hasTested ? '' : 'hide'}}">
+  <view wx:if="{{hasTested}}">
     <view class="radar">
       <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
     </view>

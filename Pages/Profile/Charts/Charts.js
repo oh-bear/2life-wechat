@@ -7,44 +7,6 @@ import options from './options.js'
 import * as echarts from '../Echarts/echarts'
 let chart = null
 
-// function initChart(canvas, width, height) {
-//   chart = echarts.init(canvas, null, {
-//     width: width,
-//     height: height
-//   })
-//   canvas.setChart(chart)
-
-//   let option = options.chart
-//   chart.setOption(option)
-//   return chart
-// }
-
-// let pie = null
-// function initPie(canvas, width, height) {
-//   pie = echarts.init(canvas, null, {
-//     width: width,
-//     height: height
-//   })
-//   canvas.setChart(pie)
-
-//   let option = options.pie
-//   pie.setOption(option)
-//   return pie
-// }
-
-// let radar = null
-// function initRadar(canvas, width, height) {
-//   radar = echarts.init(canvas, null, {
-//     width: width,
-//     height: height
-//   })
-//   canvas.setChart(radar)
-
-//   let option = options.radar
-//   radar.setOption(option)
-//   return radar
-// }
-
 function initChart(chart, option) {
   chart.setOption(option)
 }

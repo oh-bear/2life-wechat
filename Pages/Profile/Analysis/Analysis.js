@@ -3,73 +3,8 @@
 import * as echarts from '../Echarts/echarts'
 let chart = null
 
-function initChart(canvas, width, height) {
-  chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  })
-  canvas.setChart(chart)
-
-  let option = {
-    title: {
-      text: '五维情绪雷达图',
-      textStyle: {
-        color: '#AAAAAA',
-        fontSize: 12,
-        align: 'center'
-      },
-      left: 'center',
-      bottom: 0
-    },
-    radar: {
-      indicator: [
-        { text: '喜悦', max: 0 },
-        { text: '愤怒', max: 0 },
-        { text: '厌恶', max: 0 },
-        { text: '低落', max: 0 },
-        { text: '温和', max: 0 }
-      ],
-      name: {
-        textStyle: {
-          color: '#333333',
-          fontSize: 14
-        }
-      },
-      center: ['50%', '50%'],
-      radius: '70%',
-      shape: 'circle'
-    },
-    series: [
-      {
-        name: '北京',
-        type: 'radar',
-        lineStyle: {
-          normal: {
-            width: 1,
-            opacity: 0.5
-          }
-        },
-        data: [
-          {
-            value: [0, 0, 0, 0, 0]
-          }
-        ],
-        symbol: 'none',
-        itemStyle: {
-          normal: {
-            color: '#2DC3A6'
-          }
-        },
-        areaStyle: {
-          normal: {
-            opacity: 0.2
-          }
-        }
-      }
-    ]
-  }
+function initChart(chart, option) {
   chart.setOption(option)
-  return chart
 }
 
 Page({
@@ -79,7 +14,7 @@ Page({
    */
   data: {
     ec: {
-      onInit: initChart
+      lazyLoad: true
     },
     start: false,
     finish: false,
@@ -351,15 +286,26 @@ Page({
     })
   },
 
-  showRadar (data) {
+  showRadar(data) {
+    this.radarComponent = this.selectComponent('#mychart-dom-bar')
+    let option = this.data.option
     let emotions = data.split(',')
     let max = Math.max.apply(null, emotions) * 1.1
-    let option = this.data.option
     let indicator = option.radar.indicator
     getApp().lodash.forEach(indicator, val => { val.max = max })
     option.indicator = indicator
     option.series[0].data[0].value = emotions
-    chart.setOption(option)
+    
+    this.radarComponent.init((canvas, width, height) => {
+      const radar = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      })
+      initChart(radar, option)
+      this.radar = radar
+
+      return radar
+    })
   },
 
   goAdd () {
@@ -375,9 +321,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '量表测试',
     })
-    this.setData({
-      hasTested: getApp().data.user.emotions ? true : false
-    })
   },
 
   /**
@@ -391,10 +334,11 @@ Page({
    */
   onShow: function () {
     let user = getApp().data.user
+    this.setData({
+      hasTested: user.emotions ? true : false
+    })
     if (user.emotions) {
-      setTimeout(function() {
-        this.showRadar(user.emotions)
-      }.bind(this), 100)
+      this.showRadar(user.emotions)
     }
   },
 
