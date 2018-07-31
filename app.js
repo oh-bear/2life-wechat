@@ -127,12 +127,13 @@ App({
                       _this.data.partner = data.partner
                       _this.data.key = data.key
                       _this.data.showMatch = response.data.is_checking
+                      _this.data.hasAuthorize = true
                       if (data.partner.id) {
                         _this.getLocation({
-                          longitude: res.partner.longitude,
-                          latitude: res.partner.latitude
+                          longitude: data.partner.longitude,
+                          latitude: data.partner.latitude
                         }).then(data => {
-                          _this.getWeather(location, 'partnerWeather')
+                          _this.getWeather(data, 'partnerWeather')
                         })
                       }
                       wx.getLocation({
@@ -153,7 +154,6 @@ App({
                           })
                         }
                       })
-                      _this.data.hasAuthorize = true
                       wx.hideLoading()
                       resolve(data)
                     } else {

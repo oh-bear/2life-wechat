@@ -144,13 +144,13 @@ Page({
   exchange: function () {
     if (!this.data.partner.id) return
     let change = this.data.change
-    this.changeAnimation = wx.createAnimation({
+    this.data.changeAnimation = wx.createAnimation({
       duration: 200
     })
     let deg = change ? 0 : 180
-    this.changeAnimation.rotate(deg).step()
+    this.data.changeAnimation.rotate(deg).step()
     this.setData({
-      changeAnimation: this.changeAnimation.export()
+      changeAnimation: this.data.changeAnimation.export()
     })
     setTimeout(function () {
       this.setData({

@@ -181,8 +181,8 @@
 }
 
 .like .image {
-  width: 115rpx;
-  height: 115rpx;
+  width: 116rpx;
+  height: 116rpx;
 }
 
 .more {

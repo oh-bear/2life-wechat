@@ -108,7 +108,6 @@
 
 .profile .item .text {
   border-top: 1px solid rgba(228, 228, 228, 0.5);
-  border-bottom: 1px solid rgba(228, 228, 228, 0.5);
   width: 88%;
 }
 

@@ -365,7 +365,7 @@ Page({
     let _this = this
     let now = new Date().getTime()
     let accessToken = wx.getStorageSync('access_token')
-    if (accessToken.deadline - now  < 60 * 1000 || !accessToken.deadline) {
+    if (accessToken.deadline - now  < 600 * 1000 || !accessToken.deadline) {
       wx.request({
         url: getApp().data.domain + 'utils/access_token',
         data: getApp().data.key,

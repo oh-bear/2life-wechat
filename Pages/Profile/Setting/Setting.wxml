@@ -2,7 +2,7 @@
   <view class="item">
     允许推荐日记
     <view class="right">
-      <switch class="switch" checked='{{recommend}}' bindchange="changeRecommend" />
+      <switch class="switch" color="#2DC3A6" checked='{{recommend}}' bindchange="changeRecommend" />
     </view>
   </view>
   <view class="item" bindtap='goFeedback'>

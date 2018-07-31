@@ -41,7 +41,7 @@
       <view class="edit" bindtap='change' wx:if="{{note.user_id === user.id}}">更改</view> 
     </view>
   </view>
-  <view class="discuss">
+  <!-- <view class="discuss">
     <view class="image">
       <image src="../Images/discuss.png" />
     </view>
@@ -50,7 +50,7 @@
         <text>有什么想说的</text>
       </view>
     </view>
-  </view>
+  </view> -->
   <!-- <view class="comment">
     <view class="title">
       日记评论

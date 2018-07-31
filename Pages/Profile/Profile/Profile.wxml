@@ -47,7 +47,7 @@
       </view>
       <view class="msg">
         <view class="item">
-          <image src="{{icon[partner.sex].book}}" class="image" />
+          <image src="{{icon[partner.sex].smile}}" class="image" />
           <text class="count">{{partner.mode}}</text>
           <text>平均情绪值</text>
         </view>

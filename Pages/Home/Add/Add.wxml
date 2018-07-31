@@ -36,9 +36,7 @@
       <textarea placeholder='请输入正文' value="{{content}}" maxlength='-1' auto-height='true' data-type="content" bindinput='getInputValue'></textarea>
     </view>
   </view>
-  <view class="save" bindtap='save'>
-    保存
-  </view>
+  <view class="save" bindtap='save'>保存</view>
 </view>
 
 <wxs module="add" src='./add.wxs' />
