@@ -266,10 +266,10 @@ Page({
       success (res) {
         console.log(res.data)
         let data = res.data.data
-        _this.showRadar(data.emotions)
         _this.setData({
           hasTested: true
         })
+        _this.showRadar(data.emotions)
         let user = getApp().data.user
         user.emotions = data.emotions
         user.emotions_basis = data.emotions_basis
@@ -296,6 +296,7 @@ Page({
     option.indicator = indicator
     option.series[0].data[0].value = emotions
     
+    console.log(this.radarComponent)
     this.radarComponent.init((canvas, width, height) => {
       const radar = echarts.init(canvas, null, {
         width: width,

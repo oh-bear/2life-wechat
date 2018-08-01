@@ -18,8 +18,7 @@ Page({
     mode: '',
     date: 0,
     showCalendar: false,
-    finish: false,
-    accessToken: {}
+    finish: false
   },
 
   // methods
@@ -306,38 +305,47 @@ Page({
   },
 
   checkContent(title, content) {
-    let access_token = this.data.accessToken.code
     return new Promise((resolve, reject) => {
-      wx.request({
-        url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + access_token,
-        method: 'POST',
-        data: {
-          content: content
-        },
-        success(res) {
-          console.log(res.data)
-          if (res.data.errcode === 0) {
-            resolve(res.data.errcode)
-          } else {
+      this.getAccessToken().then(accessToken => {
+        wx.request({
+          url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + accessToken.code,
+          method: 'POST',
+          data: {
+            content: content
+          },
+          success(res) {
+            console.log(res.data)
+            if (res.data.errcode === 0) {
+              resolve(res.data.errcode)
+            } else {
+              wx.hideLoading()
+              wx.showToast({
+                icon: 'none',
+                title: '内容含敏感词',
+                mask: true
+              })
+              reject(res.data.errcode)
+            }
+          },
+          fail(err) {
+            console.log(err)
             wx.hideLoading()
             wx.showToast({
               icon: 'none',
-              title: '内容含敏感词',
+              title: '内容检测失败',
               mask: true
             })
-            reject(res.data.errcode)
+            reject(err)
           }
-        },
-        fail(err) {
-          console.log(err)
-          wx.hideLoading()
-          wx.showToast({
-            icon: 'none',
-            title: '内容检测失败',
-            mask: true
-          })
-          reject(err)
-        }
+        })
+      }, err => {
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '获取token失败，请联系管理员',
+          mask: true
+        })
+        reject(err)
       })
     })
   },
@@ -365,35 +373,33 @@ Page({
     let _this = this
     let now = new Date().getTime()
     let accessToken = wx.getStorageSync('access_token')
-    if (accessToken.deadline - now  < 600 * 1000 || !accessToken.deadline) {
-      wx.request({
-        url: getApp().data.domain + 'utils/access_token',
-        data: getApp().data.key,
-        success(res) {
-          console.log(res.data)
-          if (res.data.code === 0) {
-            _this.setData({
-              accessToken: res.data.data.access_token
-            })
-            wx.setStorageSync('access_token', res.data.data.access_token)
+    return new Promise((resolve, reject) => {
+      if (accessToken.deadline < now || !accessToken.deadline) {
+        wx.request({
+          url: getApp().data.domain + 'utils/access_token',
+          data: getApp().data.key,
+          success(res) {
+            console.log(res.data)
+            if (res.data.code === 0) {
+              wx.setStorageSync('access_token', res.data.data.access_token)
+            }
+            resolve(res.data.data.access_token)
+          },
+          fail(err) {
+            console.log(err)
+            reject(false)
           }
-        },
-        fail(err) {
-          console.log(err)
-        }
-      })
-    } else {
-      this.setData({
-        accessToken
-      })
-    }
+        })
+      } else {
+        resolve(accessToken)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getAccessToken()
     this.setData({
       finish: false
     })

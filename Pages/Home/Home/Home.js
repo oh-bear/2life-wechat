@@ -17,8 +17,8 @@ Page({
       showCalendar: false,
     },
     duration: 200,
-    userWeather: {},
-    partnerWeather: {},
+    userWeather: getApp().data.weather.userWeather || {},
+    partnerWeather: getApp().data.weather.partnerWeather || {},
     change: false,
     modeChange: false,
     changeAnimation: ''
@@ -123,24 +123,6 @@ Page({
     }
   },
 
-  getWeather: function (n) {
-    let _this = this
-    let weather = getApp().data.weather
-    if (weather.userWeather || weather.partnerWeather) {
-      this.setData({
-        userWeather: weather.userWeather || {},
-        partnerWeather: weather.partnerWeather || {}
-      })
-    } else {
-      console.log('fail', wx.getStorageSync('userWeather'))
-      if (n > 60) return
-      n = n + 2
-      setTimeout(function () {
-        _this.getWeather(n)
-      }, 2000)
-    }
-  },
-
   exchange: function () {
     if (!this.data.partner.id) return
     let change = this.data.change
@@ -215,16 +197,17 @@ Page({
         user: getApp().data.user,
         partner: getApp().data.partner
       })
-      this.getWeather(0)
       this.getList()
       
     } else {
       getApp().wxLogin().then(data => {
+        console.log(data)
         _this.setData({
           user: data.user,
-          partner: data.partner
+          partner: data.partner,
+          userWeather: data.weather.userWeather,
+          partnerWeather: data.weather.partnerWeather || {}
         })
-        _this.getWeather(0)
         _this.getList()
       })
     }

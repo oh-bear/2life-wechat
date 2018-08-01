@@ -128,34 +128,53 @@ App({
                       _this.data.key = data.key
                       _this.data.showMatch = response.data.is_checking
                       _this.data.hasAuthorize = true
-                      if (data.partner.id) {
-                        _this.getLocation({
-                          longitude: data.partner.longitude,
-                          latitude: data.partner.latitude
-                        }).then(data => {
-                          _this.getWeather(data, 'partnerWeather')
-                        })
-                      }
+
+                      let locationParams = []
                       wx.getLocation({
                         success: function (location) {
-                          _this.getLocation(location).then(data => {
-                            _this.getWeather(data, 'userWeather')
-                            _this.data.location = data
+                          locationParams.push({
+                            name: 'userWeather',
+                            value: location
                           })
                         },
                         fail: function (err) {
-                          let location = {
-                            longitude: data.user.longitude,
-                            latitude: data.user.latitude
-                          }
-                          _this.getLocation(location).then(data => {
-                            _this.getWeather(data, 'userWeather')
-                            _this.data.location = data
+                          locationParams.push({
+                            name: 'userWeather',
+                            value: {
+                              longitude: data.user.longitude,
+                              latitude: data.user.latitude
+                            }
                           })
-                        }
+                        },
+                        complete: function () {
+                          if (data.partner.id) {
+                            locationParams.push({
+                              name: 'partnerWeather',
+                              value: {
+                                longitude: data.partner.longitude,
+                                latitude: data.partner.latitude
+                              }
+                            })
+                          }
+                          for (let i = 0; i < locationParams.length; i++) {
+                            let name = locationParams[i].name
+                            let value = locationParams[i].value
+                            _this.getLocation(value).then(locationData => {
+                              _this.data.location[name] = locationData
+                              _this.getWeather(locationData, name).then(weather => {
+                                if (!data.weather) {
+                                  data.weather = {}
+                                }
+                                data.weather[name] = weather
+                                if (_this.lodash.values(data.weather).length === locationParams.length) {
+                                  wx.hideLoading()
+                                  resolve(data)
+                                }
+                              })
+                            })
+                          }
+                        }                        
                       })
-                      wx.hideLoading()
-                      resolve(data)
                     } else {
                       reject(response.data.code)
                     }
@@ -346,30 +365,41 @@ App({
   getWeather: function (location, name) {
     let value = wx.getStorageSync(name)
     let getTime = new Date().getTime()
-    if (value && getTime - value.getTime <= this.data.weatherSavedTime) {
-      this.data.weather[name] = value
-      console.log(value)
-      return
-    }
-    let _this = this
-    wx.request({
-      url: 'http://restapi.amap.com/v3/weather/weatherInfo',
-      method: 'GET',
-      data: {
-        key: this.data.weatherKey,
-        city: location.adcode
-      },
-      success: function (res) {
-        if (res.data.status != '1') return
-        let data = res.data.lives[0]
-        if (!data) return
-        data.getTime = getTime
-        console.log(data)
-        wx.setStorageSync(name, data)
-        _this.data.weather[name] = data
-      },
-      fail: function (err) {
-        console.log(err)
+    return new Promise((resolve, reject) => {
+      if (value && getTime - value.getTime <= this.data.weatherSavedTime) {
+        this.data.weather[name] = value
+        console.log(value)
+        resolve(value)
+      } else {
+        let _this = this
+        wx.request({
+          url: 'http://restapi.amap.com/v3/weather/weatherInfo',
+          method: 'GET',
+          data: {
+            key: this.data.weatherKey,
+            city: location.adcode
+          },
+          success: function (res) {
+            if (res.data.status != '1') {
+              reject(res.data)
+              return
+            }
+            let data = res.data.lives[0]
+            if (!data) {
+              reject(false)
+              return
+            }
+            data.getTime = getTime
+            console.log(data)
+            wx.setStorageSync(name, data)
+            _this.data.weather[name] = data
+            resolve(data)
+          },
+          fail: function (err) {
+            console.log(err)
+            reject(err)
+          }
+        })
       }
     })
   },

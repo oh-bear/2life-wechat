@@ -187,17 +187,21 @@ Page({
     chartOption.xAxis.data = dataObj.label
     chartOption.series[0].data = dataObj.value
     
+    if (!this.chart) {
+      this.chartComponent.init((canvas, width, height) => {
+        const chart = echarts.init(canvas, null, {
+          width: width,
+          height: height
+        })
+        initChart(chart, chartOption)
+        this.chart = chart
 
-    this.chartComponent.init((canvas, width, height) => {
-      const chart = echarts.init(canvas, null, {
-        width: width,
-        height: height
+        return chart
       })
-      initChart(chart, chartOption)
-      this.chart = chart
-
-      return chart
-    })
+    } else {
+      this.chart.setOption(chartOption)
+    }
+    
   },
 
   getDateObj(timestamp) {
