@@ -251,12 +251,12 @@
 }
 
 .agreement .agree, .agreement .agree button {
-  height: 96rpx;
+  height: 100rpx;
   border: 0;
   border-bottom-left-radius: 10rpx;
   border-bottom-right-radius: 10rpx;
   text-align: center;
-  line-height: 96rpx;
+  line-height: 100rpx;
   font-size: 36rpx;
   background: #2DC3A6;
   color: white;  

@@ -51,7 +51,8 @@ Page({
     emotionsType: '',
     emotionsReport: [],
     hasTested: false,
-    user: {}
+    user: {},
+    showAtt: true
   },
 
   // method
@@ -503,5 +504,11 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  onPageScroll (e) {
+    this.setData({
+      showAtt: e.scrollTop === 0 ? true : false
+    })
   }
 })

@@ -1,7 +1,16 @@
 let chart = {
+  title: {
+    show: false
+  },
+  legend: {
+    show: false
+  },
   xAxis: {
     type: 'category',
     axisLine: {
+      show: false
+    },
+    axisTick: {
       show: false
     },
     data: ['1', '2', '3', '4', '5', '6', '7']

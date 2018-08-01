@@ -141,6 +141,7 @@ Page({
     }.bind(this), 200)
   },
   changeWeather: function () {
+    if (!getApp().data.user.id) return
     this.setData({
       modeChange: !this.data.modeChange
     })
@@ -205,7 +206,7 @@ Page({
         _this.setData({
           user: data.user,
           partner: data.partner,
-          userWeather: data.weather.userWeather,
+          userWeather: data.weather.userWeather || {},
           partnerWeather: data.weather.partnerWeather || {}
         })
         _this.getList()

@@ -27,7 +27,7 @@
     <view class="average">
       <view class="item">
         <view class="number">
-          {{user.mode}}
+          {{user.total_notes}}
         </view>
         <view>
           累计写日记/天
@@ -35,7 +35,7 @@
       </view>
       <view class="item">
         <view class="number">
-          {{user.total_notes}}
+          {{user.mode}}
         </view>
         <view>
           平均情绪值
@@ -67,6 +67,9 @@
       <view>我们准备了一个好玩的测试，可以分析出你的性格属性。测试完成后你不但可以看到你的四维情绪雷达图，还有你的性格属性哦</view>
     </view>
     <view class="test" bindtap='goAnalysis'>开始测试</view>
+  </view>
+  <view class="att" wx:if="{{showAtt}}">
+    <image src="../Images/att.png" class="arrow"></image>
   </view>
 </view>
 

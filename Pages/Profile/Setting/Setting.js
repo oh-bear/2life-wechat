@@ -26,6 +26,12 @@ Page({
     })
   },
 
+  goThanks () {
+    wx.navigateTo({
+      url: '../Thanks/Thanks',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

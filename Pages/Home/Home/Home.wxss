@@ -238,8 +238,8 @@
 
 .add .image {
   display: block;
-  width: 85rpx;
-  height: 85rpx;
+  width: 128rpx;
+  height: 128rpx;
 }
 
 .show {

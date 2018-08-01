@@ -136,17 +136,6 @@ App({
                             name: 'userWeather',
                             value: location
                           })
-                        },
-                        fail: function (err) {
-                          locationParams.push({
-                            name: 'userWeather',
-                            value: {
-                              longitude: data.user.longitude,
-                              latitude: data.user.latitude
-                            }
-                          })
-                        },
-                        complete: function () {
                           if (data.partner.id) {
                             locationParams.push({
                               name: 'partnerWeather',
@@ -173,9 +162,22 @@ App({
                               })
                             })
                           }
-                        }                        
+                        },
+                        fail: function (err) {
+                          // locationParams.push({
+                          //   name: 'userWeather',
+                          //   value: {
+                          //     longitude: data.user.longitude,
+                          //     latitude: data.user.latitude
+                          //   }
+                          // })
+                          wx.hideLoading()
+                          data.weather = {}
+                          resolve(data)
+                        }                      
                       })
                     } else {
+                      wx.hideLoading()
                       reject(response.data.code)
                     }
                   },
@@ -529,6 +531,8 @@ App({
   },
 
   onLaunch: function () {
-    
+    wx.authorize({
+      scope: 'scope.userLocation'
+    })
   }
 })

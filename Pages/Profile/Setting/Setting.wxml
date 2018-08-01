@@ -17,4 +17,10 @@
       <view class="arrow"></view>
     </view>
   </view>
+  <view class="item" bindtap='goThanks'>
+    鸣谢
+    <view class="right">
+      <view class="arrow"></view>
+    </view>
+  </view>
 </view>

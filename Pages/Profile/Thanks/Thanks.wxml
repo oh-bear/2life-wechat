@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="team">
+    <view class="title">
+      心理学和美术团队
+    </view>
+    <view class="item" wx:for="{{team1}}" wx:key="{{index}}">
+      <image src="{{item.avatar}}" class="avatar"></image>
+      <view class="content">
+        <view class='name'>{{item.name}}</view>
+        <view class="des">{{item.des}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="team">
+    <view class="title">资料库整理团队</view>
+    <view class="description">以下排名不分先后</view>
+    <view class="part">  
+      <view wx:for="{{team2}}" wx:key="{{index}}">{{item}}</view>
+    </view>
+  </view>
+</view>
