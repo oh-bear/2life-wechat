@@ -8,11 +8,15 @@
     <view class="now {{dateShow ? 'hide' : ''}}">
       <view class="top-handle fs28 box box-lr box-align-center box-pack-center">
         <view class="prev box box-rl" data-handle="pre" bindtap='getHandleDate'>
-          <view class="prev-handle box box-lr box-align-center box-pack-center">《</view>
+          <view class="prev-handle box box-lr box-align-center box-pack-center">
+            <view class="arrow arrowLeft"></view>
+          </view>
         </view>
         <view class="date-area box box-lr box-align-center box-pack-center" bindtap='pickDate'>{{selectedDate.str}}</view>
         <view class="next box box-lr" data-handle="next" bindtap='getHandleDate'>
-          <view class="next-handle box box-lr box-align-center box-pack-center">》</view>
+          <view class="next-handle box box-lr box-align-center box-pack-center">
+            <view class="arrow arrowRight"></view>
+          </view>
         </view>
       </view>
     </view>
@@ -27,7 +31,7 @@
     <view class="average">
       <view class="item">
         <view class="number">
-          {{user.total_notes}}
+          {{days}}
         </view>
         <view>
           累计写日记/天
@@ -54,7 +58,7 @@
       <view class="title">{{emotionsType}}</view>
       <view>你的性格属性</view>
     </view>
-    <image src="/Images/cover.png" class="img"></image>
+    <image src="https://airing.ursb.me/2life/user/160/img_1533222306333.png-2life_note.jpg" class="img"></image>
     <view class="report" wx:for="{{emotionsReport}}" wx:key="{{index}}">
       <view class="title">{{item.title}}</view>
       <view class="content">{{item.content}}</view>
@@ -74,3 +78,4 @@
 </view>
 
 <import src="../../Home/Calendar/index.wxml" /> 
+<wxs module="charts" src="./Charts.wxs"></wxs>

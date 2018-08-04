@@ -152,11 +152,59 @@ Page({
       })
       return
     }
-    if (this.data.id) {
-      this.updateNote()
-    } else {
-      this.publishNote()
+    let user = getApp().data.user
+    let images = this.data.images
+    if (typeof (images) === 'object') {
+      images = images.join()
     }
+    let data = {
+      note_id: this.data.id,
+      date: this.data.date,
+      title: this.data.title,
+      content: this.data.content,
+      images: images,
+      mode: parseInt(this.data.mode),
+      latitude: getApp().data.location.user ? getApp().data.location.user.latitude : user.latitude,
+      longitude: getApp().data.location.user ? getApp().data.location.user.longitude : user.longitude,
+      location: getApp().data.location.user ? getApp().data.location.user.location.join('，') : '地球上的某个角落'
+    }
+    wx.showLoading({
+      title: '正在上传',
+      mask: true,
+    })
+    getApp().editNote(data).then(res => {
+      wx.hideLoading()
+      getApp().data.savedNote = {}
+      this.setData({
+        finish: true
+      })
+      if (!this.data.id) {
+        this.getNlp(this.data.content)
+      }
+      this.updateEmotion()
+      this.clearData()
+      wx.showToast({
+        title: '上传成功',
+        mask: true,
+      })
+      console.log('success to edit note', res.data)
+      wx.switchTab({
+        url: '/Pages/Home/Home/Home',
+      })
+    }, err => {
+      wx.hideLoading()
+      let errTitle = ''
+      if (err === 501) {
+        errTitle = '内容含敏感词'
+      } else {
+        errTitle = '上传失败'
+      }
+      wx.showToast({
+        icon: 'none',
+        title: errTitle,
+        mask: true,
+      })
+    })
   },
 
   clearData () {
@@ -170,193 +218,74 @@ Page({
     })
   },
 
-  publishNote: function () {
-    let _this = this
-    let key = getApp().data.key
-    let user = getApp().data.user
-    let images = this.data.images
-    if (typeof (images) === 'object') {
-      images = images.join()
-    }
-    let data = {
-      uid: key.uid,
-      timestamp: key.timestamp,
-      token: key.token,
-      date: this.data.date,
-      title: this.data.title,
-      content: this.data.content,
-      images: images,
-      latitude: getApp().data.location.latitude || user.latitude,
-      longitude: getApp().data.location.longitude || user.longitude,
-      location: getApp().data.location.location.join('，') || '地球上的某个角落'
-    }
-    wx.showLoading({
-      title: '正在上传',
-      mask: true
-    })
-    this.checkContent(data.title, data.content).then(res => {
-      wx.request({
-        url: getApp().data.domain + 'notes/publish',
-        method: 'POST',
-        data: data,
-        success: function (res) {
-          if (res.data.code === 0) {
-            console.log(res.data)
-            getApp().data.savedNote = {}
-            _this.setData({
-              finish: true
-            })
-            _this.updateEmotion()
-            _this.clearData()
-            wx.showToast({
-              title: '上传成功',
-            })
-            wx.switchTab({
-              url: '/Pages/Home/Home/Home',
-            })
-          } else {
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-            console.log(res.data)
-          }
-        },
-        fail: function (err) {
-          console.log(err)
-          wx.showToast({
-            icon: 'none',
-            title: '上传失败',
-          })
-        },
-        complete () {
-          wx.hideLoading()
-        }
-      })
-    }, err => {
-      
-    })
-  },
+  // checkContent(title, content) {
+  //   return new Promise((resolve, reject) => {
+  //     this.getAccessToken().then(accessToken => {
+  //       wx.request({
+  //         url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + accessToken.code,
+  //         method: 'POST',
+  //         data: {
+  //           content: content
+  //         },
+  //         success(res) {
+  //           console.log(res.data)
+  //           if (res.data.errcode === 0) {
+  //             resolve(res.data.errcode)
+  //           } else {
+  //             wx.hideLoading()
+  //             wx.showToast({
+  //               icon: 'none',
+  //               title: '内容含敏感词',
+  //               mask: true
+  //             })
+  //             reject(res.data.errcode)
+  //           }
+  //         },
+  //         fail(err) {
+  //           console.log(err)
+  //           wx.hideLoading()
+  //           wx.showToast({
+  //             icon: 'none',
+  //             title: '内容检测失败',
+  //             mask: true
+  //           })
+  //           reject(err)
+  //         }
+  //       })
+  //     }, err => {
+  //       wx.hideLoading()
+  //       wx.showToast({
+  //         icon: 'none',
+  //         title: '获取token失败，请联系管理员',
+  //         mask: true
+  //       })
+  //       reject(err)
+  //     })
+  //   })
+  // },
 
-  updateNote: function () {
-    let _this = this
-    let key = getApp().data.key
-    let images = this.data.images
-    if (typeof (images) === 'object') {
-      images = images.join()
-    }
-    wx.showLoading({
-      title: '正在上传',
-      mask: true
-    })
-    let data = {
-      uid: key.uid,
-      timestamp: key.timestamp,
-      token: key.token,
-      note_id: this.data.id,
-      date: this.data.date,
-      title: this.data.title,
-      content: this.data.content,
-      images: images,
-      mode: parseInt(this.data.mode)
-    }
-    this.checkContent(data.title, data.content).then(res => {
-      wx.request({
-        url: getApp().data.domain + 'notes/update',
-        method: 'POST',
-        data: data,
-        success: function (res) {
-          if (res.data.code === 0) {
-            console.log(res.data)
-            getApp().data.savedNote = {}
-            _this.setData({
-              finish: true
-            })
-            _this.updateEmotion()
-            _this.clearData()
-            wx.showToast({
-              title: '上传成功',
-            })
-            wx.switchTab({
-              url: '/Pages/Home/Home/Home',
-            })
-          } else {
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-            console.log(res.data)
-          }
-        },
-        fail: function (err) {
-          wx.showToast({
-            icon: 'none',
-            title: '上传失败',
-          })
-          console.log(err)
-        },
-        complete () {
-          wx.hideLoading()
-        }
-      })
-    }, err => {
-      
-    })
-  },
-
-  checkContent(title, content) {
-    return new Promise((resolve, reject) => {
-      this.getAccessToken().then(accessToken => {
-        wx.request({
-          url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + accessToken.code,
-          method: 'POST',
-          data: {
-            content: content
-          },
-          success(res) {
-            console.log(res.data)
-            if (res.data.errcode === 0) {
-              resolve(res.data.errcode)
-            } else {
-              wx.hideLoading()
-              wx.showToast({
-                icon: 'none',
-                title: '内容含敏感词',
-                mask: true
-              })
-              reject(res.data.errcode)
-            }
-          },
-          fail(err) {
-            console.log(err)
-            wx.hideLoading()
-            wx.showToast({
-              icon: 'none',
-              title: '内容检测失败',
-              mask: true
-            })
-            reject(err)
-          }
-        })
-      }, err => {
-        wx.hideLoading()
-        wx.showToast({
-          icon: 'none',
-          title: '获取token失败，请联系管理员',
-          mask: true
-        })
-        reject(err)
-      })
+  getNlp(content) {
+    let data = { content }
+    getApp().lodash.forEach(getApp().data.key, (val, key) => { data[key] = val})
+    wx.request({
+      url: getApp().data.domain + 'utils/get_nlp_result',
+      method: 'POST',
+      data: data,
+      success(res) {
+        console.log('success to getNlp', res.data)
+      },
+      fail(err) {
+        console.log('fail to getNlp', err)
+      }
     })
   },
 
   updateEmotion () {
     if (!getApp().data.user.emotions) return
-    let data = getApp().data.key
     return new Promise ((resolve, reject) => {
       wx.request({
         url: getApp().data.domain + 'utils/update_emotion_report',
-        data: data,
+        data: getApp().data.key,
         success(res) {
           console.log(res.data)
           resolve(true)
@@ -400,22 +329,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      finish: false
-    })
-  },
-
-/**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     let savedNote = getApp().data.savedNote
     console.log(savedNote)
     this.setData({
@@ -424,12 +337,30 @@ Page({
       content: savedNote.content || '',
       id: savedNote.id || '',
       mode: savedNote.mode || 0,
-      date: savedNote.created_at ? new Date(savedNote.created_at).getTime() : new Date().getTime()
+      date: savedNote.created_at ? new Date(savedNote.created_at).getTime() : new Date().getTime(),
+      finish: false
     })
     wx.setNavigationBarTitle({
       title: '写日记',
     })
     getApp().data.publish = true
+  },
+
+/**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    let note = wx.getStorageSync('note')
+    if (note) {
+      this.setData(note)
+    }
 
     let _this = this
     initCalendar({
@@ -463,37 +394,44 @@ Page({
     wx.setNavigationBarTitle({
       title: '双生',
     })
-    if (!this.data.finish) {
-      getApp().data.savedNote = {
-        id: this.data.id,
+    wx.setStorageSync(
+      'note',
+      {
+        images: this.data.images,
         title: this.data.title,
         content: this.data.content,
-        images: this.data.images,
+        id: this.data.id,
         mode: this.data.mode,
         date: this.data.date
       }
-    }
+    )
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    this.addNote()
+    if (!this.data.finish) {
+      this.addNote()
+      if (this.data.title || this.data.content || this.data.images.length) {
+        getApp().showSaveModel()
+      }
+    }
+    wx.removeStorageSync('note')
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**

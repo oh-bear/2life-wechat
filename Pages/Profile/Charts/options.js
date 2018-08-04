@@ -104,21 +104,21 @@ let pie = {
       },
       data: [
         {
-          value: 335,
+          value: 0,
           name: '积极情绪',
           itemStyle: {
             color: '#2DC3A6'
           }
         },
         {
-          value: 335,
+          value: 0,
           name: '一般情绪',
           itemStyle: {
             color: '#FAA755'
           }
         },
         {
-          value: 335,
+          value: 0,
           name: '消极情绪',
           itemStyle: {
             color: '#F54E4E'

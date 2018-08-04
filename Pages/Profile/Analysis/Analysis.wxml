@@ -1,6 +1,6 @@
 <view class="container">
-  <view wx:if="{{!hasTested}}">
-    <view wx:if="{{!start}}">
+  <view wx:if="{{!hasTested}}" style="height: 100%">
+    <view wx:if="{{!start}}" style="height: 100%">
       <view class="card">
         <view class="title">
           <image src="../Images/sign.png" />
@@ -9,15 +9,13 @@
           欢迎来到我们的性格测试环节，这里有{{ subject.length }}道题目，可以测出你的性格特征哦
         </view>
       </view>
-      <view>
       <view class="answer normal">
         <view class="button" bindtap='start'>
           开始测试
         </view>
       </view>
-      </view>
     </view>
-    <view wx:if="{{start && !finish}}">
+    <view wx:if="{{start && !finish}}" style="height: 100%">
       <view class="card">
         <view class="title">
           <image src="../Images/sign.png" />
@@ -38,7 +36,7 @@
         </view>
       </view>
     </view>
-    <view wx:if="{{finish}}">
+    <view wx:if="{{finish}}" style="height: 100%">
       <view class="card">
         <view class="title">
           恭喜
@@ -56,12 +54,15 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{hasTested}}">
+  <view wx:if="{{hasTested}}" style="height: 100%">
     <view class="radar">
       <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
     </view>
     <view class="text">
       性格测试完成啦，但为了让结果更准确，你还需要多写几篇真情流露的日记呢。
+      <view class="tips">
+        稍后可在「个人页」->「情绪管理」查看更详细内容
+      </view>
     </view>
     <view class="goAdd" bindtap='goAdd'>
       去写一篇日记

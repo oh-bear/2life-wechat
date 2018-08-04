@@ -89,18 +89,26 @@
   color: #444444;
 }
 
+.title input {
+  height: 70rpx;
+}
+
 .content .text {
-  line-height: 150%;
-  font-size: 29rpx;
+  line-height: 25px;
+  font-size: 16px;
   color: #333333;
 }
 
+.saveContainer {
+  height: 163rpx;
+  margin-top: 43rpx;
+}
+
 .save {
-  position: absolute;
-  right: 48rpx;
-  bottom: 48rpx;
+  float: right;
   width: 120rpx;
   height: 80rpx;
+  margin-right: 43rpx;
   border-radius: 30px;
   text-align: center;
   line-height: 80rpx;

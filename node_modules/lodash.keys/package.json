@@ -1,0 +1,70 @@
+{
+  "_from": "lodash.keys",
+  "_id": "lodash.keys@4.2.0",
+  "_inBundle": false,
+  "_integrity": "sha1-oIYCrBLk+4P5H8H7ejYKTZujUgU=",
+  "_location": "/lodash.keys",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "lodash.keys",
+    "name": "lodash.keys",
+    "escapedName": "lodash.keys",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/lodash.keys/download/lodash.keys-4.2.0.tgz",
+  "_shasum": "a08602ac12e4fb83f91fc1fb7a360a4d9ba35205",
+  "_spec": "lodash.keys",
+  "_where": "E:\\twin",
+  "author": {
+    "name": "John-David Dalton",
+    "email": "john.david.dalton@gmail.com",
+    "url": "http://allyoucanleet.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/lodash/lodash/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "John-David Dalton",
+      "email": "john.david.dalton@gmail.com",
+      "url": "http://allyoucanleet.com/"
+    },
+    {
+      "name": "Blaine Bublitz",
+      "email": "blaine.bublitz@gmail.com",
+      "url": "https://github.com/phated"
+    },
+    {
+      "name": "Mathias Bynens",
+      "email": "mathias@qiwi.be",
+      "url": "https://mathiasbynens.be/"
+    }
+  ],
+  "deprecated": false,
+  "description": "The lodash method `_.keys` exported as a module.",
+  "homepage": "https://lodash.com/",
+  "icon": "https://lodash.com/icon.svg",
+  "keywords": [
+    "lodash-modularized",
+    "keys"
+  ],
+  "license": "MIT",
+  "name": "lodash.keys",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lodash/lodash.git"
+  },
+  "scripts": {
+    "test": "echo \"See https://travis-ci.org/lodash/lodash-cli for testing details.\""
+  },
+  "version": "4.2.0"
+}

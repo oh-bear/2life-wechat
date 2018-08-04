@@ -2,10 +2,10 @@
   <view class="header">
     <view class="date" bindtap='showCalendar'>
       <view class="month">
-        <text>{{home.date().month}}</text>
+        {{home.date().month}}
       </view>
       <view class="year">
-        <text>{{home.date().year}}</text>
+        {{home.date().year}}
       </view>
       <view class="arrow" animation="{{animation.arrow}}">
         <image src="../Images/arrow.png" />

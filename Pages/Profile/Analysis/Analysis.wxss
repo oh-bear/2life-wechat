@@ -7,9 +7,9 @@
 .card {
   position: relative;
   width: 558rpx;
-  height: 684rpx;
+  height: 56%;
   margin: 16rpx 48rpx 0;
-  padding: 148rpx 48rpx 0;
+  padding: 12% 48rpx 0;
   border-radius: 20px;
   text-align: center;
   color: white;
@@ -41,7 +41,7 @@
 }
 
 .answer {
-  margin: 70rpx 48rpx 0;
+  margin: 12% 48rpx 0;
 }
 
 .answer .button {
@@ -59,7 +59,7 @@
 }
 
 .normal {
-  margin-top: 206rpx;
+  margin-top: 30%;
 }
 
 .normal .button {
@@ -69,20 +69,27 @@
 
 .radar {
   width: 100%;
-  height: 550rpx;
+  height: 45%;
   margin-top: 64rpx;
 }
 
 .text {
-  margin: 178rpx 96rpx 0;
+  margin: 14% 48rpx 0;
   font-size: 32rpx;
   text-align: center;
   line-height: 44rpx;
 }
 
+.text .tips {
+  margin-top: 16rpx;
+  line-height: 34rpx;
+  font-size: 24rpx;
+  color: #AAAAAA;
+}
+
 .goAdd {
   height: 104rpx;
-  margin: 148rpx 48rpx 0;
+  margin: 22% 48rpx 0;
   border-radius: 10px;
   text-align: center;
   line-height: 104rpx;

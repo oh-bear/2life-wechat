@@ -17,7 +17,9 @@
 .header .date {
   display: flex;
   display: -webkit-flex;
+  height: 78rpx;
   margin-left: 20%;
+  line-height: 78rpx;
   font-size: 61rpx;
   font-weight: bold;
   align-items: center;
@@ -179,9 +181,10 @@
 }
 
 .content .diary .description {
-  height: 60rpx;
+  height: 28px;
   margin-top: 15rpx;
-  font-size: 22rpx;
+  line-height: 14px;
+  font-size: 12px;
   font-weight: 300;
   overflow: hidden;
 }

@@ -17,8 +17,8 @@ Page({
       showCalendar: false,
     },
     duration: 200,
-    userWeather: getApp().data.weather.userWeather || {},
-    partnerWeather: getApp().data.weather.partnerWeather || {},
+    userWeather: {},
+    partnerWeather: {},
     change: false,
     modeChange: false,
     changeAnimation: ''
@@ -26,16 +26,11 @@ Page({
 
   getList: function () {
     let _this = this
-    let key = getApp().data.key
     let lodash = getApp().lodash
     wx.request({
       url: getApp().data.domain + 'notes/list',
       method: 'GET',
-      data: {
-        uid: key.uid,
-        timestamp: key.timestamp,
-        token: key.token
-      },
+      data: getApp().data.key,
       success: function (res) {
         if (res.data.code === 0) {
           let arr = res.data.data.user.concat(res.data.data.partner)
@@ -194,15 +189,19 @@ Page({
     }
 
     if (getApp().data.user.id) {
+      let weather = getApp().getStorageWeather()
       this.setData({
         user: getApp().data.user,
-        partner: getApp().data.partner
+        partner: getApp().data.partner,
+        userWeather: weather.userWeather || {},
+        partnerWeather: weather.partnerWeather || {}
       })
       this.getList()
       
     } else {
       getApp().wxLogin().then(data => {
         console.log(data)
+        data.weather = data.weather || {}
         _this.setData({
           user: data.user,
           partner: data.partner,

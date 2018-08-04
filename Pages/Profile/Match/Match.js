@@ -184,7 +184,6 @@ Page({
 
   matchRequest: function () {
     let data = this.data
-    let key = getApp().data.key
     if (data.matchMethod === 'random' && data.choose.length < 3) {
       return
     } else if (data.matchMethod === 'accurate' && !data.matchId) {
@@ -195,7 +194,7 @@ Page({
         wx.request({
           url: getApp().data.domain + 'users/connect_by_random',
           method: 'GET',
-          data: key,
+          data: getApp().data.key,
           success: function (res) {
             if (res.data.code === 0) {
               resolve(res.data.data)

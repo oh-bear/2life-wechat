@@ -64,32 +64,32 @@
   margin: 25rpx 0;
 }
 
-.msg .item {
+.msg .part {
   display: flex;
   display: -webkit-flex;
   height: 79.2rpx;
-  justify-content: left !important;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.msg .item .image {
+.msg .part .image {
   width: 45rpx;
   height: 45rpx;
   margin-right: 30rpx;
 }
 
-.msg .item .count {
+.msg .part .count {
   width: 30rpx;
   margin-right: 15rpx;
   font-weight: bold;
 }
 
-.msg .item text {
+.msg .part text {
   margin: 0 10rpx;
   font-size: 32rpx;
 }
 
-.msg .item text:last-child {
+.msg .part text:last-child {
   color: #AAAAAA;
 }
 

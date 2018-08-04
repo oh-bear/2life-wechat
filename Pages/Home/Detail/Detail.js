@@ -31,13 +31,12 @@ Page({
   like () {
     if (this.data.note.is_liked) return
     let _this = this
-    let data = getApp().data.key
-    let note = this.data.note
-    data.note_id = note.id
+    let { uid, timestamp, token } = getApp().data.key
+    let note_id = this.data.note.id
     wx.request({
       url: getApp().data.domain + 'notes/like',
       method: 'POST',
-      data: data,
+      data: { uid, timestamp, token, note_id },
       success: function (res) {
         if (res.data.code === 0) {
           note.is_liked = 1
@@ -58,16 +57,17 @@ Page({
   edit: function () {
     let note = this.data.note
     if (typeof(note.images) === 'string') {
-      note.images = note.images.split(',')
+      note.images = note.images ? note.images.split(',') : []
     }
     getApp().data.savedNote = note
     wx.redirectTo({
       url: '../Add/Add'
     })
   },
+
   del: function () {
-    let data = getApp().data.key
-    data.note_id = this.data.note.id
+    let { uid, timestamp,  token} = getApp().data.key
+    let note_id = this.data.note.id
     wx.showModal({
       title: '删除',
       content: '是否删除该日记？',
@@ -77,7 +77,7 @@ Page({
           wx.request({
             url: getApp().data.domain + 'notes/delete',
             method: 'GET',
-            data: data,
+            data: { uid, timestamp, token, note_id },
             complete: function () {
               wx.navigateBack()
             }
@@ -102,7 +102,23 @@ Page({
       note: note,
       change: false
     })
-    getApp().data.savedNote = note
+    this.updateNote()
+  },
+
+  updateNote: function () {
+    let images = this.data.images
+    if (typeof (images) === 'object') {
+      images = images.join()
+    }
+    let data = {
+      note_id: this.data.note.id,
+      date: this.data.note.date,
+      title: this.data.note.title,
+      content: this.data.note.content,
+      images: images,
+      mode: parseInt(this.data.note.mode)
+    }
+    getApp().editNote(data)
   },
 
   /**

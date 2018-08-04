@@ -37,10 +37,15 @@ Page({
 
   confirm () {
     if (!this.data.content) return
-    let data = getApp().data.key
-    data.title = this.data.content.slice(0, 19)
-    data.content = this.data.content
-    data.type = parseInt(this.data.choose)
+    let { uid, timestamp, token} = getApp().data.key
+    let data = {
+      uid: uid,
+      timestamp: timestamp,
+      token: token,
+      title: this.data.content.slice(0, 19),
+      content: this.data.content,
+      type: parseInt(this.data.choose)
+    }
     console.log(data)
     wx.showLoading({
       title: '正在提交',
@@ -57,7 +62,7 @@ Page({
     })
     setTimeout(() => {
       wx.navigateBack()
-    }, 1500)
+    }, 1000)
   },
 
   /**

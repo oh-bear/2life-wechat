@@ -3,11 +3,15 @@
 		<view class="calendar pink-color box box-tb">
 			<view class="top-handle fs28 box box-lr box-align-center box-pack-center">
 				<view class="prev box box-rl" bindtap="choosePrevMonth" data-handle="prev">
-					<view class="prev-handle box box-lr box-align-center box-pack-center">《</view>
+					<view class="prev-handle box box-lr box-align-center box-pack-center">
+            <view class="arrow arrowLeft"></view>
+          </view>
 				</view>
 				<view class="date-area box box-lr box-align-center box-pack-center" bindtap='pickDate'>{{curYear || "--"}} 年 {{curMonth || "--"}} 月</view>
 				<view class="next box box-lr" bindtap="chooseNextMonth" data-handle="next">
-					<view class="next-handle box box-lr box-align-center box-pack-center">》</view>
+					<view class="next-handle box box-lr box-align-center box-pack-center">
+            <view class="arrow arrowRight"></view>
+          </view>
 				</view>
 			</view>
 			<view class="weeks box box-lr box-pack-center box-align-center">

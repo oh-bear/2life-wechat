@@ -11,9 +11,7 @@ App({
     partner: {},
     notes: [],
     savedNote: {},
-    location: {
-      location: []
-    },
+    location: {},
     locationKey: config.locationKey,
     weatherKey: config.weatherKey,
     qiniu: config.qiniu,
@@ -36,7 +34,9 @@ App({
     find: require('./utils/lodash.find/index.js'),
     filter: require('./utils/lodash.filter/index.js'),
     forEach: require('./utils/lodash.foreach/index.js'),
-    values: require('./utils/lodash.values/index.js')
+    values: require('./utils/lodash.values/index.js'),
+    keys: require('./utils/lodash.keys/index.js'),
+    map: require('./utils/lodash.map/index.js')
   },
 
   towxml: new Towxml(),
@@ -149,7 +149,7 @@ App({
                             let name = locationParams[i].name
                             let value = locationParams[i].value
                             _this.getLocation(value).then(locationData => {
-                              _this.data.location[name] = locationData
+                              _this.data.location[name.substr(0, name.length - 7)] = locationData
                               _this.getWeather(locationData, name).then(weather => {
                                 if (!data.weather) {
                                   data.weather = {}
@@ -159,7 +159,15 @@ App({
                                   wx.hideLoading()
                                   resolve(data)
                                 }
+                              }, err => {
+                                console.log('weather fail', err)
+                                wx.hideLoading()
+                                resolve(data)
                               })
+                            }, err => {
+                              console.log('location fail', err)
+                              wx.hideLoading()
+                              resolve(data)
                             })
                           }
                         },
@@ -172,7 +180,6 @@ App({
                           //   }
                           // })
                           wx.hideLoading()
-                          data.weather = {}
                           resolve(data)
                         }                      
                       })
@@ -342,14 +349,17 @@ App({
     let _this = this
     return new Promise((resolve, reject) => {
       wx.request({
-        url: 'http://restapi.amap.com/v3/geocode/regeo',
+        url: 'https://restapi.amap.com/v3/geocode/regeo',
         method: 'GET',
         data: {
           key: _this.data.locationKey,
           location: location.longitude + ',' + location.latitude
         },
         success: function (res) {
-          if (res.data.status !== '1') return
+          if (res.data.status !== '1') {
+            reject(res.data)
+            return
+          }
           let data = res.data.regeocode.addressComponent
           let local = {
             longitude: location.longitude,
@@ -359,6 +369,9 @@ App({
           }
           console.log('location', local)
           resolve(local)
+        },
+        fail (err) {
+          reject(err)
         }
       })
     })
@@ -370,12 +383,12 @@ App({
     return new Promise((resolve, reject) => {
       if (value && getTime - value.getTime <= this.data.weatherSavedTime) {
         this.data.weather[name] = value
-        console.log(value)
+        console.log(name, this.data.weather[name])
         resolve(value)
       } else {
         let _this = this
         wx.request({
-          url: 'http://restapi.amap.com/v3/weather/weatherInfo',
+          url: 'https://restapi.amap.com/v3/weather/weatherInfo',
           method: 'GET',
           data: {
             key: this.data.weatherKey,
@@ -404,6 +417,16 @@ App({
         })
       }
     })
+  },
+
+  getStorageWeather() {
+    let userWeather = wx.getStorageSync('userWeather') || {}
+    let partnerWeather = wx.getStorageSync('partnerWeather') || {}
+    this.data.weather = {
+      userWeather,
+      partnerWeather
+    }
+    return this.data.weather
   },
 
   imageUpload: function (imgList) {
@@ -527,6 +550,48 @@ App({
       fail(err) {
         console.log(err)
       }
+    })
+  },
+
+  showSaveModel () {
+    wx.showModal({
+      title: '提示',
+      content: '你要狠心舍弃已编辑的日记吗？',
+      showCancel: true,
+      cancelText: '狠心舍弃',
+      cancelColor: '#F54E4E',
+      confirmText: '保留下来',
+      confirmColor: '#2DC3A6',
+      success: (res) => {
+        if (res.cancel) {
+          this.data.savedNote = {}
+        }
+      }
+    })
+  },
+
+  editNote (data) {
+    this.lodash.forEach(this.data.key, (val, key) => { data[key] = val })
+    console.log('note', data)
+    let urlStr = data.note_id ? 'notes/update' : 'notes/publish'
+    return new Promise((resolve, reject) => {
+      wx.request({
+        url: this.data.domain + urlStr,
+        method: 'POST',
+        data: data,
+        success (res) {
+          if (res.data.code === 0) {
+            resolve(res.data)
+          } else if (res.data.code === 501) {
+            reject(501)
+          } else {
+            reject(false)
+          }
+        },
+        fail (err) {
+          reject(false)
+        },
+      })
     })
   },
 

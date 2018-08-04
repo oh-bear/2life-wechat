@@ -1,0 +1,8 @@
+// module.exports = {
+//   getDays: function (data) {
+//     let arr = []
+//     for (let i = 0; i < data.lengt; i++) {
+//       let date = new Date(data[i])
+//     }
+//   }
+// }

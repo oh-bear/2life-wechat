@@ -220,3 +220,19 @@
 	border-top-right-radius: 20rpx;
 	border-bottom-right-radius: 20rpx;
 }
+
+.prev-handle .arrow, .next-handle .arrow {
+  width: 16rpx;
+  height: 16rpx;
+  transform: rotate(45deg)
+}
+
+.prev-handle .arrowLeft {
+  border-left: 2px solid #2DC3A6;
+  border-bottom: 2px solid #2DC3A6;
+}
+
+.next-handle .arrowRight {
+  border-top: 2px solid #2DC3A6;
+  border-right: 2px solid #2DC3A6;
+}

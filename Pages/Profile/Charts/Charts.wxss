@@ -57,6 +57,22 @@
   display: none;
 }
 
+.date .arrow {
+  width: 16rpx;
+  height: 16rpx;
+  transform: rotate(45deg)
+}
+
+.arrowLeft {
+  border-left: 2px solid #2DC3A6;
+  border-bottom: 2px solid #2DC3A6;
+}
+
+.arrowRight {
+  border-top: 2px solid #2DC3A6;
+  border-right: 2px solid #2DC3A6;
+}
+
 .chart {
   position: relative;
   height: 600rpx;
@@ -126,10 +142,14 @@
   font-weight: bold;
 }
 
-.description .img {
-  width: 750rpx;
+.description .img, .analysis .img {
+  width: 654rpx;
   height: 392rpx;
-  margin-top: 20rpx;
+  margin: 20rpx 48rpx 0;
+}
+
+.description .img {
+  border-radius: 10px;
 }
 
 .description .report {
@@ -149,8 +169,6 @@
 }
 
 .analysis .img {
-  width: 654rpx;
-  height: 370rpx;
   margin: 0 48rpx;
 }
 
@@ -186,7 +204,7 @@
   display: -webkit-flex;
   left: 0;
   right: 0;
-  bottom: 28rpx;
+  bottom: 43rpx;
   justify-content: center;
   align-items: center;
 }

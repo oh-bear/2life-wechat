@@ -160,7 +160,7 @@ Page({
     score: [],
     option: {
       title: {
-        text: '五维情绪雷达图',
+        text: '五维情绪基准值',
         textStyle: {
           color: '#AAAAAA',
           fontSize: 12,
@@ -171,11 +171,11 @@ Page({
       },
       radar: {
         indicator: [
-          { text: '喜悦', max: 0 },
-          { text: '愤怒', max: 0 },
-          { text: '厌恶', max: 0 },
-          { text: '低落', max: 0 },
-          { text: '温和', max: 0 }
+          { text: '外向性', max: 0 },
+          { text: '神经质', max: 0 },
+          { text: '严谨性', max: 0 },
+          { text: '开放性', max: 0 },
+          { text: '宜人性', max: 0 }
         ],
         name: {
           textStyle: {
@@ -253,7 +253,6 @@ Page({
       return
     }
     let _this = this
-    let data = getApp().data.key
     data.content = score.join(',')
     wx.showLoading({
       title: '正在计算',
@@ -262,14 +261,14 @@ Page({
     wx.request({
       url: getApp().data.domain + 'users/calculate_emotion',
       method: 'POST',
-      data: data,
+      data: getApp().data.key,
       success (res) {
         console.log(res.data)
         let data = res.data.data
         _this.setData({
           hasTested: true
         })
-        _this.showRadar(data.emotions)
+        _this.showRadar(data.data.emotions_basis)
         let user = getApp().data.user
         user.emotions = data.emotions
         user.emotions_basis = data.emotions_basis
@@ -339,7 +338,7 @@ Page({
       hasTested: user.emotions ? true : false
     })
     if (user.emotions) {
-      this.showRadar(user.emotions)
+      this.showRadar(user.emotions_basis)
     }
   },
 

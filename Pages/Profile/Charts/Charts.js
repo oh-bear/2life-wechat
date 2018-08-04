@@ -52,7 +52,8 @@ Page({
     emotionsReport: [],
     hasTested: false,
     user: {},
-    showAtt: true
+    showAtt: true,
+    days: 0
   },
 
   // method
@@ -325,17 +326,18 @@ Page({
         vals.push(getApp().lodash.values(obj)[0])
       })
       let filter = function (vals, max, min) {
-        return getApp().lodash.filter(vals, val => { return val < max && val >= min })
+        return getApp().lodash.filter(vals, val => { return val <= max && val > min }) || []
       }
-      let positive = filter(vals, 100, 66)
-      let normal = filter(vals, 66, 33)
-      let negative = filter(vals, 33, 0)
+      let positive = filter(vals, 100, 65)
+      let normal = filter(vals, 65, 32)
+      let negative = filter(vals, 32, -1)
 
       let values = option.series[0].data
       getApp().lodash.forEach(values, (val, index) => {
-        val.value = [positive, normal, negative][index]
+        values[index].value = [positive, normal, negative][index].length
       })
       option.series[0].data = values
+      console.log(values)
     }
 
     this.pieComponent.init((canvas, width, height) => {
@@ -389,6 +391,23 @@ Page({
     })
   },
 
+  getDays (data) {
+    let _ = getApp().lodash
+    let dateArr = _.map(data, val => _.keys(val)[0])
+    let dateObj = {}
+    _.forEach(dateArr, val => {
+      let date = new Date(Number(val))
+      let str = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+      if (!dateObj[str]) {
+        dateObj[str] = 0
+      }
+      dateObj[str] += 1
+    })
+    this.setData({
+      days: _.keys(dateObj).length
+    })
+  },
+
   goAnalysis() {
     wx.navigateTo({
       url: '../Analysis/Analysis',
@@ -413,20 +432,16 @@ Page({
     this.radarComponent = this.selectComponent('#radar-dom-bar')
 
     let _this = this
-    let key = getApp().data.key
     wx.request({
       url: getApp().data.domain + 'modes/show',
-      data: {
-        uid: key.uid,
-        timestamp: key.timestamp,
-        token: key.token
-      },
+      data: getApp().data.key,
       success(res) {
         let data = res.data.data
         _this.setData({
           diary: data
         })
         console.log(_this.data.diary)
+        _this.getDays(data)
         _this.getChoosenDate(_this.data.choose)
         _this.showPie(data)
       }

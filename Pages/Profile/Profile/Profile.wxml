@@ -18,12 +18,12 @@
         </image>
       </view>
       <view class="msg">
-        <view class="item">
+        <view class="part">
           <image src="{{icon[user.sex].smile}}" class="image" />
           <text class="count">{{user.mode}}</text>
           <text>平均情绪值</text>
         </view>
-        <view class="item">
+        <view class="part">
           <image src="{{icon[user.sex].book}}" class="image" />
           <text class="count">{{user.total_notes}}</text>
           <text>日记数量</text>
@@ -46,12 +46,12 @@
         </image>
       </view>
       <view class="msg">
-        <view class="item">
+        <view class="part">
           <image src="{{icon[partner.sex].smile}}" class="image" />
           <text class="count">{{partner.mode}}</text>
           <text>平均情绪值</text>
         </view>
-        <view class="item">
+        <view class="part">
           <image src="{{icon[partner.sex].book}}" class="image" />
           <text class="count">{{partner.total_notes}}</text>
           <text>日记数量</text>
@@ -84,7 +84,7 @@
           <view class="time">{{time}}</view>
         </view>
       </view>  -->
-      <view class="analysis item" bindtap="goAnalysis" wx:if="{{!user.emotions}}">
+      <view class="analysis item" bindtap="goAnalysis">
         <image src="../Images/analysis.png" class="image" />
         <view class="text">
           <view class="name">人格测试</view>
