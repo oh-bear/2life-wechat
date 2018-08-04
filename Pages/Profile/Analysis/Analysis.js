@@ -253,6 +253,8 @@ Page({
       return
     }
     let _this = this
+    let { uid, timestamp, token } = getApp().data.key
+    let data = { uid, timestamp, token }
     data.content = score.join(',')
     wx.showLoading({
       title: '正在计算',
@@ -261,14 +263,14 @@ Page({
     wx.request({
       url: getApp().data.domain + 'users/calculate_emotion',
       method: 'POST',
-      data: getApp().data.key,
+      data: data,
       success (res) {
         console.log(res.data)
         let data = res.data.data
         _this.setData({
           hasTested: true
         })
-        _this.showRadar(data.data.emotions_basis)
+        _this.showRadar(data.emotions_basis)
         let user = getApp().data.user
         user.emotions = data.emotions
         user.emotions_basis = data.emotions_basis

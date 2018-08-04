@@ -18,7 +18,8 @@ Page({
     mode: '',
     date: 0,
     showCalendar: false,
-    finish: false
+    finish: false,
+    inputFocus: false
   },
 
   // methods
@@ -322,6 +323,18 @@ Page({
       } else {
         resolve(accessToken)
       }
+    })
+  },
+
+  getFocus () {
+    this.setData({
+      inputFocus: true
+    })
+  },
+
+  getBlur() {
+    this.setData({
+      inputFocus: false
     })
   },
 

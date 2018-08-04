@@ -20,7 +20,6 @@ App({
     publish: true,
     shareMenu: {
       title: '遇见另一半的美好~',
-      
       path: '/Pages/Home/Home/Home',
       imageUrl: '/Images/cover.png'
     },

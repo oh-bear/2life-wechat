@@ -39,6 +39,7 @@ Page({
       data: { uid, timestamp, token, note_id },
       success: function (res) {
         if (res.data.code === 0) {
+          let note = _this.data.note
           note.is_liked = 1
           _this.setData({
             note: note

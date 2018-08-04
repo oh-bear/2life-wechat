@@ -9,7 +9,7 @@
         </view>
       </swiper-item>
     </block>
-     <block wx:if="{{!images.length}}">
+    <block wx:if="{{!images.length}}">
       <swiper-item>
         <image src="../Images/upload-bg.png" class="image" bindtap='uploadImg' mode="aspectFill"/>
       </swiper-item>
@@ -33,12 +33,10 @@
       <input placeholder='标题' value="{{title}}" data-type="title" bindinput='getInputValue'/>
     </view>
     <view class="text">
-      <textarea placeholder='请输入正文' value="{{content}}" maxlength='-1' auto-height='true' data-type="content" bindinput='getInputValue'></textarea>
+      <textarea placeholder='请输入正文' value="{{content}}" maxlength='-1' auto-height='true' data-type="content" bindinput='getInputValue' bindfocus='getFocus' bindblur='getBlur'></textarea>
     </view>
   </view>
-  <view class="saveContainer">
-    <view class="save" bindtap='save'>保存</view>
-  </view>
+  <view class="save" bindtap='save' wx:if="{{!inputFocus}}">保存</view>
 </view>
 
 <wxs module="add" src='./add.wxs' />
