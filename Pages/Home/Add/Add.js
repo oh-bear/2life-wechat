@@ -56,10 +56,12 @@ Page({
 
   removeImg: function () {
     let current = this.data.current
+    let index = current === 0 ? 0 : current - 1
     let images = this.data.images
     images.splice(current, 1)
     console.log(images)
     this.setData({
+      current: index,
       images: images
     })
   },

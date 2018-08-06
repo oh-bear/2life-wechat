@@ -334,7 +334,7 @@ Page({
 
       let values = option.series[0].data
       getApp().lodash.forEach(values, (val, index) => {
-        values[index].value = [positive, normal, negative][index].length
+        values[index].value = [positive, normal, negative, []][index].length
       })
       option.series[0].data = values
       console.log(values)

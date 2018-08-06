@@ -1,8 +1,9 @@
 <view class="container">
-  <swiper class="swiper" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
+  <swiper class="swiper" current="{{current}}" indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" bindchange="swiperChange">
     <block wx:for="{{images}}" wx:key="index">
       <swiper-item>
         <image src="{{item || '../Images/upload-bg.png'}}" class="image" mode="aspectFill"/>
+        <view class="imgMask"></view>
         <view class="edit" wx:if="{{images.length}}">
           <image src="../Images/removePhoto.png" class="image" bindtap="removeImg"/>
           <image src="../Images/addPhoto.png" class="image" bindtap='uploadImg' wx:if="{{images.length < 3}}" />

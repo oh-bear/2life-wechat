@@ -91,6 +91,7 @@ let pie = {
       radius: ['50%', '70%'],
       center: ['27%', '50%'],
       avoidLabelOverlap: false,
+      backgroundColor: '#ffffff',
       label: {
         normal: {
           show: false,
@@ -122,6 +123,13 @@ let pie = {
           name: '消极情绪',
           itemStyle: {
             color: '#F54E4E'
+          }
+        },
+        {
+          value: 0,
+          name: '',
+          itemStyle: {
+            color: '#ffffff'
           }
         },
       ]
