@@ -58,7 +58,7 @@
       <view class="title">{{emotionsType}}</view>
       <view>你的性格属性</view>
     </view>
-    <image src="https://airing.ursb.me/2life/user/160/img_1533222306333.png-2life_note.jpg" class="img"></image>
+    <image src="{{reportImg}}" class="img"></image>
     <view class="report" wx:for="{{emotionsReport}}" wx:key="{{index}}">
       <view class="title">{{item.title}}</view>
       <view class="content">{{item.content}}</view>

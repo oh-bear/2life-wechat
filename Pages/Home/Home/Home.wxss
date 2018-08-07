@@ -150,7 +150,7 @@
 
 .li .content {
   width: 85%;
-  padding-top: 43rpx;
+  padding-top: 32rpx;
   color: #AAAAAA;
   border-top: 1px solid #F1F1F1;
 }
@@ -164,12 +164,13 @@
 }
 
 .content .diary .title {
-  height: 60rpx;
-  font-size: 36rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 32rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #444444;
+  color: #333333;
 }
 
 .content .diary .male {

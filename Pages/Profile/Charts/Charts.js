@@ -53,7 +53,8 @@ Page({
     hasTested: false,
     user: {},
     showAtt: true,
-    days: 0
+    days: 0,
+    reportImg: 'https://airing.ursb.me/2life/user/160/img_1533222306333.png-2life_note.jpg'
   },
 
   // method
@@ -408,6 +409,39 @@ Page({
     })
   },
 
+  getReportImg () {
+    let user = getApp().data.user
+    let img = ''
+    if (user.emotions) {
+      let typeArr = [
+        ['实干主义者', '心灵多面手', '温和思想家', '自我笃行者'],
+        ['恬淡小天使', '温暖小甜心', '元气小青年', '品质小资'],
+        ['躁动小魔王', '科学小怪人', '极致主义者', '暴躁领袖'],
+        ['厌世大魔王', '灵性创作家', '小世界掌控家', '灵魂多面手'],
+        ['忧郁小王子', '忧伤小绵羊', '谦和小智者', '忧郁小麋鹿']
+      ]
+      let row, col
+      for (let i = 0; i < typeArr.length; i++) {
+        for (let j = 0; j < typeArr[i].length; j++) {
+          if (typeArr[i][j] === user.emotions_type) {
+            row = i
+            col = j
+            break
+          }
+        if (row >= 0 && col >= 0) break
+        }
+      }
+
+      if (row >= 0 && col >= 0) {
+        let temp = ['n', 'e', 'c', 'o', 'n']
+        img = `https://airing.ursb.me/2life/pic/${temp[row]}${col}.jpg`
+      }
+    }
+    this.setData({
+      reportImg: img || this.data.reportImg
+    })
+  },
+
   goAnalysis() {
     wx.navigateTo({
       url: '../Analysis/Analysis',
@@ -448,6 +482,7 @@ Page({
     })
     this.showRadar()
     this.showReport()
+    this.getReportImg()
     this.setData({
       user: getApp().data.user
     })

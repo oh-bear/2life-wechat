@@ -1,6 +1,11 @@
 var home = {
-    getDate: function (date) {
-      return getDate(date).toDateString().split(' ')
+    getDay: function (date) {
+      var newDate = getDate(date)
+      var day = newDate.getDate()
+      return [
+        day < 10 ? '0' + day : day,
+        dayStr[newDate.toDateString().split(' ')[0]]
+      ]
     },
     imagesToArr: function (str) {
       return str.split(',')
@@ -67,6 +72,16 @@ var month = [
     '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
 ]
 
+var dayStr = {
+  Mon: '周一',
+  Tue: '周二',
+  Wed: '周三',
+  Thu: '周四',
+  Fri: '周五',
+  Sat: '周六',
+  Sun: '周日'
+}
+
 var modeImg = {
   verySad: '../Images/verySad_grey.png',
   sad: '../Images/sad_grey.png',
@@ -76,7 +91,7 @@ var modeImg = {
 }
 
 module.exports = {
-  getDate: home.getDate,
+  getDay: home.getDay,
   imagesToArr: home.imagesToArr,
   showDate: home.showDate,
   getTime: home.getTime,

@@ -111,6 +111,10 @@
   color: #333333;
 }
 
+/* .text textarea {
+  width: 100%;
+} */
+
 .save {
   position: fixed;
   right: 43rpx;
@@ -125,4 +129,5 @@
   color: #2DC3A6;
   background: white;
   box-shadow: 0 8rpx 16rpx RGBA(0, 0, 0, 0.16);
+  z-index: 999;
 }

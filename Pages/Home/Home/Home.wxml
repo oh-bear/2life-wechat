@@ -71,8 +71,8 @@
   <view class="list">
      <view class="li" data-id="{{item.id}}" wx:for="{{notes}}" wx:key="index" bindtap="goDetail">
       <view class="date {{home.showDate(notes, index) ? 'show': 'hide'}}">
-        <text>{{home.getDate(item.date ? item.date : item.created_at)[2]}}</text>
-        <text>{{home.getDate(item.date ? item.date : item.created_at)[0]}}</text>
+        <text>{{home.getDay(item.date ? item.date : item.created_at)[0]}}</text>
+        <text>{{home.getDay(item.date ? item.date : item.created_at)[1]}}</text>
       </view>
       <view class="content">
         <view class="diary">

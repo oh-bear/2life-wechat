@@ -197,11 +197,11 @@
   right: 43rpx;
   bottom: 72rpx;
   width: 202rpx;
-  height: 86rpx;
+  height: 84rpx;
   text-align: center;
-  line-height: 86rpx;
+  line-height: 84rpx;
   border-radius: 30px;
-  font-size: 36rpx;
+  font-size: 32rpx;
   background: #2DC3A6;
   color: white;
 }
