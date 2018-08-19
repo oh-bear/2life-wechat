@@ -12,6 +12,7 @@ Page({
     this.setData({
       recommend: !this.data.recommend
     })
+    wx.setStorageSync('recommend', this.data.recommend)
   },
 
   goFeedback() {
@@ -38,6 +39,9 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '设置',
+    })
+    this.setData({
+      recommend: wx.getStorageSync('recommend') ? true : false
     })
   },
 
