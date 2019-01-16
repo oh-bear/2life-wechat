@@ -212,6 +212,7 @@ Page({
         })
       })
     } else if (data.matchMethod === 'accurate') {
+      let key = getApp().data.key
       key['code'] = data.matchId
       return new Promise((resolve, reject) => {
         wx.request({
