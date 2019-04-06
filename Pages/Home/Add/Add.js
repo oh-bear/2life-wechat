@@ -19,7 +19,8 @@ Page({
     date: 0,
     showCalendar: false,
     finish: false,
-    inputFocus: false
+    inputFocus: false,
+    uploading: false
   },
 
   // methods
@@ -171,11 +172,15 @@ Page({
       longitude: getApp().data.location.user ? getApp().data.location.user.longitude : user.longitude,
       location: getApp().data.location.user ? getApp().data.location.user.location.join('，') : '地球上的某个角落'
     }
+    if (this.data.uploading) return
     wx.showLoading({
       title: '正在上传',
       mask: true,
     })
-    getApp().editNote(data).then(res => {
+    this.setData({
+      uploading: true
+    })
+    getApp().editNote(data, this.getSystemInfo()).then(res => {
       wx.hideLoading()
       getApp().data.savedNote = {}
       this.setData({
@@ -191,6 +196,9 @@ Page({
         mask: true,
       })
       console.log('success to edit note', res.data)
+      this.setData({
+        uploading: false
+      })
       wx.switchTab({
         url: '/Pages/Home/Home/Home',
       })
@@ -202,12 +210,28 @@ Page({
       } else {
         errTitle = '上传失败'
       }
+      this.setData({
+        uploading: false
+      })
       wx.showToast({
         icon: 'none',
         title: errTitle,
         mask: true,
       })
     })
+  },
+
+  getSystemInfo() {
+    let info = ''
+    try {
+      const res = wx.getSystemInfoSync()
+      const { brand, model, version, system, platform } = res
+      info = 'version=' + version + '&' + 'model=' + model + '&' + 'breand=' + brand + '&' + 'system=' + system
+    } catch(e) {
+      console.log(e)
+    }
+    console.log(info)
+    return info
   },
 
   clearData () {
@@ -400,6 +424,8 @@ Page({
       //   console.log(event);
       // },
     });
+
+    this.getSystemInfo()
   },
 
   /**

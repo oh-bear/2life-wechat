@@ -569,20 +569,20 @@ App({
     })
   },
 
-  editNote (data) {
+  editNote (data, systemInfo) {
     this.lodash.forEach(this.data.key, (val, key) => { data[key] = val })
     console.log('note', data)
     let urlStr = data.note_id ? 'notes/update' : 'notes/publish'
     return new Promise((resolve, reject) => {
       wx.request({
-        url: this.data.domain + urlStr,
+        url: this.data.domain + urlStr + '?' + systemInfo,
         method: 'POST',
         data: data,
         success (res) {
-          if (res.data.code === 0) {
+          if (res.data.code === 0 || res.data.code === 504) {
             resolve(res.data)
           } else if (res.data.code === 501) {
-            reject(501)
+            reject(res.data.code)
           } else {
             reject(false)
           }
